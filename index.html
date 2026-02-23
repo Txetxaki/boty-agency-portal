@@ -2,264 +2,121 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Boty Agency | Soberanía Digital</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050505; --accent: #00ffcc; --secondary: #ff007a; --text: #f5f5f5; --card: #141414; }
+        :root { --bg: #050505; --accent: #00ffcc; --text: #f5f5f5; --card: #0c0c0c; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
         
-        /* WRAPPER PRINCIPAL */
-        #smooth-wrapper { 
-            width: 100%; height: 100%; 
-            transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1); 
-            will-change: transform; 
-        }
+        #smooth-wrapper { width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1); will-change: transform; }
 
-        /* NAVEGACIÓN UNIVERSAL */
+        /* NAVEGACIÓN MÓVIL FIRST */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 20px 50px;
+            position: fixed; top: 0; width: 100%; padding: 15px 20px;
             display: flex; justify-content: space-between; align-items: center;
-            box-sizing: border-box; z-index: 1000;
-            background: transparent; transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            z-index: 1000; transition: 0.5s;
         }
-        nav.scrolled {
-            background: rgba(5,5,5,0.85); backdrop-filter: blur(15px);
-            padding: 15px 50px; border-bottom: 1px solid rgba(255,255,255,0.03);
-        }
+        nav.scrolled { background: rgba(5,5,5,0.9); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.05); }
 
-        /* LOGO / AVATAR DINÁMICO */
-        #boty-identity { 
-            display: flex; align-items: center; cursor: pointer; text-decoration: none; 
-            transition: 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-            transform-origin: left center;
-        }
+        #boty-identity { display: flex; align-items: center; gap: 10px; text-decoration: none; transition: 0.5s; transform-origin: left center; }
+        .nav-identity { transform: scale(0.8); }
         
-        /* ESTADO INICIAL (CENTRO PANTALLA) */
-        .hero-identity {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -70%) scale(1.5);
-            flex-direction: column; gap: 20px;
-        }
+        .brand-logo { display: flex; align-items: center; font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.8rem; color: #fff; letter-spacing: -1px; }
+        .boty-o { width: 24px; height: 24px; margin: 0 3px; border: 1px solid var(--accent); border-radius: 50%; position: relative; box-shadow: 0 0 10px rgba(0,255,204,0.3); }
+        .pupil { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
 
-        /* ESTADO NAVEGACIÓN (ARRIBA IZQ) */
-        .nav-identity {
-            transform: scale(0.4);
-            gap: 12px;
-        }
-
-        .brand-logo {
-            display: flex; align-items: center; font-family: 'Playfair Display', serif;
-            font-style: italic; font-size: 8rem; color: #fff; letter-spacing: -2px;
-        }
-        
-        /* LOGO REDUCIDO PARA NAV */
-        nav .brand-logo { font-size: 2.5rem; letter-spacing: -1px; }
-
-        .boty-o {
-            position: relative; width: 100px; height: 100px; margin: 0 8px;
-            display: flex; justify-content: center; align-items: center;
-        }
-        nav .boty-o { width: 40px; height: 40px; margin: 0 4px; }
-
-        .orb-body {
-            width: 100%; height: 100%;
-            background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.15) 0%, transparent 50%),
-                        radial-gradient(circle, var(--accent) 0%, #004433 100%);
-            border-radius: 50%; box-shadow: 0 0 30px rgba(0, 255, 204, 0.25);
-            position: relative; animation: pulse-silk 6s ease-in-out infinite;
-            border: 1px solid rgba(255,255,255,0.1); overflow: hidden;
-            display: flex; justify-content: center; align-items: center;
-        }
-
-        .pupil {
-            position: absolute; width: 30px; height: 30px; background: #050505;
-            border-radius: 50%; box-shadow: 0 0 12px var(--accent);
-            display: flex; justify-content: center; align-items: center;
-            transition: transform 0.2s ease-out, height 0.12s ease-in-out;
-        }
-        nav .pupil { width: 12px; height: 12px; box-shadow: 0 0 6px var(--accent); }
-
-        .pupil::after { content: ''; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; filter: blur(1px); }
-        nav .pupil::after { width: 3px; height: 3px; }
-
-        @keyframes pulse-silk {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(0, 255, 204, 0.2); }
-            50% { transform: scale(1.03); box-shadow: 0 0 50px rgba(0, 255, 204, 0.4); }
-        }
-
-        /* NAVEGACIÓN */
-        .nav-links { display: flex; gap: 30px; opacity: 0; transition: 0.8s; pointer-events: none; }
-        nav.scrolled .nav-links { opacity: 1; pointer-events: all; }
-        .nav-links a { 
-            color: #666; text-decoration: none; font-size: 0.7rem; letter-spacing: 2px; 
-            text-transform: uppercase; font-weight: 700; transition: 0.4s; position: relative; 
-        }
-        .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+        .nav-links { display: none; } /* En móvil ocultamos links para limpieza */
 
         /* SECCIONES */
-        section { height: 100vh; width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 50px; box-sizing: border-box; }
+        section { height: 100vh; width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; position: relative; }
         
-        #home h1 { display: none; } /* El logo es el H1 */
-        .hero-tagline { 
-            position: absolute; top: 70%; text-align: center; 
-            transition: 0.8s; opacity: 1; 
-        }
-        nav.scrolled ~ #smooth-wrapper #home .hero-tagline { opacity: 0; }
+        /* HERO */
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 12vw, 5rem); font-style: italic; margin: 0; color: #fff; line-height: 1; }
+        .tagline { font-size: 0.7rem; letter-spacing: 5px; color: var(--accent); text-transform: uppercase; margin-top: 15px; font-weight: 700; }
 
-        .tagline { font-size: 1rem; letter-spacing: 5px; color: var(--accent); text-transform: uppercase; margin-top: 10px; }
-        .sub-tagline { font-size: 0.8rem; color: #444; letter-spacing: 2px; margin-top: 15px; }
+        /* GRID RESPONSIVE */
+        .grid { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
+        .card { background: var(--card); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); text-align: left; text-decoration: none; }
+        .card h3 { color: var(--accent); font-size: 0.9rem; margin: 0 0 5px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .card p { color: #888; font-size: 0.85rem; margin: 0; font-weight: 300; line-height: 1.4; }
 
-        .section-title { font-family: 'Playfair Display', serif; font-size: 4rem; font-style: italic; color: #fff; margin-bottom: 40px; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; width: 100%; max-width: 1100px; }
-        .card { background: var(--card); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.03); transition: 0.5s; text-decoration: none; }
-        .card:hover { border-color: var(--accent); transform: translateY(-10px); background: #1a1a1a; }
-        .card h3 { color: var(--accent); font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 15px; }
-        .card p { color: #888; font-size: 0.95rem; line-height: 1.6; font-weight: 300; }
+        .btn { margin-top: 30px; padding: 18px 40px; background: var(--accent); color: #000; border-radius: 50px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; text-decoration: none; }
 
-        .btn { padding: 20px 45px; background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 0.75rem; font-weight: 700; border-radius: 50px; transition: 0.4s; cursor: pointer; letter-spacing: 3px; text-transform: uppercase; }
-        .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 40px rgba(0, 255, 204, 0.4); }
+        #visual-core { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0.4; }
+        .orb { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 300px; height: 300px; background: radial-gradient(circle, var(--accent) 0%, transparent 70%); filter: blur(30px); }
 
-        /* SCROLL INDICATOR */
-        #scroll-hint { position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%); color: #333; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        #scroll-hint { position: fixed; bottom: 20px; font-size: 0.5rem; letter-spacing: 3px; color: #444; text-transform: uppercase; }
     </style>
 </head>
 <body>
-
-    <nav id="main-nav">
-        <a href="#" id="boty-identity" class="hero-identity">
-            <div class="brand-logo">
-                <span>B</span>
-                <div class="boty-o">
-                    <div class="orb-body" id="orb">
-                        <div class="pupil" id="pupil"></div>
-                    </div>
-                </div>
-                <span>ty</span>
-            </div>
-            <div id="hero-meta" style="text-align:center">
-                <div class="tagline">Soberanía Digital</div>
-                <div class="sub-tagline">AGENCIA NACIONAL DE INTELIGENCIA DE AUTOR</div>
-            </div>
+    <div id="visual-core"><div class="orb"></div></div>
+    <nav id="nav">
+        <a href="#" id="boty-identity">
+            <div class="brand-logo">B<div class="boty-o"><div class="pupil"></div></div>ty</div>
         </a>
-        <div class="nav-links">
-            <a href="#" onclick="goToSection(1)">Soluciones</a>
-            <a href="#" onclick="goToSection(2)">Hardware</a>
-            <a href="#" onclick="goToSection(3)">Búnker</a>
-            <a href="#" onclick="goToSection(4)">Contacto</a>
-        </div>
     </nav>
 
     <div id="smooth-wrapper">
-        <section id="home">
-            <!-- Espacio para el logo hero -->
+        <section>
+            <h1>Soberanía Digital.</h1>
+            <div class="tagline">Agencia Nacional de IA</div>
+            <a href="#contacto" class="btn">Empezar</a>
+            <div id="scroll-hint">Scroll para explorar</div>
         </section>
 
         <section id="soluciones">
-            <h2 class="section-title">Soluciones.</h2>
             <div class="grid">
-                <a href="#" class="card">
+                <div class="card">
                     <h3>Diagnóstico</h3>
-                    <p>Auditoría silenciosa de 48h para detectar ineficiencias críticas en su flujo digital.</p>
-                </a>
-                <a href="#" class="card">
+                    <p>Auditoría de eficiencia de 48h. Detectamos fugas de capital.</p>
+                </div>
+                <div class="card" style="border-color: var(--accent)">
                     <h3>Búnkeres</h3>
-                    <p>Instalación de nodos de inteligencia local. Sus datos no salen de su propiedad.</p>
-                </a>
-                <a href="#" class="card">
-                    <h3>Diseño de Autor</h3>
-                    <p>Interfaces que respiran lujo y exclusividad, integradas en su ADN corporativo.</p>
-                </a>
-            </div>
-        </section>
-
-        <section id="hardware">
-            <h2 class="section-title">El Motor.</h2>
-            <div class="grid">
-                <div class="card">
-                    <h3>Nodo Ágil</h3>
-                    <p>Raspberry Pi 5 optimizada. El primer paso hacia la soberanía.</p>
-                </div>
-                <div class="card" style="border-color: var(--accent);">
-                    <h3>Estación Pro</h3>
-                    <p>Mac Mini M4 Pro. Potencia bruta para procesos de visión y lenguaje.</p>
+                    <p>Nodos de IA local. Sus datos nunca salen de su propiedad.</p>
                 </div>
                 <div class="card">
-                    <h3>Núcleo Max</h3>
-                    <p>Mac Studio. El búnker definitivo para flujos masivos de datos.</p>
+                    <h3>Diseño</h3>
+                    <p>Interfaces de autor que respiran lujo y exclusividad.</p>
                 </div>
             </div>
         </section>
 
         <section id="contacto">
-            <h1 style="font-family: 'Playfair Display', serif; font-style: italic; margin-bottom: 40px;">¿Hablamos?</h1>
-            <div class="btn">Solicitar Auditoría</div>
+            <h2 style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.5rem;">¿Hablamos?</h2>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 30px;">Ciudad Real • Pozuelo</p>
+            <a href="mailto:hola@boty.agency" class="btn">Enviar Mensaje</a>
         </section>
     </div>
 
-    <div id="scroll-hint">Scroll para entrar</div>
-
     <script>
-        let currentIdx = 0;
-        const totalSections = 4;
-        const wrapper = document.getElementById('smooth-wrapper');
-        const nav = document.getElementById('main-nav');
-        const identity = document.getElementById('boty-identity');
-        const pupil = document.getElementById('pupil');
-        const orb = document.getElementById('orb');
-        let isScrolling = false;
+        let cur = 0; const tot = 3;
+        const wrap = document.getElementById('smooth-wrapper');
+        const nav = document.getElementById('nav');
+        let lock = false;
 
-        function updateUI() {
-            wrapper.style.transform = `translateY(-${currentIdx * 100}vh)`;
-            
-            if (currentIdx > 0) {
-                nav.classList.add('scrolled');
-                identity.className = 'nav-identity';
-                document.getElementById('hero-meta').style.display = 'none';
-            } else {
-                nav.classList.remove('scrolled');
-                identity.className = 'hero-identity';
-                document.getElementById('hero-meta').style.display = 'block';
-            }
+        function update() {
+            wrap.style.transform = `translateY(-${cur * 100}vh)`;
+            if (cur > 0) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
         }
 
-        function goToSection(idx) { currentIdx = idx; updateUI(); }
-
-        window.addEventListener('wheel', (e) => {
-            if (isScrolling) return;
-            isScrolling = true;
-            if (e.deltaY > 0 && currentIdx < totalSections - 1) currentIdx++;
-            else if (e.deltaY < 0 && currentIdx > 0) currentIdx--;
-            updateUI();
-            setTimeout(() => { isScrolling = false; }, 1200);
+        window.addEventListener('wheel', e => {
+            if (lock) return; lock = true;
+            if (e.deltaY > 0 && cur < tot - 1) cur++;
+            else if (e.deltaY < 0 && cur > 0) cur--;
+            update(); setTimeout(() => lock = false, 1000);
         });
 
-        // SEGUIMIENTO DE MIRADA
-        document.addEventListener('mousemove', (e) => {
-            const rect = orb.getBoundingClientRect();
-            const orbX = rect.left + rect.width / 2;
-            const orbY = rect.top + rect.height / 2;
-            const dx = e.clientX - orbX;
-            const dy = e.clientY - orbY;
-            const dist = Math.hypot(dx, dy);
-            
-            if (dist < 500) {
-                const angle = Math.atan2(dy, dx);
-                const pDist = Math.min(currentIdx > 0 ? 8 : 20, dist / 15);
-                pupil.style.transform = `translate(${Math.cos(angle) * pDist}px, ${Math.sin(angle) * pDist}px)`;
-            } else {
-                pupil.style.transform = `translate(0,0)`;
-            }
+        let ts = 0;
+        window.addEventListener('touchstart', e => ts = e.touches[0].clientY);
+        window.addEventListener('touchend', e => {
+            let te = e.changedTouches[0].clientY;
+            if (ts - te > 50 && cur < tot - 1) cur++;
+            else if (te - ts > 50 && cur > 0) cur--;
+            update();
         });
-
-        // PARPADEO
-        setInterval(() => {
-            const h = currentIdx > 0 ? '12px' : '30px';
-            pupil.style.height = '1px';
-            setTimeout(() => { pupil.style.height = h; }, 150);
-        }, 6000);
     </script>
 </body>
 </html>
