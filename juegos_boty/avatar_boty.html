@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Identidad de Autor | Boty Agency</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #00ffcc;
+            --silk: rgba(255, 255, 255, 0.08);
+        }
+        body { 
+            background: var(--bg); 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+            overflow: hidden; 
+            font-family: 'Inter', sans-serif; 
+        }
+        
+        /* Contenedor del Logo Integrado */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 8rem;
+            color: #fff;
+            letter-spacing: -2px;
+            user-select: none;
+        }
+
+        .letter { position: relative; }
+
+        /* La "O" es Boty */
+        .boty-o {
+            position: relative;
+            width: 100px; /* Reducido de 120px */
+            height: 100px; /* Reducido de 120px */
+            margin: 0 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Aseguramos que el contenedor no desplace el contenido */
+        }
+
+        .orb-body {
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.15) 0%, transparent 50%),
+                        radial-gradient(circle, var(--accent) 0%, #004433 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.25),
+                        inset 0 0 15px rgba(255,255,255,0.1);
+            position: relative;
+            animation: pulse-silk 6s ease-in-out infinite;
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* La Pupila / Sensor - Centrada por defecto */
+        .pupil {
+            position: absolute;
+            width: 30px; /* Reducido de 35px para mantener proporción */
+            height: 30px;
+            background: #050505;
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--accent);
+            /* Quitamos el transform de aquí para que JS lo maneje desde el centro real */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s ease-out, height 0.12s ease-in-out;
+            will-change: transform;
+        }
+        
+        .pupil::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            filter: blur(1px);
+        }
+
+        /* Animaciones Sutiles */
+        @keyframes pulse-silk {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(0, 255, 204, 0.2); }
+            50% { transform: scale(1.03); box-shadow: 0 0 60px rgba(0, 255, 204, 0.4); }
+        }
+
+        .tagline {
+            margin-top: 20px;
+            color: var(--accent);
+            letter-spacing: 8px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 300;
+            opacity: 0.6;
+        }
+
+        /* Reflejo de cristal */
+        .reflection {
+            position: absolute;
+            top: 15%;
+            left: 20%;
+            width: 30%;
+            height: 30%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+            border-radius: 50%;
+            filter: blur(4px);
+        }
+    </style>
+</head>
+<body>
+    <div class="brand-logo">
+        <span class="letter">B</span>
+        <div class="boty-o">
+            <div class="orb-body" id="orb">
+                <div class="reflection"></div>
+                <div class="pupil" id="pupil"></div>
+            </div>
+        </div>
+        <span class="letter">ty</span>
+    </div>
+    <div class="tagline">Soberanía Digital</div>
+
+    <script>
+        const pupil = document.getElementById('pupil');
+        const orb = document.getElementById('orb');
+        const activationRadius = 400; // Distancia en píxeles para dejar de seguir
+
+        document.addEventListener('mousemove', (e) => {
+            const rect = orb.getBoundingClientRect();
+            const orbX = rect.left + rect.width / 2;
+            const orbY = rect.top + rect.height / 2;
+            
+            const dx = e.clientX - orbX;
+            const dy = e.clientY - orbY;
+            const distanceToOrb = Math.hypot(dx, dy);
+            
+            if (distanceToOrb < activationRadius) {
+                // Dentro del rango: Seguir con suavidad
+                const angle = Math.atan2(dy, dx);
+                // La distancia de la pupila es proporcional a la cercanía del ratón, máximo 20px (ajustado por tamaño menor)
+                const pupilDist = Math.min(20, distanceToOrb / 12);
+                
+                const targetX = Math.cos(angle) * pupilDist;
+                const targetY = Math.sin(angle) * pupilDist;
+                
+                pupil.style.transform = `translate(${targetX}px, ${targetY}px)`;
+            } else {
+                // Fuera de rango: Volver al centro
+                pupil.style.transform = `translate(0px, 0px)`;
+            }
+        });
+
+        // Parpadeo sutil
+        setInterval(() => {
+            const currentTransform = pupil.style.transform;
+            pupil.style.height = '1px';
+            setTimeout(() => { 
+                pupil.style.height = '35px';
+            }, 120);
+        }, 7000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceso Búnker | Boty Agency</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Cargamos Supabase con un alias claro -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root { --bg: #050505; --accent: #00ffcc; --secondary: #ff007a; --text: #f5f5f5; --card: #0c0c0c; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        #visual-core { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .orb { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 255, 204, 0.05) 0%, transparent 70%); animation: breathe 10s infinite alternate; }
+        @keyframes breathe { from { opacity: 0.3; transform: translate(-50%, -50%) scale(0.8); } to { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); } }
+        .login-card { background: var(--card); padding: 40px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); width: 90%; max-width: 400px; backdrop-filter: blur(15px); box-shadow: 0 40px 100px rgba(0,0,0,0.8); text-align: center; }
+        h1 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.2rem; margin-bottom: 25px; color: #fff; }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        label { display: block; font-size: 0.6rem; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 700; }
+        input { width: 100%; padding: 14px; background: #151515; border: 1px solid #222; color: #fff; border-radius: 12px; box-sizing: border-box; font-size: 0.95rem; transition: 0.3s; }
+        input:focus { border-color: var(--accent); outline: none; background: #1a1a1a; }
+        .btn { width: 100%; padding: 16px; background: var(--accent); color: #000; font-weight: 700; border-radius: 50px; cursor: pointer; border: none; letter-spacing: 2px; text-transform: uppercase; margin-top: 20px; transition: 0.4s; }
+        .btn:hover { background: #fff; box-shadow: 0 0 30px rgba(0,255,204,0.4); transform: translateY(-2px); }
+        .toggle { margin-top: 20px; font-size: 0.75rem; color: #555; cursor: pointer; }
+        .toggle span { color: var(--accent); font-weight: 600; }
+        .status-msg { margin-top: 15px; font-size: 0.8rem; min-height: 1.2rem; transition: 0.3s; }
+        .error { color: var(--secondary); }
+        .success { color: var(--accent); }
+        .hidden { display: none; }
+    </style>
+    <script>
+        // CONFIGURACIÓN E INICIALIZACIÓN INMEDIATA
+        const supabaseUrl = 'https://mptgpmkoelhquspkcxuo.supabase.co';
+        const supabaseKey = 'sb_publishable_JYo0eDBBcDe9z2bNXEBb3g_eOZa_0wO';
+        let supabase;
+
+        // Función para inicializar Supabase de forma segura
+        function initSupabase() {
+            if (window.supabase) {
+                supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+                console.log("Supabase inyectado con éxito.");
+            } else {
+                console.error("Error: No se pudo cargar la librería de Supabase.");
+            }
+        }
+
+        // Definición global de funciones para evitar ReferenceError
+        window.showRegister = function() {
+            document.getElementById('login-section').classList.add('hidden');
+            document.getElementById('register-section').classList.remove('hidden');
+            document.getElementById('auth-title').innerText = 'Nuevo Perfil';
+        };
+
+        window.showLogin = function() {
+            document.getElementById('register-section').classList.add('hidden');
+            document.getElementById('login-section').classList.remove('hidden');
+            document.getElementById('auth-title').innerText = 'Acceso Búnker';
+        };
+
+        window.signUp = async function() {
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-pass').value;
+            const full_name = document.getElementById('reg-name').value;
+            const msgBox = document.getElementById('status-msg');
+            
+            msgBox.innerText = "Procesando...";
+            const { data, error } = await supabase.auth.signUp({
+                email, password, options: { data: { full_name } }
+            });
+
+            if (error) {
+                msgBox.className = "status-msg error";
+                msgBox.innerText = error.message;
+            } else {
+                msgBox.className = "status-msg success";
+                msgBox.innerText = "¡Listo! Confirma tu email para entrar.";
+            }
+        };
+
+        window.signIn = async function() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-pass').value;
+            const msgBox = document.getElementById('status-msg');
+            
+            msgBox.innerText = "Conectando...";
+            const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                msgBox.className = "status-msg error";
+                msgBox.innerText = "Error: Acceso denegado.";
+            } else {
+                msgBox.className = "status-msg success";
+                msgBox.innerText = "Identidad validada. Entrando...";
+                setTimeout(() => window.location.href = 'snc_panel.html', 1000);
+            }
+        };
+
+        // Ejecutar inicialización al cargar
+        window.onload = initSupabase;
+    </script>
+</head>
+<body>
+    <div id="visual-core"><div class="orb"></div></div>
+    <div class="login-card">
+        <h1 id="auth-title">Acceso Búnker</h1>
+        
+        <div id="login-section">
+            <div class="input-group">
+                <label>Email Corporativo</label>
+                <input type="email" id="login-email" placeholder="ceo@empresa.com">
+            </div>
+            <div class="input-group">
+                <label>Contraseña</label>
+                <input type="password" id="login-pass" placeholder="••••••••">
+            </div>
+            <button class="btn" onclick="window.signIn()">Entrar</button>
+            <div class="toggle" onclick="window.showRegister()">¿No tienes acceso? <span>Crear cuenta</span></div>
+        </div>
+
+        <div id="register-section" class="hidden">
+            <div class="input-group">
+                <label>Nombre Completo</label>
+                <input type="text" id="reg-name" placeholder="Tu nombre">
+            </div>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="reg-email" placeholder="ceo@empresa.com">
+            </div>
+            <div class="input-group">
+                <label>Contraseña</label>
+                <input type="password" id="reg-pass" placeholder="••••••••">
+            </div>
+            <button class="btn" onclick="window.signUp()">Registrarme</button>
+            <div class="toggle" onclick="window.showLogin()">¿Ya eres soberano? <span>Inicia sesión</span></div>
+        </div>
+
+        <div id="status-msg" class="status-msg"></div>
+    </div>
+</body>
+</html>
