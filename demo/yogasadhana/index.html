@@ -2,44 +2,45 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Yogasadhana | Soberanía del Bienestar</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --bg: #050505; --accent: #d4af37; --text: #f5f5f5; --boty: #00ffcc; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
-        html, body { width: 100%; min-height: 100%; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { 
+            width: 100%; 
+            min-height: 100%; 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: 'Inter', sans-serif; 
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
         
-        /* NAVEGACIÓN COMPACTA */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 15px 20px;
+            position: sticky; top: 0; width: 100%; padding: 15px 20px;
             display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; background: rgba(5,5,5,0.9); backdrop-filter: blur(15px);
+            z-index: 1000; background: rgba(5,5,5,0.95); backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .nav-brand { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: #fff; text-decoration: none; }
-        .nav-links { display: flex; gap: 12px; }
-        .nav-links a { color: #666; text-decoration: none; font-size: 0.55rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; }
+        .nav-brand { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.3rem; color: #fff; text-decoration: none; }
 
-        /* SECCIONES MÓVIL-FIRST (SIN SCROLL LOCK PARA EVITAR CORTES) */
-        section { min-height: 100vh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 25px 40px; text-align: center; border-bottom: 1px solid #111; }
+        section { min-height: 90vh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 25px; text-align: center; border-bottom: 1px solid #111; }
         
-        /* HERO */
         #hero { 
-            background: linear-gradient(to bottom, rgba(5,5,5,0.2), #050505 95%),
+            background: linear-gradient(to bottom, rgba(5,5,5,0.3), #050505 90%),
                         url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=1000');
             background-size: cover; background-position: center;
         }
-        .fusion-icon { position: relative; width: 100px; height: 100px; margin-bottom: 20px; }
-        .boty-ring { position: absolute; width: 100%; height: 100%; border: 2px solid var(--boty); border-radius: 50%; opacity: 0.3; box-shadow: 0 0 30px var(--boty); animation: pulse 3s infinite alternate; }
-        .lotus-inner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 45px; height: 45px; background: radial-gradient(circle, var(--accent) 0%, transparent 80%); border-radius: 50%; }
+        .fusion-icon { position: relative; width: 80px; height: 80px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; }
+        .boty-ring { position: absolute; width: 100%; height: 100%; border: 1.5px solid var(--boty); border-radius: 50%; opacity: 0.2; box-shadow: 0 0 20px var(--boty); }
+        .loto-inner { width: 35px; height: 35px; background: radial-gradient(circle, var(--accent) 0%, transparent 80%); border-radius: 50%; box-shadow: 0 0 15px var(--accent); }
 
-        @keyframes pulse { from { transform: scale(0.95); opacity: 0.2; } to { transform: scale(1.05); opacity: 0.4; } }
-
-        h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-style: italic; color: #fff; letter-spacing: -1px; line-height: 1.1; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 12vw, 5rem); font-style: italic; color: #fff; line-height: 1.1; }
         .tagline { font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); font-weight: 800; margin-top: 10px; }
 
-        /* GRID DE CONTENIDO REAL */
         .info-grid { display: grid; grid-template-columns: 1fr; gap: 20px; width: 100%; max-width: 500px; margin-top: 40px; }
         .card { background: rgba(255,255,255,0.02); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); text-align: left; }
         .card h3 { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.5rem; font-style: italic; margin-bottom: 10px; }
@@ -48,65 +49,57 @@
         .card li { font-size: 0.8rem; color: #aaa; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
         .card li::before { content: ''; width: 4px; height: 4px; background: var(--accent); border-radius: 50%; }
 
-        /* SECCIONES ESPECÍFICAS */
         #vuelo { 
             background: linear-gradient(to bottom, #050505 30%, transparent 70%, #050505),
                         url('https://images.unsplash.com/photo-1599447421416-3414500d18a5?q=80&w=1000');
             background-size: cover; background-position: center;
         }
-        .vuelo-box { background: rgba(0,0,0,0.6); padding: 30px; border-radius: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(212,175,55,0.2); }
+        .vuelo-box { background: rgba(0,0,0,0.7); padding: 40px 30px; border-radius: 35px; border: 1px solid rgba(212, 175, 55, 0.25); backdrop-filter: blur(10px); width: 100%; max-width: 340px; }
 
-        /* BOTY PWD */
+        .btn { display: inline-block; margin-top: 30px; padding: 20px 45px; background: var(--accent); color: #000; text-decoration: none; border-radius: 50px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; }
+
         #boty-pwd {
             position: fixed; bottom: 20px; right: 20px; z-index: 2000;
             display: flex; align-items: center; gap: 8px;
-            padding: 8px 16px; background: rgba(0, 255, 204, 0.1);
+            padding: 8px 16px; background: rgba(0, 255, 204, 0.15);
             border: 1px solid rgba(0, 255, 204, 0.4); border-radius: 50px;
-            text-decoration: none; backdrop-filter: blur(15px);
+            text-decoration: none; backdrop-filter: blur(10px);
         }
-        .boty-dot { width: 6px; height: 6px; background: var(--boty); border-radius: 50%; box-shadow: 0 0 10px var(--boty); }
         .boty-txt { font-size: 0.6rem; font-weight: 900; color: var(--boty); letter-spacing: 2px; text-transform: uppercase; }
 
-        .btn { display: inline-block; margin-top: 30px; padding: 20px 45px; background: var(--accent); color: #000; text-decoration: none; border-radius: 50px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; }
-        
-        footer { padding: 40px 20px; text-align: center; color: #333; font-size: 0.6rem; letter-spacing: 2px; }
+        footer { padding: 60px 20px; text-align: center; color: #333; font-size: 0.6rem; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
     <nav>
         <a href="#" class="nav-brand">Yogasadhana.</a>
-        <div class="nav-links">
-            <a href="#horarios">Horarios</a>
-            <a href="#vuelo">Vuelo</a>
-            <a href="#contacto">Contacto</a>
-        </div>
     </nav>
 
     <section id="hero">
-        <div class="fusion-icon"><div class="boty-ring"></div><div class="lotus-inner"></div></div>
+        <div class="fusion-icon"><div class="boty-ring"></div><div class="loto-inner"></div></div>
         <h1>Yogasadhana.</h1>
         <div class="tagline">Soberanía del Bienestar</div>
-        <p style="color: #666; font-size: 0.7rem; letter-spacing: 3px; margin-top: 25px;">CIUDAD REAL • EL REFUGIO SOBERANO</p>
+        <p style="color: #444; font-size: 0.75rem; letter-spacing: 3px; margin-top: 25px;">CIUDAD REAL • EL REFUGIO</p>
     </section>
 
     <section id="horarios">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-style: italic;">La Práctica Diaria.</h2>
+        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-style: italic;">La Práctica.</h2>
         <div class="info-grid">
             <div class="card">
                 <h3>Hatha Sivananda</h3>
-                <p>La tradición de Rishikesh guiada por Pablo. Foco en respiración, asana y relajación profunda.</p>
+                <p>Guiado por Pablo. Respiración y calma profunda.</p>
                 <ul>
-                    <li>Mañanas: Lunes y Miércoles 09:30</li>
-                    <li>Tardes: Martes y Jueves 19:00</li>
+                    <li>Lunes y Miércoles 09:30</li>
+                    <li>Martes y Jueves 19:00</li>
                 </ul>
             </div>
             <div class="card">
                 <h3>Vinyasa Libre</h3>
-                <p>Fluidez y propósito con Montse. Movimiento consciente para soltar y reconectar.</p>
+                <p>Fluidez con Montse. Movimiento y propósito.</p>
                 <ul>
-                    <li>Tardes: Lunes y Miércoles 20:30</li>
-                    <li>Mediodía: Viernes 14:15</li>
+                    <li>Lunes y Miércoles 20:30</li>
+                    <li>Viernes 14:15</li>
                 </ul>
             </div>
         </div>
@@ -114,37 +107,21 @@
 
     <section id="vuelo">
         <div class="vuelo-box">
-            <p style="color: var(--accent); letter-spacing: 5px; font-size: 0.6rem; font-weight: 800; margin-bottom: 15px;">[ INGRAVIDEZ ]</p>
+            <p style="color: var(--accent); letter-spacing: 5px; font-size: 0.6rem; font-weight: 800; margin-bottom: 10px;">[ INGRAVIDEZ ]</p>
             <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-style: italic; color: #fff;">Yoga Aéreo.</h2>
-            <p style="margin-top: 15px; color: #ccc;">Experimenta la descompresión total. La quietud del yoga suspendida en el aire.</p>
-            <a href="https://wa.me/34630135648" class="btn">Reservar tu Tela</a>
-        </div>
-    </section>
-
-    <section id="bienestar">
-        <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-style: italic;">Bienestar Natural.</h2>
-        <div class="info-grid">
-            <div class="card">
-                <h3>Masajes y Rituales</h3>
-                <p>Equilibrio corporal mediante técnicas ancestrales y aceites de autor.</p>
-            </div>
-            <div class="card">
-                <h3>Formación Sadhana</h3>
-                <p>Formación oficial de profesores. Transmite la enseñanza con rigor.</p>
-            </div>
+            <p style="margin-top: 15px; color: #ccc; font-size: 0.95rem;">La quietud del yoga suspendida en el aire.</p>
+            <a href="https://wa.me/34630135648" class="btn">Reservar</a>
         </div>
     </section>
 
     <section id="contacto">
         <h2 style="font-family: 'Playfair Display', serif; font-size: 2.2rem; font-style: italic;">Visítanos.</h2>
         <p style="color: #666; margin-top: 15px;">C/ Infantes, 13 • Ciudad Real</p>
-        <p style="color: #444; font-size: 0.8rem; margin-top: 10px; max-width: 300px;">"No buscamos la postura perfecta, sino la constancia que devuelve la vitalidad."</p>
         <a href="https://wa.me/34630135648" class="btn" style="background:transparent; color:var(--accent); border:1px solid var(--accent)">Clase de Prueba</a>
-        <footer>YOGA SADHANA • CIUDAD REAL • SOBERANÍA DIGITAL BY BOTY</footer>
+        <footer>YOGA SADHANA • SOBERANÍA DEL BIENESTAR</footer>
     </section>
 
     <a href="https://boty.agency" id="boty-pwd">
-        <div class="boty-dot"></div>
         <span class="boty-txt">Boty pwd</span>
     </a>
 
