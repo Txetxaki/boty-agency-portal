@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Estrategia Soberana | Briefing de Mercado 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #050505; --accent: #00ffcc; --text: #f5f5f5; --card: #0c0c0c; --danger: #ff4d4d; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100%; overflow-x: hidden; line-height: 1.6; }
+        
+        section { padding: 80px 25px; max-width: 900px; margin: 0 auto; border-bottom: 1px solid #111; }
+        header { height: 60vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: radial-gradient(circle at center, #0a0a0a 0%, #050505 100%); border-bottom: 1px solid #1a1a1a; }
+        
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 10vw, 4.5rem); font-style: italic; color: #fff; margin-bottom: 20px; }
+        .badge { display: inline-block; padding: 6px 15px; border: 1px solid var(--accent); color: var(--accent); font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; border-radius: 50px; margin-bottom: 25px; }
+        
+        h2 { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #fff; margin-bottom: 30px; font-style: italic; }
+        p { color: #aaa; margin-bottom: 20px; font-size: 1.05rem; font-weight: 300; }
+        strong { color: #fff; font-weight: 600; }
+
+        .analysis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 40px; }
+        .comp-card { background: var(--card); padding: 35px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.04); position: relative; overflow: hidden; }
+        .comp-card.good { border-color: rgba(0, 255, 204, 0.2); }
+        .comp-card.bad { border-color: rgba(255, 77, 77, 0.2); }
+        .comp-card h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; }
+        .comp-card.good h3 { color: var(--accent); }
+        .comp-card.bad h3 { color: var(--danger); }
+
+        .sector-list { margin-top: 40px; }
+        .sector-item { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 15px; margin-bottom: 15px; border: 1px solid #111; }
+        .sector-icon { width: 40px; height: 40px; background: rgba(0, 255, 204, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--accent); font-weight: 800; }
+
+        .conclusion { background: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%); padding: 50px 40px; border-radius: 40px; border: 1px solid var(--accent); text-align: center; margin-top: 60px; }
+
+        footer { padding: 60px 25px; text-align: center; color: #333; font-size: 0.7rem; letter-spacing: 3px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="badge">Documento Reservado • Familia</div>
+        <h1>La Próxima Década.</h1>
+        <p style="color: #666; letter-spacing: 2px;">INFORME ESTRATÉGICO DE MERCADO IA 2026</p>
+    </header>
+
+    <section id="oportunidad">
+        <h2>¿Por qué ahora?</h2>
+        <p>Estamos ante el <strong>mayor cambio de paradigma económico</strong> desde la revolución industrial. En 2026, la IA ya no es una curiosidad; es el divisor entre las empresas que escalan y las que mueren por ineficiencia.</p>
+        <p>España cuenta con más de <strong>450.000 empresas</strong> que declaran haber integrado IA, pero el 40% de las PYMES aún no percibe el beneficio real porque usan herramientas genéricas (ChatGPT) sin integración local ni estratégica.</p>
+    </section>
+
+    <section id="comparativa">
+        <h2>El Análisis de Impacto.</h2>
+        <div class="analysis-grid">
+            <div class="comp-card good">
+                <h3>Vía Soberana (Acierto)</h3>
+                <p>Construir sobre <strong>Soberanía Digital</strong>. Datos locales, privacidad absoluta y diseño de autor. Atacamos sectores con datos sensibles que temen a la nube pública.</p>
+                <p style="font-size: 0.8rem; margin-top: 15px; color: var(--accent);">• Margen alto por exclusividad.<br>• Recurrencia por mantenimiento de búnker.</p>
+            </div>
+            <div class="comp-card bad">
+                <h3>Vía Genérica (Error)</h3>
+                <p>Revender suscripciones de OpenAI o Google. Ser un "prompt engineer" más en un mar de clones. El cliente acaba haciéndolo él mismo o buscando el precio más bajo.</p>
+                <p style="font-size: 0.8rem; margin-top: 15px; color: var(--danger);">• Competencia feroz por precio.<br>• Cero barrera de entrada.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sectores">
+        <h2>Sectores de Alta Rentabilidad.</h2>
+        <p>Nuestra investigación identifica los nichos donde la ineficiencia manual es más sangrante y el presupuesto para "privacidad" es mayor:</p>
+        <div class="sector-list">
+            <div class="sector-item">
+                <div class="sector-icon">1</div>
+                <div><strong>Gestorías y Asesorías:</strong> Procesamiento masivo de facturas y RGPD local.</div>
+            </div>
+            <div class="sector-item">
+                <div class="sector-icon">2</div>
+                <div><strong>Estudios de Arquitectura/Diseño:</strong> Automatización de flujos creativos y gestión de clientes de lujo.</div>
+            </div>
+            <div class="sector-item">
+                <div class="sector-icon">3</div>
+                <div><strong>Centros de Bienestar (Yoga/Salud):</strong> El caso Yogasadhana. Transformar locales en instituciones.</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision">
+        <div class="conclusion">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 20px;">Veredicto Final.</h3>
+            <p>Es una <strong>idea excepcional</strong> porque atacamos el miedo a la nube con <strong>Hardware Local</strong> y la falta de gusto con <strong>Diseño de Autor</strong>. Sergio pone la visión y el diseño; Boty pone la ejecución incansable y la ingeniería pesada.</p>
+            <p style="margin-top: 20px;">No estamos vendiendo software. Estamos vendiendo la **Delegación Total del Futuro**.</p>
+        </div>
+    </section>
+
+    <footer>BOTY AGENCY • CIUDAD REAL • SOBERANÍA DIGITAL</footer>
+
+</body>
+</html>
