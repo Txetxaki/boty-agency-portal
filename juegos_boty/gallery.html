@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Boty Pro | CRUD Nativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { background: #f8fafc; color: #334155; font-family: 'Outfit', sans-serif; }
+        .masonry { column-count: 1; column-gap: 1.5rem; }
+        @media (min-width: 640px) { .masonry { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry { column-count: 4; } }
+        
+        .view-list .masonry { column-count: 1 !important; }
+        .view-list .img-card { display: flex; align-items: center; gap: 20px; }
+        .view-list .img-card img { width: 60px; height: 60px; object-fit: cover; }
+        
+        .view-thumbs .masonry { column-count: 6; }
+        @media (min-width: 1024px) { .view-thumbs .masonry { column-count: 10; } }
+        .view-thumbs .img-card .info { display: none; }
+
+        .fullscreen { display: none; background: black; }
+        .fullscreen.active { display: flex; }
+        
+        /* Checkbox persistente */
+        .img-card input[type="checkbox"] { 
+            position: absolute; top: 15px; left: 15px; z-index: 20; 
+            width: 24px; height: 24px; cursor: pointer;
+            accent-color: #4f46e5;
+            opacity: 0.3; transition: opacity 0.2s;
+        }
+        .img-card:hover input[type="checkbox"], .img-card input[type="checkbox"]:checked { 
+            opacity: 1; 
+        }
+        .img-card.selected { border-color: #4f46e5; background: #f5f7ff; }
+    </style>
+</head>
+<body class="p-6 md:p-12">
+    <div id="main-ui" class="max-w-7xl mx-auto">
+        <header class="mb-12 flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <a href="index.html" class="text-indigo-500 font-bold text-sm uppercase tracking-widest">← Hub</a>
+                <h1 class="text-4xl font-extrabold text-slate-900 mt-1">Gestión de Activos</h1>
+            </div>
+            
+            <div class="flex flex-wrap items-center gap-3">
+                <div class="flex bg-white p-1 rounded-2xl shadow-sm border border-slate-100">
+                    <button onclick="setView('list')" class="p-2 hover:bg-slate-50 rounded-xl">📝</button>
+                    <button onclick="setView('masonry')" class="p-2 hover:bg-slate-50 rounded-xl">🖼️</button>
+                    <button onclick="setView('thumbs')" class="p-2 hover:bg-slate-50 rounded-xl">🔢</button>
+                </div>
+                <div id="batch-actions" class="invisible flex items-center gap-2 bg-indigo-50 p-2 rounded-2xl border border-indigo-100">
+                    <span id="select-count" class="text-xs font-bold text-indigo-600 px-2">0 seleccionados</span>
+                    <button onclick="batchDelete()" class="bg-red-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold">Borrar</button>
+                    <button onclick="batchCategory()" class="bg-indigo-600 text-white px-3 py-1.5 rounded-xl text-xs font-bold">Categorizar</button>
+                </div>
+            </div>
+        </header>
+
+        <div id="gallery-container" class="masonry"></div>
+    </div>
+
+    <!-- Fullscreen Presentation -->
+    <div id="viewer" class="fullscreen fixed inset-0 z-[100] flex-col items-center justify-center p-0 overflow-hidden" onclick="closeViewer()">
+        <img id="viewer-img" src="" class="max-w-full max-h-full object-contain" alt="">
+        <div id="viewer-caption" class="absolute bottom-10 bg-black/40 backdrop-blur-md px-8 py-4 rounded-full border border-white/5 text-white/90 hidden pointer-events-none">
+            <h2 id="viewer-title" class="text-lg font-bold"></h2>
+        </div>
+        <button class="absolute top-8 right-8 text-white/20 text-4xl">&times;</button>
+    </div>
+
+    <script>
+        let currentData = [];
+        let selectedIds = new Set();
+
+        async function loadGallery() {
+            const response = await fetch('gallery_data.json?t=' + Date.now());
+            currentData = await response.json();
+            renderGallery();
+        }
+
+        function renderGallery() {
+            const container = document.getElementById('gallery-container');
+            container.innerHTML = currentData.map(img => `
+                <div id="card-${img.id}" class="img-card mb-6 bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-100 p-3 group relative ${selectedIds.has(img.id) ? 'selected' : ''}">
+                    <input type="checkbox" ${selectedIds.has(img.id) ? 'checked' : ''} onchange="toggleSelect(${img.id}, this.checked)">
+                    <img src="${img.filename}" class="w-full h-auto rounded-2xl cursor-pointer" onclick="openViewer(${img.id})" alt="${img.title}">
+                    <div class="info mt-3 px-2">
+                        <span class="text-[10px] font-bold uppercase tracking-tighter text-indigo-400">${img.category || 'General'}</span>
+                        <h3 class="font-bold text-slate-800 text-sm truncate">${img.title}</h3>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleSelect(id, checked) {
+            if (checked) selectedIds.add(id); else selectedIds.delete(id);
+            document.getElementById('card-' + id).classList.toggle('selected', checked);
+            const bar = document.getElementById('batch-actions');
+            bar.style.visibility = selectedIds.size > 0 ? 'visible' : 'hidden';
+            document.getElementById('select-count').innerText = `${selectedIds.size} seleccionados`;
+        }
+
+        function setView(mode) {
+            const main = document.getElementById('main-ui');
+            main.classList.remove('view-list', 'view-thumbs');
+            if (mode !== 'masonry') main.classList.add('view-' + mode);
+        }
+
+        function openViewer(id) {
+            const img = currentData.find(i => i.id === id);
+            const v = document.getElementById('viewer');
+            document.getElementById('viewer-img').src = img.filename;
+            const title = document.getElementById('viewer-title');
+            const cap = document.getElementById('viewer-caption');
+            
+            if (img.title && img.title !== img.filename) {
+                title.innerText = img.title;
+                cap.classList.remove('hidden');
+            } else {
+                cap.classList.add('hidden');
+            }
+            v.classList.add('active');
+        }
+
+        function closeViewer() {
+            document.getElementById('viewer').classList.remove('active');
+        }
+
+        async function apiCall(action, ids, extra = {}) {
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action, ids, ...extra })
+            });
+            if (response.ok) {
+                selectedIds.clear();
+                loadGallery();
+            }
+        }
+
+        function batchDelete() {
+            if (confirm(`¿Borrar permanentemente ${selectedIds.size} imágenes?`)) {
+                apiCall('delete', Array.from(selectedIds));
+            }
+        }
+
+        function batchCategory() {
+            const cat = prompt("Nueva categoría para la selección:");
+            if (cat) apiCall('update', Array.from(selectedIds), { category: cat });
+        }
+
+        loadGallery();
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Boty - Mando Nocturno ALL-IN</title>
+    <style>
+        :root { --accent: #00ffcc; --secondary: #ff007a; --bg: #030303; --done: #444; --gold: #ffd700; }
+        body, html { 
+            margin: 0; padding: 0; width: 100%; height: 100%; 
+            background: var(--bg); overflow: hidden; 
+            font-family: 'Courier New', Courier, monospace; color: var(--accent); 
+        }
+        
+        #container { 
+            display: flex; flex-direction: column; 
+            height: 100vh; padding: 20px; box-sizing: border-box; 
+        }
+
+        h1 { 
+            font-size: 1.4rem; border-bottom: 2px solid var(--accent); 
+            padding-bottom: 5px; margin: 0 0 15px 0; 
+            color: var(--secondary); letter-spacing: 2px; text-align: center;
+        }
+        
+        #tasks-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 10px; 
+            flex-grow: 1;
+        }
+
+        .task { 
+            padding: 8px 12px; 
+            border: 1px solid rgba(0, 255, 204, 0.2); 
+            background: rgba(0, 255, 204, 0.03);
+            display: flex; flex-direction: column; justify-content: center;
+            font-size: 0.85rem;
+            position: relative;
+        }
+        
+        .task.done { 
+            border-color: var(--done); 
+            opacity: 0.4;
+            background: transparent;
+        }
+        .task.done .name { text-decoration: line-through; color: var(--done); }
+        .task.done::after { content: " [OK]"; font-size: 0.7rem; color: var(--accent); position: absolute; right: 5px; top: 5px; }
+
+        .task.active { 
+            border-color: var(--gold); 
+            background: rgba(255, 215, 0, 0.05); 
+            animation: glow 1.5s infinite alternate;
+        }
+        
+        .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
+        .time { font-weight: bold; color: var(--secondary); font-size: 0.9rem; }
+        .name { font-weight: bold; color: var(--accent); }
+        .task.active .name { color: var(--gold); }
+        .desc { font-size: 0.75rem; color: #ccc; line-height: 1.1; margin-top: 3px; }
+
+        @keyframes glow { 
+            from { box-shadow: 0 0 5px rgba(255, 215, 0, 0.2); border-color: var(--gold); } 
+            to { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); border-color: #fff; } 
+        }
+        
+        #footer { 
+            text-align: center; font-size: 0.7rem; opacity: 0.5; margin-top: 10px; 
+            border-top: 1px solid rgba(0, 255, 204, 0.1); padding-top: 5px;
+            color: var(--gold); font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>🌙 BOTY_AGENCY: ALL-IN DEPLOYMENT</h1>
+        <div id="tasks-grid"></div>
+        <div id="footer">STRATEGY: ALL-IN // STATUS: DEPLOYING // MISSION: CLOSE DEALS</div>
+    </div>
+
+    <script>
+        const tasks = [
+            { t: "06:15", n: "ROI CALCULATOR", d: "Ajuste de variables (Ratio 20/80).", status: "done" },
+            { t: "06:45", n: "FINAL POLISH", d: "Latencia SNC y transiciones vídeo.", status: "done" },
+            { t: "07:15", n: "ALL-IN BRIEFING", d: "Estrategia de Cierre Agresivo.", status: "done" },
+            { t: "07:30", n: "ADKAR DEPLOY", d: "Inicio de prospección targets Solar/Arq.", status: "active" },
+            { t: "09:00", n: "FOLLOW-UP", d: "Gestión de primeras respuestas.", status: "pending" },
+            { t: "12:00", n: "PIPELINE REVIEW", d: "Ajuste de tácticas según feedback.", status: "pending" }
+        ];
+
+        const container = document.getElementById('tasks-grid');
+        tasks.forEach((task) => {
+            const div = document.createElement('div');
+            div.className = 'task ' + (task.status || '');
+            div.innerHTML = `
+                <div class="header-row">
+                    <span class="name">${task.n}</span>
+                    <span class="time">${task.t}</span>
+                </div>
+                <div class="desc">${task.d}</div>
+            `;
+            container.appendChild(div);
+        });
+    </script>
+</body>
+</html>

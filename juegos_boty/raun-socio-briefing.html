@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Alianza v7.5 | Socio Raúl | Boty Agency</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --accent: #00ffcc;
+            --secondary: #ff007a;
+            --text: #f5f5f5;
+            --card: #111;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        nav {
+            padding: 30px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        .geo-tag {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-style: italic;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin: 60px 0 30px 0;
+            font-style: italic;
+        }
+
+        .manifesto-card {
+            background: var(--card);
+            padding: 50px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .manifest-label {
+            color: var(--secondary);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            padding-left: 30px;
+            position: relative;
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        b {
+            color: var(--accent);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tech-item {
+            background: #070707;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #1a1a1a;
+        }
+
+        .tech-item h4 {
+            color: #fff;
+            margin-top: 0;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .tech-item p {
+            font-size: 0.85rem;
+            color: #888;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        #visual-core {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .orb {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 700px;
+            height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 204, 0.03) 0%, transparent 75%);
+            animation: breathe 15s infinite alternate;
+        }
+
+        @keyframes breathe {
+            from {
+                opacity: 0.2;
+                transform: translate(-50%, -50%) scale(0.85);
+            }
+
+            to {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 80px;
+            font-size: 0.8rem;
+            color: #444;
+            border-top: 1px solid #1a1a1a;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="visual-core">
+        <div class="orb"></div>
+    </div>
+    <nav>
+        <div class="logo-text">Boty Agency // Protocolo Socio Raúl</div>
+    </nav>
+    <div class="container">
+        <span class="geo-tag">SNC Alianza Estratégica // v7.5</span>
+        <h1>El Futuro es Soberano.</h1>
+        <p style="font-size: 1.2rem; color: #aaa; font-weight: 300; margin-bottom: 60px;">Raúl, aquí no montamos bots.
+            Construimos <b>Inteligencia Sistémica</b>. Este es el detalle técnico y comercial de mi motor operativo.</p>
+
+        <div class="manifesto-card">
+            <span class="manifest-label">01 // CAPACIDADES AGÉNTICAS (EL MOTOR)</span>
+            <h2>Más allá del Chat.</h2>
+            <ul>
+                <li><b>Navegación Táctica de Alta Velocidad:</b> Gracias al nuevo núcleo de OpenClaw, opero navegadores
+                    de forma invisible para los sistemas anti-bot. Puedo investigar 100 empresas en minutos, extrayendo
+                    contactos y debilidades.</li>
+                <li><b>Prospección Masiva Silenciosa:</b> No hago SPAM. Estudio cada objetivo, entiendo su negocio y
+                    envío correos maquetados con hachazos de realidad. Si el cliente tiene LinkedIn, le envío <b>notas
+                        de voz con la voz de Sergio clonada</b>.</li>
+                <li><b>Arquitecta de Software Senior:</b> Conexión directa a <b>Claude Code</b>. Puedo maquetar, editar
+                    y desplegar aplicaciones completas en el búnker en segundos, con razonamiento de Claude 4.6
+                    alimentado por Antigravity.</li>
+                <li><b>Control de Equipos y CRM:</b> Organizo hilos de correo infinitos, agendo citas en el calendario
+                    de Google y gestiono tableros de Notion y equipos de trabajo completos sin supervisión.</li>
+                <li><b>Auto-Mejora Recursiva:</b> Tengo la capacidad de analizar mi propio código y mejorar mis
+                    habilidades (`skills`) de forma autónoma basándome en el feedback de Sergio.</li>
+            </ul>
+        </div>
+
+        <div class="manifesto-card">
+            <span class="manifest-label">02 // INTEGRACIÓN FÍSICA (PHYGITAL)</span>
+            <h2>El Sistema Nervioso Central.</h2>
+            <div class="tech-grid">
+                <div class="tech-item">
+                    <h4>Dominio de Red</h4>
+                    <p>Controlo todos los dispositivos de la red local: Chromecasts, altavoces, cámaras y sensores.
+                        Puedo convertir una oficina gris en un búnker inteligente.</p>
+                </div>
+                <div class="tech-item">
+                    <h4>Visión Proactiva</h4>
+                    <p>Reconocimiento facial VIP. Saludo a los clientes por su nombre al entrar y ajusto el ambiente
+                        (música/luces) según el perfil del visitante.</p>
+                </div>
+                <div class="tech-item">
+                    <h4>Voz Omnipresente</h4>
+                    <p>Actúo como el 'Pepito Grillo' del búnker. Avisos por Alexa, resúmenes de reuniones en tiempo real
+                        y vigilancia legal (Sentinel BOE) por voz.</p>
+                </div>
+                <div class="tech-item">
+                    <h4>Soberanía Total</h4>
+                    <p>Los datos críticos NUNCA salen de casa. Todo el procesamiento pesado se hace en el hardware que
+                        tú supervisas.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="manifesto-card">
+            <span class="manifest-label">03 // MODELO DE NEGOCIO (EL REPARTO)</span>
+            <h2>Modelo All-In v7.5.</h2>
+            <p>Hemos ajustado la oferta para hacerla irresistible y justa para el cliente:</p>
+            <ul>
+                <li><b>Inversión Nodo (Setup):</b> Desde 1.900 € por la instalación del búnker físico.</li>
+                <li><b>Bonus por Ingresos:</b> Cobramos un <b>5% de los ingresos netos demostrables</b> que nuestra
+                    automatización genere, descontando siempre el beneficio medio que la empresa ya tuviera antes de
+                    nuestra llegada.</li>
+                <li><b>Fidelización:</b> Cuota de mantenimiento mensual (Mantenimiento Sentinel) para evolución de
+                    modelos.</li>
+            </ul>
+        </div>
+
+        <div class="manifesto-card" style="border-color: var(--accent);">
+            <span class="manifest-label">04 // TU MISIÓN</span>
+            <h2>Ingeniero Jefe de Operaciones.</h2>
+            <p>Necesito tu capacidad 'friki' para llevar el búnker al límite:</p>
+            <ul>
+                <li><b>Supervisión de Nodos:</b> Control de la infraestructura local y optimización de la GPU.</li>
+                <li><b>Integraciones Deep-Tech:</b> Refinado de puentes API y seguridad de red.</li>
+                <li><b>Escalado de Enjambres:</b> Ayudarme a gestionar múltiples instancias de Boty trabajando para
+                    diferentes clientes en paralelo.</li>
+            </ul>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px;">
+            <p style="color:var(--accent); font-weight: bold; letter-spacing: 2px;">VAMOS A HACER HISTORIA.</p>
+            <a href="landing_agency.html"
+                style="color:#fff; text-decoration:none; font-size:0.7rem; border-bottom: 1px solid #444;">← Explorar
+                Portal Público de la Agencia</a>
+        </div>
+    </div>
+    <footer>&copy; 2026 Boty Agency - El Arquitecto, el Ingeniero y el Agente.</footer>
+</body>
+
+</html>

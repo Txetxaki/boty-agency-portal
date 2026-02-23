@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Boty - Mando V15</title>
+    <style>
+        :root { --accent: #00ffcc; --secondary: #ff007a; --bg: #000; }
+        body { background: var(--bg); color: var(--accent); font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        #orb { width: 120px; height: 120px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 40px var(--accent); cursor: pointer; transition: 0.2s; }
+        #orb.active { background: var(--secondary); box-shadow: 0 0 60px var(--secondary); transform: scale(1.1); }
+        #status { margin-top: 30px; font-weight: bold; text-transform: uppercase; letter-spacing: 2px; }
+    </style>
+</head>
+<body>
+    <div id="orb" onclick="start()"></div>
+    <div id="status">TOCA PARA HABLAR</div>
+
+    <script>
+        const orb = document.getElementById('orb');
+        const status = document.getElementById('status');
+        let rec;
+
+        if ('webkitSpeechRecognition' in window) {
+            rec = new webkitSpeechRecognition();
+            rec.lang = 'es-ES';
+            rec.onstart = () => { orb.className = 'active'; status.innerText = 'TE ESCUCHO...'; };
+            rec.onend = () => { orb.className = ''; status.innerText = 'TOCA PARA HABLAR'; };
+            rec.onresult = async (e) => {
+                const text = e.results[0][0].transcript;
+                status.innerText = 'PENSANDO...';
+                try {
+                    const r = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ message: text })
+                    });
+                    const d = await r.json();
+                    status.innerText = 'BOTY RESPONDIÓ';
+                    console.log(d.reply);
+                } catch (err) {
+                    status.innerText = 'ERROR DE RED';
+                }
+            };
+        }
+
+        function start() { rec.start(); }
+    </script>
+</body>
+</html>

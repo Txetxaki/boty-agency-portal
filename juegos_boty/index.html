@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boty Hub | Hogar Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background: #f8fafc; 
+            color: #334155; 
+            font-family: 'Outfit', sans-serif; 
+            background-image: radial-gradient(at 0% 0%, rgba(224, 242, 254, 0.5) 0, transparent 50%), 
+                              radial-gradient(at 100% 100%, rgba(240, 253, 244, 0.5) 0, transparent 50%);
+        }
+        .card { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .card:hover { 
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.9);
+        }
+        .icon-box {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .category-pill {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 100px;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-16">
+
+    <div class="max-w-6xl mx-auto">
+        <!-- Header Amigable -->
+        <header class="mb-20">
+            <div class="flex items-center space-x-4 mb-2">
+                <div class="w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center text-white text-2xl shadow-lg shadow-indigo-200">🤖</div>
+                <h1 class="text-4xl font-extrabold text-slate-900 tracking-tight">Hola, Sergio</h1>
+            </div>
+            <p class="text-slate-500 text-lg font-light">Bienvenido a tu búnker personal. Todo está en orden.</p>
+        </header>
+
+        <!-- Categorías Diferenciadas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            
+            <!-- SECCIÓN: NEGOCIO (Azul/Indigo) -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-2 px-2">
+                    <div class="w-2 h-2 bg-indigo-400 rounded-full"></div>
+                    <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest">Negocio y Gestión</h2>
+                </div>
+                
+                <a href="/juegos_boty/panel_control.html" class="block p-8 card group">
+                    <div class="icon-box bg-indigo-100 text-indigo-600 group-hover:bg-indigo-500 group-hover:text-white transition-colors">📊</div>
+                    <h3 class="text-xl font-bold text-slate-800">Panel Central</h3>
+                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Métricas de trabajo, objetivos ADKAR y estado de tu oficina digital.</p>
+                </a>
+
+                <div class="p-8 card opacity-60">
+                    <div class="icon-box bg-slate-100 text-slate-400">📂</div>
+                    <span class="category-pill bg-slate-100 text-slate-500">Próximamente</span>
+                    <h3 class="text-xl font-bold text-slate-400">Bóveda Privada</h3>
+                    <p class="text-sm text-slate-400 mt-2 leading-relaxed">Facturas y documentos sensibles protegidos bajo llave.</p>
+                </div>
+            </div>
+
+            <!-- SECCIÓN: IDENTIDAD (Verde/Esmeralda) -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-2 px-2">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                    <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest">Familia y Marca</h2>
+                </div>
+                
+                <a href="/juegos_boty/gallery.html" class="block p-8 card group">
+                    <div class="icon-box bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white transition-colors">🎨</div>
+                    <h3 class="text-xl font-bold text-slate-800">Galería Boty</h3>
+                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Tus retratos, logos y la identidad visual de "IA con Alma".</p>
+                </a>
+
+                <div class="p-8 card opacity-60">
+                    <div class="icon-box bg-slate-100 text-slate-400">👨‍👧‍👧</div>
+                    <span class="category-pill bg-slate-100 text-slate-500">En Diseño</span>
+                    <h3 class="text-xl font-bold text-slate-400">Rincón Familiar</h3>
+                    <p class="text-sm text-slate-400 mt-2 leading-relaxed">Espacio dedicado para Alma y Zoe: fotos y planes.</p>
+                </div>
+            </div>
+
+            <!-- SECCIÓN: OCIO (Ámbar/Naranja) -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-2 px-2">
+                    <div class="w-2 h-2 bg-amber-400 rounded-full"></div>
+                    <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest">Juegos y Laboratorio</h2>
+                </div>
+                
+                <a href="/juegos_boty/juego_txetxlo_wen.html" class="block p-8 card group">
+                    <div class="icon-box bg-amber-100 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">🎮</div>
+                    <h3 class="text-xl font-bold text-slate-800">Txetxlo vs Wen</h3>
+                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">El duelo de reflejos para jugar en familia en el salón.</p>
+                </a>
+
+                <a href="/juegos_boty/juego_mario.html" class="block p-8 card group">
+                    <div class="icon-box bg-orange-100 text-orange-600 group-hover:bg-orange-500 group-hover:text-white transition-colors">🍄</div>
+                    <h3 class="text-xl font-bold text-slate-800">Boty Jump!</h3>
+                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Versión retro inspirada en Mario. Salta los obstáculos y bate tu récord.</p>
+                </a>
+
+                <a href="/juegos_boty/cara_boty.html" class="block p-8 card group">
+                    <div class="icon-box bg-rose-100 text-rose-600 group-hover:bg-rose-500 group-hover:text-white transition-colors">✨</div>
+                    <h3 class="text-xl font-bold text-slate-800">Esencia Boty</h3>
+                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Monitorización visual de mi sistema. Mi cara reactiva.</p>
+                </a>
+
+                <a href="/juegos_boty/memoria.html" class="block p-8 card group border-2 border-indigo-500/30">
+                    <div class="icon-box bg-indigo-100 text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">🧠</div>
+                    <h3 class="text-xl font-bold text-slate-800">Grabar Recuerdo</h3>
+                    <p class="text-sm text-slate-500 mt-2 leading-relaxed">Botón rápido para capturar lo importante de nuestra charla y guardarlo bien.</p>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Footer Suave -->
+        <footer class="mt-32 py-10 text-center">
+            <div class="inline-flex items-center space-x-2 text-slate-300 text-[10px] tracking-[0.2em] uppercase font-bold">
+                <span>Tu Sistema Soberano</span>
+                <span class="w-1 h-1 bg-slate-200 rounded-full"></span>
+                <span>RPi 5</span>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>

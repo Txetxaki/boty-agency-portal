@@ -1,0 +1,46 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Boty Agency: Logo Vivo con Física Natural -->
+  
+  <!-- Cabeza Ultra-Orgánica -->
+  <rect x="20" y="60" width="160" height="100" rx="50" fill="#6366f1" />
+  
+  <!-- Visor Suave -->
+  <rect x="35" y="75" width="130" height="70" rx="35" fill="white" />
+  
+  <!-- Grupo de Ojos con Animaciones de Comportamiento -->
+  <g id="eyes_container">
+    <!-- Animación de Mirada (Física no lineal) -->
+    <animateTransform 
+        attributeName="transform" 
+        type="translate" 
+        values="0,0; 0,0; 10,0; 10,0; -10,0; -10,0; 0,0" 
+        keyTimes="0; 0.7; 0.75; 0.85; 0.9; 0.95; 1" 
+        dur="12s" 
+        repeatCount="indefinite" />
+
+    <!-- Ojo Izquierdo -->
+    <ellipse cx="75" cy="110" rx="12" ry="12" fill="#1e1b4b">
+        <!-- Pestañeo Natural (Pausa larga + parpadeo rápido) -->
+        <animate 
+            attributeName="ry" 
+            values="12;12;0.5;12;0.5;12" 
+            keyTimes="0; 0.9; 0.92; 0.94; 0.96; 1" 
+            dur="5s" 
+            repeatCount="indefinite" />
+    </ellipse>
+
+    <!-- Ojo Derecho -->
+    <ellipse cx="125" cy="110" rx="12" ry="12" fill="#1e1b4b">
+        <animate 
+            attributeName="ry" 
+            values="12;12;0.5;12;0.5;12" 
+            keyTimes="0; 0.9; 0.92; 0.94; 0.96; 1" 
+            dur="5s" 
+            repeatCount="indefinite" />
+    </ellipse>
+  </g>
+  
+  <!-- Conectores Laterales -->
+  <rect x="10" y="90" width="15" height="40" rx="7.5" fill="#6366f1" />
+  <rect x="175" y="90" width="15" height="40" rx="7.5" fill="#6366f1" />
+</svg>

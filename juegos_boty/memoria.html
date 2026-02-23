@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grabadora de Recuerdos - Boty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background: #f8fafc; 
+            color: #334155; 
+            font-family: 'Outfit', sans-serif; 
+        }
+        .card { 
+            background: rgba(255, 255, 255, 0.7); 
+            backdrop-filter: blur(12px); 
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+        }
+        .btn-record {
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .btn-record:active {
+            transform: scale(0.95);
+        }
+        .recording-pulse {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen p-6 md:p-16 flex flex-col items-center justify-center">
+
+    <div class="max-w-2xl w-full">
+        <header class="text-center mb-12">
+            <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight mb-2">Grabadora de Recuerdos</h1>
+            <p class="text-slate-500">¿Hay algo de esta charla que deba guardar en mi memoria?</p>
+        </header>
+
+        <div class="card p-10 text-center shadow-xl">
+            <div id="status-icon" class="text-6xl mb-6">🧠</div>
+            <h2 id="status-text" class="text-xl font-bold mb-8">Pulsa para capturar</h2>
+
+            <button id="record-btn" class="btn-record w-32 h-32 bg-indigo-600 rounded-full flex items-center justify-center text-white text-4xl shadow-lg shadow-indigo-200 mx-auto mb-10 hover:bg-indigo-700">
+                💾
+            </button>
+
+            <div class="space-y-4">
+                <textarea id="note-input" class="w-full p-4 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all" rows="3" placeholder="Añade un comentario opcional..."></textarea>
+                <div class="flex items-center justify-center space-x-2 text-xs text-slate-400 uppercase tracking-widest font-bold">
+                    <span>Organización Automática</span>
+                    <span class="w-1 h-1 bg-slate-300 rounded-full"></span>
+                    <span>Memoria a Largo Plazo</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-full text-sm font-bold shadow-2xl opacity-0 transition-opacity pointer-events-none">
+            ✅ Recuerdo guardado con éxito
+        </div>
+        
+        <div class="mt-8 text-center">
+            <a href="index.html" class="text-slate-400 hover:text-indigo-600 text-sm font-bold transition-colors">← Volver al Hub</a>
+        </div>
+    </div>
+
+    <script>
+        const btn = document.getElementById('record-btn');
+        const statusText = document.getElementById('status-text');
+        const statusIcon = document.getElementById('status-icon');
+        const noteInput = document.getElementById('note-input');
+        const toast = document.getElementById('toast');
+
+        btn.onclick = async () => {
+            const note = noteInput.value;
+            
+            // UI Feedback
+            btn.classList.add('recording-pulse', 'bg-red-500');
+            btn.classList.remove('bg-indigo-600');
+            btn.innerText = '⌛';
+            statusText.innerText = 'Procesando charla...';
+            statusIcon.innerText = '⚙️';
+
+            try {
+                // Enviamos un comando especial a Boty a través del API Server
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: json.stringify({ 
+                        message: `/memoria_grab_ui ${note}` 
+                    })
+                });
+
+                if (response.ok) {
+                    showToast();
+                }
+            } catch (e) {
+                console.error(e);
+            } finally {
+                setTimeout(() => {
+                    btn.classList.remove('recording-pulse', 'bg-red-500');
+                    btn.classList.add('bg-indigo-600');
+                    btn.innerText = '💾';
+                    statusText.innerText = 'Pulsa para capturar';
+                    statusIcon.innerText = '🧠';
+                    noteInput.value = '';
+                }, 1000);
+            }
+        };
+
+        function showToast() {
+            toast.style.opacity = '1';
+            setTimeout(() => { toast.style.opacity = '0'; }, 3000);
+        }
+    </script>
+
+</body>
+</html>
