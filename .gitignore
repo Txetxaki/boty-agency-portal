@@ -1,0 +1,25 @@
+# 🛡️ ESCUDO SOBERANO: PROTOCOLO DE FILTRADO GITHUB
+
+# 1. BLOQUEO TOTAL (Por defecto no sale NADA)
+*
+.*
+
+# 2. EXCEPCIONES (Solo el escaparate público cruza la frontera)
+!index.html
+!soluciones/
+!juegos_boty/
+!hardware.html
+!briefing_raul_v7_5.html
+!.gitignore
+
+# 3. SEGURIDAD ADICIONAL (Incluso dentro de carpetas públicas, prohibir scripts)
+juegos_boty/*.js
+juegos_boty/*.json
+juegos_boty/*.py
+juegos_boty/*.sh
+
+# 4. BLINDAJE DE ACTIVOS (Solo imágenes y SVG)
+!juegos_boty/*.png
+!juegos_boty/*.svg
+!juegos_boty/*.jpg
+!juegos_boty/*.html

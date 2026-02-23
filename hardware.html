@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infraestructura de IA Soberana | Boty Agency</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #0a0a0a; --accent: #00ffcc; --text: #f5f5f5; --card: #141414; --border: rgba(255,255,255,0.05); }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; padding: 0; line-height: 1.7; overflow-x: hidden; }
+        
+        /* NAVEGACIÓN UNIVERSAL */
+        nav {
+            position: sticky; top: 0; width: 100%; padding: 15px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-sizing: border-box; z-index: 1000;
+            background: rgba(10,10,10,0.85); backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border);
+        }
+        #boty-identity { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
+        #eye-container {
+            width: 36px; height: 22px; background: rgba(255, 255, 255, 0.02); border: 1.5px solid var(--accent);
+            border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%; display: flex; justify-content: center; align-items: center;
+            overflow: hidden; box-shadow: 0 0 10px rgba(0, 255, 204, 0.15); position: relative; transition: height 0.12s ease-out;
+        }
+        .pupil { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent); transition: transform 0.15s; z-index: 2; }
+        .blink { height: 1px !important; }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: #888; text-decoration: none; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; transition: 0.4s; }
+        .nav-links a:hover { color: var(--accent); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+        .geo-tag { color: var(--accent); text-transform: uppercase; letter-spacing: 4px; font-size: 0.7rem; font-weight: 700; margin-bottom: 15px; display: block; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 7vw, 4rem); font-style: italic; line-height: 1.1; margin-bottom: 30px; color: #fff; }
+        .hero-lead { font-size: 1.2rem; color: #aaa; font-weight: 300; margin-bottom: 60px; max-width: 900px; border-left: 3px solid var(--accent); padding-left: 30px; }
+
+        .hardware-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; align-items: stretch; }
+        .hw-card { background: var(--card); padding: 50px 40px; border-radius: 25px; border: 1px solid var(--border); display: flex; flex-direction: column; transition: 0.4s; position: relative; }
+        .hw-card:hover { border-color: var(--accent); transform: translateY(-10px); }
+        .hw-card h2 { color: #fff; font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.2rem; margin: 0 0 10px 0; }
+        .hw-subtitle { font-size: 0.75rem; color: var(--accent); letter-spacing: 2px; text-transform: uppercase; font-weight: 700; margin-bottom: 30px; display: block; }
+        .price-box { margin-bottom: 30px; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.05); }
+        .price-value { font-size: 2.5rem; font-weight: 700; color: #fff; }
+        .specs { list-style: none; padding: 0; margin: 0 0 40px 0; flex-grow: 1; }
+        .specs li { font-size: 0.9rem; color: #bbb; margin-bottom: 15px; display: flex; align-items: start; gap: 12px; }
+        .specs li::before { content: '✓'; color: var(--accent); font-weight: 900; }
+
+        .btn { padding: 20px 40px; background: var(--accent); color: #000; font-size: 0.9rem; font-weight: 700; border-radius: 60px; text-decoration: none; display: inline-block; transition: 0.4s; text-transform: uppercase; letter-spacing: 2px; border: none; cursor: pointer; text-align: center; }
+        footer { text-align: center; padding: 60px; border-top: 1px solid #222; font-size: 0.8rem; color: #555; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="../landing_agency.html" id="boty-identity">
+            <div id="eye-container"><div class="pupil" id="pupil"></div></div>
+            <span class="logo-text">Boty Agency</span>
+        </a>
+        <div class="nav-links">
+            <a href="../landing_agency.html">Inicio</a>
+            <a href="diagnostico.html">Diagnóstico</a>
+            <a href="hardware.html" style="color:var(--accent)">Hardware</a>
+            <a href="bunkeres.html">Búnkeres</a>
+            <a href="../landing_agency.html#contacto">Contacto</a>
+        </div>
+    </nav>
+    <div class="container">
+        <span class="geo-tag">Arquitectura Física // Alcance Nacional</span>
+        <h1>El Cuerpo de la Inteligencia.</h1>
+        <p class="hero-lead">La verdadera soberanía nace en el hardware. Diseñamos e instalamos búnkeres de inferencia local garantizando que su conocimiento jamás salga de su control.</p>
+        <div class="hardware-grid">
+            <div class="hw-card">
+                <h2>Nodo Ágil</h2><span class="hw-subtitle">Eficiencia Silenciosa</span>
+                <div class="price-box"><div class="price-value">450 €</div></div>
+                <ul class="specs"><li><b>Procesador:</b> ARM v8 optimizada.</li><li><b>Uso:</b> OCR local y flujos B2B.</li><li><b>Seguridad:</b> Cifrado AES-256.</li></ul>
+            </div>
+            <div class="hw-card" style="border-color: rgba(0,255,204,0.3);">
+                <h2>Estación Pro</h2><span class="hw-subtitle">Rendimiento de Autor</span>
+                <div class="price-box"><div class="price-value">2.100 €</div></div>
+                <ul class="specs"><li><b>Motor:</b> Apple Silicon M4 Pro.</li><li><b>Memoria:</b> Unificada masiva.</li><li><b>Capacidad:</b> Inferencia local masiva.</li></ul>
+            </div>
+            <div class="hw-card">
+                <h2>Núcleo Max</h2><span class="hw-subtitle">Soberanía Absoluta</span>
+                <div class="price-box"><div class="price-value">6.000 €</div></div>
+                <ul class="specs"><li><b>Potencia:</b> Mac Studio.</li><li><b>Multi-Agente:</b> Enjambres en paralelo.</li><li><b>Offline:</b> 100% independiente.</li></ul>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 60px;"><a href="../landing_agency.html#contacto" class="btn">Solicitar Diagnóstico de Hardware</a></div>
+    </div>
+    <footer>&copy; 2026 Boty Agency - Tecnología Soberana Nacional</footer>
+    <script>
+        const pupil = document.getElementById('pupil');
+        const socket = document.getElementById('eye-container');
+        window.addEventListener('mousemove', (e) => {
+            const rect = socket.getBoundingClientRect();
+            const eyeX = rect.left + rect.width / 2;
+            const eyeY = rect.top + rect.height / 2;
+            const angle = Math.atan2(e.clientY - eyeY, e.clientX - eyeX);
+            const distance = Math.min(8, Math.hypot(e.clientX - eyeX, e.clientY - eyeY) / 40);
+            pupil.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+        });
+        setInterval(() => { if (Math.random() > 0.9) { socket.classList.add('blink'); setTimeout(() => socket.classList.remove('blink'), 130); } }, 2000);
+    </script>
+</body>
+</html>

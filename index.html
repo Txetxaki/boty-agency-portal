@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boty Agency | Soberanía Digital</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #0a0a0a; --accent: #00ffcc; --secondary: #ff007a; --text: #f5f5f5; --card: #141414; }
+        html, body { margin: 0; padding: 0; width: 100%; height: 100%; background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow: hidden; }
+        #smooth-wrapper { width: 100%; height: 100%; transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1); will-change: transform; }
+
+        /* NAVEGACIÓN UNIVERSAL CON LOGO Y OJO REDUCIDO */
+        nav {
+            position: fixed; top: 0; width: 100%; padding: 15px 50px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-sizing: border-box; z-index: 1000;
+            background: rgba(10,10,10,0.85); backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        #boty-identity { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
+        #eye-container {
+            width: 36px; height: 22px; /* OJO REDUCIDO */
+            background: rgba(255, 255, 255, 0.02); border: 1.5px solid var(--accent);
+            border-radius: 50% 50% 45% 45% / 60% 60% 40% 40%; display: flex; justify-content: center; align-items: center;
+            overflow: hidden; box-shadow: 0 0 10px rgba(0, 255, 204, 0.15); position: relative; transition: height 0.12s ease-out;
+        }
+        .pupil { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent); transition: transform 0.15s; z-index: 2; }
+        .blink { height: 1px !important; }
+        .logo-text { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-style: italic; font-weight: 700; color: #fff; letter-spacing: -0.5px; }
+
+        .nav-links { display: flex; gap: 20px; }
+        .nav-links a { color: #444; text-decoration: none; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; transition: 0.4s; position: relative; padding: 10px 0; }
+        .nav-links a.active { color: var(--accent); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: var(--accent); box-shadow: 0 0 15px var(--accent); }
+
+        /* SECCIONES Y BOTONES */
+        section { height: 100vh; width: 100vw; display: flex; flex-direction: column; align-items: center; justify-content: center; box-sizing: border-box; padding: 50px; position: relative; }
+        h1 { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 5rem); margin: 0; color: #fff; font-style: italic; text-align: center; }
+        .tagline { font-size: 1rem; letter-spacing: 5px; color: var(--accent); text-transform: uppercase; margin-top: 20px; text-align: center; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 30px; color: #fff; font-style: italic; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; max-width: 1100px; }
+        .card { background: var(--card); padding: 30px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; cursor: pointer; text-decoration: none; display: block; }
+        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .card h3 { color: var(--accent); font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; margin-top: 0; }
+        .card p { color: #aaa; font-size: 0.9rem; line-height: 1.5; font-weight: 300; }
+
+        .hardware-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; width: 100%; max-width: 1200px; }
+        .hw-item { text-align: center; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .hw-img { width: 100%; height: 180px; background: #111; border-radius: 15px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; border: 1px solid #222; }
+        .hw-label { color: var(--accent); font-size: 0.7rem; letter-spacing: 2px; font-weight: bold; margin-bottom: 10px; display: block; }
+        .hw-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #fff; margin-bottom: 10px; display: block; }
+
+        .btn { margin-top: 40px; padding: 20px 50px; background: transparent; border: 1px solid var(--accent); color: var(--accent); font-size: 0.8rem; font-weight: 700; border-radius: 50px; transition: 0.4s; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; text-align: center; box-sizing: border-box; }
+        .btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 30px rgba(0, 255, 204, 0.3); }
+
+        #visual-core { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .orb { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 255, 204, 0.04) 0%, transparent 70%); animation: breathe 10s infinite alternate; }
+        @keyframes breathe { from { opacity: 0.3; transform: translate(-50%, -50%) scale(0.8); } to { opacity: 0.6; transform: translate(-50%, -50%) scale(1.1); } }
+        
+        #scroll-arrow { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 150; cursor: pointer; color: var(--accent); animation: bounce 2s infinite; }
+        #scroll-arrow svg { width: 35px; height: 35px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+        @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-10px); } }
+
+        /* FORMULARIO BLINDADO */
+        #form-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); backdrop-filter: blur(20px); z-index: 2000; justify-content: center; align-items: center; }
+        #form-modal { background: #0c0c0c; padding: 45px; border: 1px solid rgba(0, 255, 204, 0.25); width: 90%; max-width: 440px; border-radius: 25px; position: relative; box-sizing: border-box; overflow-y: auto; max-height: 90vh; }
+        .close-form { position: absolute; top: 20px; right: 25px; color: #444; font-size: 2rem; cursor: pointer; transition: 0.3s; z-index: 310; }
+        .close-form:hover { color: var(--accent); }
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; font-size: 0.65rem; color: var(--accent); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; }
+        input { width: 100%; padding: 16px; background: #151515; border: 1px solid #323232; color: #fff; border-radius: 12px; box-sizing: border-box; font-size: 1rem; }
+        .form-btn { width: 100% !important; margin: 20px 0 0 0 !important; background: var(--accent) !important; color: #000 !important; display: block; }
+    </style>
+</head>
+<body>
+    <div id="visual-core"><div class="orb"></div></div>
+
+    <nav>
+        <a href="landing_agency.html" id="boty-identity">
+            <div id="eye-container"><div class="pupil" id="pupil"></div></div>
+            <span class="logo-text">Boty Agency</span>
+        </a>
+        <div class="nav-links">
+            <a href="landing_agency.html" id="link-home">Inicio</a>
+            <a href="#" onclick="goToSection(1)" id="link-servicios">Soluciones</a>
+            <a href="#" onclick="goToSection(2)" id="link-hardware">Hardware</a>
+            <a href="#" onclick="goToSection(3)" id="link-bunker">El Búnker</a>
+            <a href="#" onclick="goToSection(4)" id="link-contacto">Contacto</a>
+        </div>
+    </nav>
+
+    <div id="smooth-wrapper">
+        <section id="home">
+            <div style="font-size: 0.6rem; color: var(--accent); margin-bottom: 20px; letter-spacing: 8px;">[ MMXVI // SOBERANÍA DIGITAL ]</div>
+            <h1>Soberanía Digital.</h1>
+            <div class="tagline">Diseño de autor para empresas soberanas.</div>
+            <div class="btn" onclick="openForm()">Solicitar Diagnóstico</div>
+        </section>
+
+        <section id="servicios">
+            <h2 class="section-title">Soluciones</h2>
+            <div class="grid">
+                <a href="soluciones/diagnostico.html" class="card">
+                    <h3>Diagnóstico</h3>
+                    <p>Análisis de eficiencia para detectar fugas de tiempo y capital.</p>
+                </a>
+                <a href="soluciones/bunkeres.html" class="card">
+                    <h3>Búnkeres</h3>
+                    <p>IA soberana instalada localmente bajo su control absoluto e infraestructura privada.</p>
+                </a>
+                <a href="soluciones/masterclass.html" class="card">
+                    <h3>Masterclass</h3>
+                    <p>Capacitación humana de élite para liderar la integración inteligente.</p>
+                </a>
+            </div>
+        </section>
+
+        <section id="hardware">
+            <h2 class="section-title">El Motor Físico</h2>
+            <div class="hardware-grid">
+                <a href="soluciones/hardware.html" class="hw-item" style="text-decoration:none">
+                    <div class="hw-img" style="background-image: url('https://img.freepik.com/foto-gratis/placa-madre-cpu-computadora_23-2149369011.jpg'); background-size: cover;"></div>
+                    <span class="hw-label">EFICIENCIA BASE</span>
+                    <span class="hw-name">Nodo Ágil</span>
+                </a>
+                <a href="soluciones/hardware.html" class="hw-item" style="text-decoration:none; border-color: var(--accent);">
+                    <div class="hw-img" style="background-image: url('https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?q=80&w=800'); background-size: cover;"></div>
+                    <span class="hw-label">RENDIMIENTO PRO</span>
+                    <span class="hw-name">Estación de Autor</span>
+                </a>
+                <a href="soluciones/hardware.html" class="hw-item" style="text-decoration:none">
+                    <div class="hw-img" style="background-image: url('https://images.unsplash.com/photo-1625842268584-8f3bf9ff16a0?q=80&w=800'); background-size: cover;"></div>
+                    <span class="hw-label">POTENCIA EXTREMA</span>
+                    <span class="hw-name">Núcleo Soberano</span>
+                </a>
+            </div>
+            <a href="soluciones/hardware.html" style="margin-top: 30px; color: var(--accent); font-weight: 700; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 2px; text-decoration: none; border-bottom: 1px solid var(--accent); padding-bottom: 5px;">Detalles Técnicos y Precios</a>
+        </section>
+
+        <section id="bunker">
+            <h2 class="section-title">El Búnker</h2>
+            <p style="max-width: 600px; text-align: center; color: #888; line-height: 1.8; font-weight: 300;">Operamos a nivel nacional, blindando la inteligencia de las empresas españolas. Su talento es su mayor activo.</p>
+            <a href="soluciones/casos-uso.html" style="text-decoration: none; margin-top: 30px; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; border-bottom: 1px solid var(--accent); padding-bottom: 5px;">Ver Casos de Uso Reales</a>
+        </section>
+
+        <section id="contacto">
+            <h2 class="section-title">Hablemos</h2>
+            <div class="btn" onclick="openForm()">Empezar Auditoría</div>
+        </section>
+    </div>
+
+    <div id="scroll-arrow" onclick="nextSection()">
+        <svg viewBox="0 0 24 24"><path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+
+    <div id="form-overlay">
+        <div id="form-modal">
+            <span class="close-form" onclick="closeForm()">&times;</span>
+            <h2 style="font-family: 'Playfair Display', serif; color: #fff; margin-top: 0; text-align: center;">Diagnóstico</h2>
+            <div id="form-content">
+                <div class="input-group"><label>Nombre y Apellidos *</label><input type="text" id="name" placeholder="Su nombre" required></div>
+                <div class="input-group"><label>Email Corporativo *</label><input type="email" id="email" placeholder="email@empresa.com" required></div>
+                <div class="input-group"><label>Teléfono de Contacto *</label><input type="tel" id="phone" placeholder="+34 000 000 000" required></div>
+                <div class="btn form-btn" onclick="submitForm()">Enviar Solicitud Privada</div>
+            </div>
+            <div id="success-msg" style="display:none; text-align:center;">
+                <h3 style="color: var(--accent);">Recibido.</h3>
+                <div class="btn" onclick="location.reload()">Cerrar</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentIdx = 0; const totalSections = 5;
+        const wrapper = document.getElementById('smooth-wrapper');
+        const links = ['link-home', 'link-servicios', 'link-hardware', 'link-bunker', 'link-contacto'];
+        let isScrolling = false; let lastMove = Date.now();
+
+        function updateUI() {
+            wrapper.style.transform = `translateY(-${currentIdx * 100}vh)`;
+            links.forEach((id, i) => {
+                const el = document.getElementById(id);
+                if(el) el.classList.toggle('active', i === currentIdx);
+            });
+        }
+        function goToSection(idx) { currentIdx = idx; updateUI(); }
+        function nextSection() { currentIdx = (currentIdx + 1) % totalSections; updateUI(); }
+
+        const pupil = document.getElementById('pupil');
+        const socket = document.getElementById('eye-container');
+        window.addEventListener('mousemove', (e) => {
+            lastMove = Date.now();
+            const rect = socket.getBoundingClientRect();
+            const eyeX = rect.left + rect.width / 2;
+            const eyeY = rect.top + rect.height / 2;
+            const angle = Math.atan2(e.clientY - eyeY, e.clientX - eyeX);
+            const distance = Math.min(10, Math.hypot(e.clientX - eyeX, e.clientY - eyeY) / 40);
+            pupil.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+        });
+
+        function blink() { socket.classList.add('blink'); setTimeout(() => socket.classList.remove('blink'), 130); }
+        setInterval(() => {
+            const idleTime = Date.now() - lastMove;
+            if (idleTime > 5000) {
+                const randomX = (Math.random() - 0.5) * 15;
+                const randomY = (Math.random() - 0.5) * 10;
+                pupil.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                if (Math.random() > 0.6) blink();
+            } else if (Math.random() > 0.99) blink();
+        }, 1500);
+
+        window.addEventListener('wheel', (e) => {
+            if (isScrolling) return;
+            isScrolling = true;
+            if (e.deltaY > 0 && currentIdx < totalSections - 1) currentIdx++;
+            else if (e.deltaY < 0 && currentIdx > 0) currentIdx--;
+            updateUI();
+            setTimeout(() => { isScrolling = false; }, 1500);
+        });
+
+        let touchStart = 0;
+        window.addEventListener('touchstart', e => touchStart = e.touches[0].clientY);
+        window.addEventListener('touchend', e => {
+            let touchEnd = e.changedTouches[0].clientY;
+            if (touchStart - touchEnd > 50 && currentIdx < totalSections - 1) currentIdx++;
+            else if (touchEnd - touchStart > 50 && currentIdx > 0) currentIdx--;
+            updateUI();
+        });
+
+        function openForm() { document.getElementById('form-overlay').style.display = 'flex'; }
+        function closeForm() { document.getElementById('form-overlay').style.display = 'none'; }
+        function submitForm() {
+            document.getElementById('form-content').style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+        }
+        updateUI();
+    </script>
+</body>
+</html>
