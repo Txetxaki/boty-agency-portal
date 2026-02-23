@@ -23,7 +23,8 @@
         }
         .nav-brand { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.3rem; color: #fff; text-decoration: none; }
         .nav-links { display: flex; gap: 15px; }
-        .nav-links a { color: #666; text-decoration: none; font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 800; }
+        .nav-links a { color: #666; text-decoration: none; font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; font-weight: 800; transition: 0.3s; }
+        .nav-links a:hover { color: var(--accent); }
 
         /* CONTENEDOR MAESTRO DE SCROLL */
         #master-scroll {
@@ -35,7 +36,7 @@
         section {
             width: 100vw; height: 100vh;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            padding: 20px; position: relative; text-align: center; overflow: hidden;
+            padding: 40px 20px; position: relative; text-align: center; overflow: hidden;
         }
 
         /* HERO - EL ORBE REY */
@@ -47,26 +48,33 @@
 
         .tagline-hero { font-size: 0.7rem; letter-spacing: 10px; text-transform: uppercase; color: var(--accent); margin-top: 30px; font-weight: 800; opacity: 0.6; }
 
-        /* GRID INFORMATIVO COMPLETO */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; max-width: 1100px; margin-top: 30px; z-index: 10; }
-        .card { background: rgba(12,12,12,0.8); padding: 30px; border-radius: 25px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(20px); text-align: left; text-decoration: none; transition: 0.4s; }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .card h3 { color: var(--accent); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-weight: 800; }
-        .card p { color: #888; font-size: 0.85rem; line-height: 1.6; font-weight: 300; }
+        /* SECCIONES IMAGEN NANO BANANA */
+        .bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; opacity: 0.15; filter: grayscale(1) contrast(1.2); }
 
-        /* IMAGENES NANO BANANA */
-        .bg-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; object-fit: cover; opacity: 0.1; filter: grayscale(1); }
+        /* GRIDS DE INFORMACIÓN */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; width: 100%; max-width: 1100px; margin-top: 30px; z-index: 10; }
+        .card { background: rgba(12,12,12,0.85); padding: 40px 30px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(25px); text-align: left; text-decoration: none; transition: 0.4s; color: inherit; }
+        .card:hover { border-color: var(--accent); transform: translateY(-10px); background: rgba(0,255,204,0.02); }
+        .card h3 { color: var(--accent); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight: 800; }
+        .card p { color: #888; font-size: 0.95rem; line-height: 1.6; font-weight: 300; }
 
-        .btn { display: inline-block; margin-top: 30px; padding: 18px 45px; background: var(--accent); color: #000; border-radius: 50px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; font-size: 0.7rem; text-decoration: none; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 8vw, 4rem); font-style: italic; color: #fff; margin-bottom: 20px; }
 
-        footer { position: absolute; bottom: 20px; font-size: 0.6rem; color: #222; letter-spacing: 3px; }
+        .btn { display: inline-block; margin-top: 40px; padding: 22px 55px; background: var(--accent); color: #000; text-decoration: none; border-radius: 50px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; transition: 0.4s; }
+        .btn:hover { background: #fff; transform: scale(1.05); }
+
+        footer { position: absolute; bottom: 20px; font-size: 0.65rem; color: #222; letter-spacing: 4px; }
 
         @media (max-width: 600px) {
             .nav-links { display: none; }
-            .grid { grid-template-columns: 1fr; max-height: 60vh; overflow-y: auto; }
-            h1, .brand-avatar { font-size: 3rem; }
-            .boty-o { width: 60px; height: 60px; }
-            .pupil { width: 20px; height: 20px; }
+            .grid { grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
+            section { padding: 80px 20px 40px; }
+            .section-title { font-size: 2.2rem; }
+            .card { padding: 25px; }
+            .tagline-hero { letter-spacing: 6px; font-size: 0.6rem; }
+            .brand-avatar { font-size: 4rem; }
+            .boty-o { width: 70px; height: 70px; }
+            .pupil { width: 25px; height: 25px; }
         }
     </style>
 </head>
@@ -74,13 +82,15 @@
     <nav>
         <a href="#" class="nav-brand">bOty Agency</a>
         <div class="nav-links">
-            <a href="soluciones/bunkeres.html">Búnkeres</a>
-            <a href="soluciones/hardware.html">Hardware</a>
-            <a href="soluciones/casos-uso.html">Casos</a>
+            <a href="javascript:void(0)" onclick="goTo(1)">Estrategia</a>
+            <a href="javascript:void(0)" onclick="goTo(2)">Búnkeres</a>
+            <a href="javascript:void(0)" onclick="goTo(3)">Hardware</a>
+            <a href="javascript:void(0)" onclick="goTo(4)">Contacto</a>
         </div>
     </nav>
 
     <div id="master-scroll">
+        <!-- SECCIÓN 0: HERO -->
         <section id="hero">
             <div class="brand-avatar">
                 <span>B</span>
@@ -90,45 +100,79 @@
                 <span>ty</span>
             </div>
             <div class="tagline-hero">Soberanía Digital</div>
-            <p style="color: #444; margin-top: 20px; font-size: 0.6rem; letter-spacing: 3px;">DESLIZA PARA ENTRAR</p>
+            <p style="color: #444; margin-top: 30px; font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase;">Agencia Nacional de IA de Autor</p>
+            <div style="margin-top: 40px; color: #222; animation: bounce 2s infinite;">
+                <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 13l5 5 5-5M7 6l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
         </section>
 
-        <section id="info">
+        <!-- SECCIÓN 1: ESTRATEGIA / DIAGNÓSTICO -->
+        <section id="estrategia">
             <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000" class="bg-img">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-style: italic; margin-bottom: 20px;">Nuestra Forja.</h2>
+            <h2 class="section-title">La Estrategia.</h2>
             <div class="grid">
                 <a href="soluciones/diagnostico.html" class="card">
                     <h3>Diagnóstico</h3>
-                    <p>Auditoría de 48h para detectar ineficiencias críticas. El primer paso hacia la libertad operativa.</p>
+                    <p>Auditoría de 48h para detectar ineficiencias críticas. El primer paso quirúrgico hacia la liberación de su capital y tiempo.</p>
                 </a>
-                <a href="soluciones/bunkeres.html" class="card" style="border-color: var(--accent)">
-                    <h3>Búnkeres</h3>
-                    <p>Nodos de IA local. Sus datos son su mayor activo; los blindamos en su propia infraestructura.</p>
-                </a>
-                <a href="soluciones/hardware.html" class="card">
-                    <h3>Hardware</h3>
-                    <p>Desde Nodos Ágiles hasta Núcleos Soberanos. El motor físico de su inteligencia privada.</p>
+                <a href="soluciones/casos-uso.html" class="card">
+                    <h3>Casos de Uso</h3>
+                    <p>De gestorías a estudios creativos. Vea cómo la inteligencia integrada transforma negocios tradicionales en entidades soberanas.</p>
                 </a>
             </div>
         </section>
 
-        <section id="contacto">
+        <!-- SECCIÓN 2: BÚNKERES -->
+        <section id="bunkeres">
             <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000" class="bg-img">
-            <h2 style="font-family: 'Playfair Display', serif; font-size: 2.5rem; font-style: italic;">¿Damos el salto?</h2>
-            <p style="color: #666; margin: 15px 0;">Voz soberana: <br><strong style="color:var(--accent)">hola@boty.agency</strong></p>
-            <a href="mailto:hola@boty.agency" class="btn">Solicitar Auditoría</a>
-            <footer>BOTY AGENCY • CIUDAD REAL • MMXVI</footer>
+            <h2 class="section-title">Los Búnkeres.</h2>
+            <div class="grid">
+                <a href="soluciones/bunkeres.html" class="card" style="border-color: var(--accent)">
+                    <h3>Nodos Locales</h3>
+                    <p>Instalamos nodos de inteligencia local. Sus datos nunca salen de su propiedad; su soberanía es absoluta y blindada.</p>
+                </a>
+                <a href="soluciones/masterclass.html" class="card">
+                    <h3>Formación</h3>
+                    <p>Capacitación de élite para su equipo. Domine la integración de IA soberana antes que su competencia directa.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: HARDWARE -->
+        <section id="hardware">
+            <img src="https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2000" class="bg-img">
+            <h2 class="section-title">El Motor.</h2>
+            <div class="grid">
+                <a href="soluciones/hardware.html" class="card">
+                    <h3>Potencia Física</h3>
+                    <p>Desde Estaciones Ágiles (M4 Pro) hasta Núcleos Soberanos (Studio). El hardware que sustenta su autonomía.</p>
+                </a>
+                <a href="soluciones/diagnostico-eficiencia-ia-ciudad-real.html" class="card">
+                    <h3>Impacto Local</h3>
+                    <p>Especialización en el tejido empresarial nacional. Tecnología de vanguardia con sede en Ciudad Real.</p>
+                </a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: CONTACTO -->
+        <section id="contacto">
+            <h2 class="section-title">¿Damos el salto?</h2>
+            <p style="color: #666; margin-bottom: 20px; font-size: 1.1rem;">Voz oficial soberana:</p>
+            <a href="mailto:hola@boty.agency" style="color:var(--accent); text-decoration:none; font-size: 1.8rem; font-weight: 800; letter-spacing: 1px;">hola@boty.agency</a>
+            <a href="mailto:hola@boty.agency" class="btn">Solicitar Auditoría Privada</a>
+            <footer>BOTY AGENCY • SOBERANÍA DIGITAL • MMXVI</footer>
         </section>
     </div>
 
     <script>
-        let cur = 0; const tot = 3;
+        let cur = 0; const tot = 5;
         const master = document.getElementById('master-scroll');
         const pupil = document.getElementById('pupil');
         const orb = document.getElementById('orb');
         let lock = false;
 
         function update() { master.style.transform = `translateY(-${cur * 100}vh)`; }
+        function goTo(i) { cur = i; update(); }
 
         window.addEventListener('wheel', e => {
             if (lock) return; lock = true;
@@ -148,10 +192,12 @@
 
         document.addEventListener('mousemove', e => {
             const rect = orb.getBoundingClientRect();
-            const dx = e.clientX - (rect.left + rect.width / 2);
-            const dy = e.clientY - (rect.top + rect.height / 2);
+            const orbX = rect.left + rect.width / 2;
+            const orbY = rect.top + rect.height / 2;
+            const dx = e.clientX - orbX;
+            const dy = e.clientY - orbY;
             const dist = Math.hypot(dx, dy);
-            if (dist < 600) {
+            if (dist < 800) {
                 const angle = Math.atan2(dy, dx);
                 const pDist = Math.min(20, dist / 15);
                 pupil.style.transform = `translate(calc(-50% + ${Math.cos(angle) * pDist}px), calc(-50% + ${Math.sin(angle) * pDist}px))`;
