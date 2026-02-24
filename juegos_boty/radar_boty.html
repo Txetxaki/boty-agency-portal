@@ -2,103 +2,314 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Boty - Mando Nocturno ALL-IN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bunker Épico - Radar Boty v2.0</title>
     <style>
-        :root { --accent: #00ffcc; --secondary: #ff007a; --bg: #030303; --done: #444; --gold: #ffd700; }
-        body, html { 
-            margin: 0; padding: 0; width: 100%; height: 100%; 
-            background: var(--bg); overflow: hidden; 
-            font-family: 'Courier New', Courier, monospace; color: var(--accent); 
-        }
-        
-        #container { 
-            display: flex; flex-direction: column; 
-            height: 100vh; padding: 20px; box-sizing: border-box; 
-        }
-
-        h1 { 
-            font-size: 1.4rem; border-bottom: 2px solid var(--accent); 
-            padding-bottom: 5px; margin: 0 0 15px 0; 
-            color: var(--secondary); letter-spacing: 2px; text-align: center;
-        }
-        
-        #tasks-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 10px; 
-            flex-grow: 1;
+        :root {
+            --accent: #00f3ff;
+            --accent-glow: rgba(0, 243, 255, 0.5);
+            --bg: #050505;
+            --panel-bg: rgba(10, 15, 20, 0.8);
+            --node-active: #ffd700;
+            --node-done: #444;
+            --danger: #ff0055;
+            --font: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .task { 
-            padding: 8px 12px; 
-            border: 1px solid rgba(0, 255, 204, 0.2); 
-            background: rgba(0, 255, 204, 0.03);
-            display: flex; flex-direction: column; justify-content: center;
-            font-size: 0.85rem;
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            color: var(--accent);
+            font-family: var(--font);
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(0, 243, 255, 0.05) 0%, transparent 70%),
+                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 100%, 100% 2px, 3px 100%;
+        }
+
+        #canvas-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        #ui-layer {
             position: relative;
+            z-index: 10;
+            pointer-events: none;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 30px;
+            box-sizing: border-box;
         }
-        
-        .task.done { 
-            border-color: var(--done); 
-            opacity: 0.4;
-            background: transparent;
-        }
-        .task.done .name { text-decoration: line-through; color: var(--done); }
-        .task.done::after { content: " [OK]"; font-size: 0.7rem; color: var(--accent); position: absolute; right: 5px; top: 5px; }
 
-        .task.active { 
-            border-color: var(--gold); 
-            background: rgba(255, 215, 0, 0.05); 
-            animation: glow 1.5s infinite alternate;
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-left: 4px solid var(--accent);
+            padding-left: 20px;
         }
-        
-        .header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2px; }
-        .time { font-weight: bold; color: var(--secondary); font-size: 0.9rem; }
-        .name { font-weight: bold; color: var(--accent); }
-        .task.active .name { color: var(--gold); }
-        .desc { font-size: 0.75rem; color: #ccc; line-height: 1.1; margin-top: 3px; }
 
-        @keyframes glow { 
-            from { box-shadow: 0 0 5px rgba(255, 215, 0, 0.2); border-color: var(--gold); } 
-            to { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); border-color: #fff; } 
+        .system-status {
+            text-align: right;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
         }
-        
-        #footer { 
-            text-align: center; font-size: 0.7rem; opacity: 0.5; margin-top: 10px; 
-            border-top: 1px solid rgba(0, 255, 204, 0.1); padding-top: 5px;
-            color: var(--gold); font-weight: bold;
+
+        .glitch-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 0;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nodes-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 400px;
+            pointer-events: auto;
+        }
+
+        .node-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--accent);
+            padding: 15px;
+            width: 180px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+        }
+
+        .node-card:hover {
+            background: rgba(0, 243, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .node-card.active {
+            border-color: var(--node-active);
+            box-shadow: 0 0 15px var(--node-active);
+        }
+
+        .node-card.done {
+            opacity: 0.5;
+            filter: grayscale(1);
+        }
+
+        .node-time {
+            font-size: 0.7rem;
+            color: var(--node-active);
+            margin-bottom: 5px;
+        }
+
+        .node-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .terminal {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--accent);
+            padding: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            width: 500px;
+            height: 100px;
+            overflow-y: hidden;
+            pointer-events: auto;
+        }
+
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 20;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
+            opacity: 0.1;
+            position: absolute;
+            bottom: 100%;
+            animation: scanline 6s linear infinite;
+        }
+
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100px; }
+        }
+
+        #vitals {
+            display: flex;
+            gap: 20px;
+        }
+
+        .vital-box {
+            text-align: center;
+        }
+
+        .vital-val {
+            font-size: 1.2rem;
+            display: block;
+        }
+
+        .vital-label {
+            font-size: 0.5rem;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <h1>🌙 BOTY_AGENCY: ALL-IN DEPLOYMENT</h1>
-        <div id="tasks-grid"></div>
-        <div id="footer">STRATEGY: ALL-IN // STATUS: DEPLOYING // MISSION: CLOSE DEALS</div>
+    <div id="canvas-container"></div>
+    <div class="scanline"></div>
+    
+    <div id="ui-layer">
+        <header>
+            <div>
+                <h1 class="glitch-text">BUNKER_OS v1.0</h1>
+                <div style="font-size: 0.7rem; margin-top: 5px;">PHASE 1: ATTACK PLAN INITIATED</div>
+            </div>
+            <div class="system-status">
+                <div>CORE: STABLE</div>
+                <div id="clock">00:00:00</div>
+                <div style="color: var(--danger)">SECURITY: MAX</div>
+            </div>
+        </header>
+
+        <div class="nodes-container" id="node-grid">
+            <!-- Nodes injected by JS -->
+        </div>
+
+        <footer>
+            <div class="terminal" id="terminal-out">
+                > INITIALIZING RADAR...<br>
+                > LOADING SYSTEM NODES...<br>
+                > SYNCING WITH RASPBERRY PI 5...<br>
+                > READY.
+            </div>
+            <div id="vitals">
+                <div class="vital-box">
+                    <span class="vital-val" id="cpu-val">12%</span>
+                    <span class="vital-label">CPU LOAD</span>
+                </div>
+                <div class="vital-box">
+                    <span class="vital-val" id="mem-val">2.4GB</span>
+                    <span class="vital-label">MEM AVAIL</span>
+                </div>
+                <div class="vital-box">
+                    <span class="vital-val" style="color: var(--node-active)">ACTIVE</span>
+                    <span class="vital-label">PLAN STATUS</span>
+                </div>
+            </div>
+        </footer>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
+        // --- THREE.JS BACKGROUND ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        // Grid Background
+        const gridHelper = new THREE.GridHelper(100, 50, 0x00f3ff, 0x002222);
+        gridHelper.rotation.x = Math.PI / 2;
+        scene.add(gridHelper);
+
+        // Particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const count = 500;
+        const positions = new Float32Array(count * 3);
+        for(let i=0; i<count*3; i++) positions[i] = (Math.random() - 0.5) * 100;
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const particlesMaterial = new THREE.PointsMaterial({ color: 0x00f3ff, size: 0.1 });
+        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particles);
+
+        camera.position.z = 20;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            gridHelper.position.z += 0.05;
+            if (gridHelper.position.z > 2) gridHelper.position.z = 0;
+            particles.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // --- UI LOGIC ---
         const tasks = [
-            { t: "06:15", n: "ROI CALCULATOR", d: "Ajuste de variables (Ratio 20/80).", status: "done" },
-            { t: "06:45", n: "FINAL POLISH", d: "Latencia SNC y transiciones vídeo.", status: "done" },
-            { t: "07:15", n: "ALL-IN BRIEFING", d: "Estrategia de Cierre Agresivo.", status: "done" },
-            { t: "07:30", n: "ADKAR DEPLOY", d: "Inicio de prospección targets Solar/Arq.", status: "active" },
-            { t: "09:00", n: "FOLLOW-UP", d: "Gestión de primeras respuestas.", status: "pending" },
-            { t: "12:00", n: "PIPELINE REVIEW", d: "Ajuste de tácticas según feedback.", status: "pending" }
+            { t: "01:15", n: "RADAR EVOLVE", d: "Phase 1: Cinematic Node UI.", status: "active" },
+            { t: "07:15", n: "BUSINESS BRIEF", d: "High-End Asset Strategy.", status: "pending" },
+            { t: "07:30", n: "TARGET DEPLOY", d: "Energy / Architecture Sector.", status: "pending" },
+            { t: "08:30", n: "TROJAN HORSE", d: "Aggressive Leak Audit.", status: "pending" },
+            { t: "10:00", n: "VITAL PAUSE", d: "Health Protocol v3.", status: "pending" },
+            { t: "12:00", n: "ROI PIPELINE", d: "Metric Adjustment.", status: "pending" }
         ];
 
-        const container = document.getElementById('tasks-grid');
-        tasks.forEach((task) => {
-            const div = document.createElement('div');
-            div.className = 'task ' + (task.status || '');
-            div.innerHTML = `
-                <div class="header-row">
-                    <span class="name">${task.n}</span>
-                    <span class="time">${task.t}</span>
-                </div>
-                <div class="desc">${task.d}</div>
+        const grid = document.getElementById('node-grid');
+        tasks.forEach(task => {
+            const el = document.createElement('div');
+            el.className = `node-card ${task.status}`;
+            el.innerHTML = `
+                <div class="node-time">${task.t}</div>
+                <div class="node-title">${task.n}</div>
+                <div style="font-size: 0.6rem; opacity: 0.7;">${task.d}</div>
             `;
-            container.appendChild(div);
+            grid.appendChild(el);
+        });
+
+        // Real-time Updates
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toTimeString().split(' ')[0];
+            document.getElementById('cpu-val').innerText = (10 + Math.random() * 5).toFixed(1) + '%';
+        }, 1000);
+
+        // Terminal simulation
+        const term = document.getElementById('terminal-out');
+        const messages = [
+            "SCANNING NETWORK...",
+            "NODE 01: OPERATIONAL",
+            "SENSORS AT 100%",
+            "BUNKER SHIELD: ONLINE",
+            "PROTOCOL 'EPIC' ENGAGED"
+        ];
+        setInterval(() => {
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            term.innerHTML += `<br>> ${msg}`;
+            if (term.innerHTML.split('<br>').length > 5) {
+                term.innerHTML = term.innerHTML.split('<br>').slice(1).join('<br>');
+            }
+        }, 3000);
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         });
     </script>
 </body>

@@ -3,151 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boty Live - Sincronizado</title>
+<title>Boty Live - Conversación Real</title>
 <style>
-  :root { --bg: #000; --accent: #00ffcc; --dim: #1a1a1a; }
-  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--accent); display: flex; flex-direction: column; align-items: center; justify-content: flex-start; height: 100vh; margin: 0; padding-top: 5vh; }
+  :root { --bg: #000; --accent: #00ffcc; --dim: #003322; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--accent); display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; }
   
   #orb {
-    width: 120px; height: 120px; border-radius: 50%;
+    width: 200px; height: 200px; border-radius: 50%;
     background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
-    box-shadow: 0 0 30px var(--accent);
+    box-shadow: 0 0 50px var(--accent);
     transition: all 0.3s ease;
-    opacity: 0.5; cursor: pointer;
-  }
-  #orb.talking { animation: pulse 0.5s infinite alternate; opacity: 1; }
-  #orb.listening { animation: breathe 3s infinite ease-in-out; opacity: 0.8; }
-  
-  @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.1); } }
-  @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-
-  #status { margin-top: 20px; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase; opacity: 0.7; }
-  
-  #history-container {
-    width: 90%; max-width: 600px; margin-top: 30px;
-    height: 50vh; overflow-y: auto;
-    display: flex; flex-direction: column; gap: 15px;
-    padding: 10px; border-top: 1px solid #333;
+    opacity: 0.3;
+    cursor: pointer;
   }
   
-  .msg { padding: 12px; border-radius: 10px; max-width: 85%; line-height: 1.4; font-size: 0.95rem; }
-  .user { align-self: flex-end; background: #222; color: #fff; border-bottom-right-radius: 2px; }
-  .bot { align-self: flex-start; background: var(--dim); border: 1px solid var(--accent); border-bottom-left-radius: 2px; }
+  #orb.talking {
+    animation: pulse 0.5s infinite alternate;
+    opacity: 1;
+    transform: scale(1.1);
+  }
 
-  .controls { position: fixed; bottom: 20px; display: flex; gap: 10px; }
-  .btn { padding: 8px 15px; border: 1px solid var(--accent); background: transparent; color: var(--accent); cursor: pointer; border-radius: 4px; font-size: 0.7rem; }
+  #orb.listening {
+    opacity: 0.8;
+    box-shadow: 0 0 100px var(--accent);
+    animation: breathe 3s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    from { transform: scale(1.1); box-shadow: 0 0 50px var(--accent); }
+    to { transform: scale(1.3); box-shadow: 0 0 120px var(--accent); }
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.05); opacity: 0.8; }
+  }
+
+  #status { margin-top: 40px; font-size: 1rem; font-weight: bold; letter-spacing: 3px; text-transform: uppercase; }
+  #transcript { margin-top: 20px; font-style: italic; opacity: 0.5; max-width: 80%; text-align: center; font-size: 0.9rem; min-height: 1.2em; }
+  
+  .hint { position: fixed; bottom: 20px; font-size: 0.7rem; opacity: 0.3; }
 </style>
 </head>
 <body>
 
 <div id="orb"></div>
 <div id="status">TOCA PARA CONECTAR</div>
-
-<div id="history-container"></div>
-
-<div class="controls">
-  <button id="btn-stop" class="btn">Cállate</button>
-  <button id="btn-reset" class="btn">Reset</button>
-</div>
+<div id="transcript">Listo para la conversación</div>
+<div class="hint">Boty Core v3.3 | Proxy Hybrid Active</div>
 
 <script>
 const orb = document.getElementById('orb');
 const status = document.getElementById('status');
-const historyContainer = document.getElementById('history-container');
-const btnStop = document.getElementById('btn-stop');
+const transcript = document.getElementById('transcript');
 
 let isBotSpeaking = false;
-let currentAudio = null;
-let lastTimestamp = null;
 let recognition;
 
-// 1. SINCRONIZACIÓN: Polling para detectar cambios desde otros dispositivos
-async function pollHistory() {
-  try {
-    const resp = await fetch('voice_history.json?t=' + Date.now());
-    const history = await resp.json();
-    const lastEntry = history[history.length - 1];
-    
-    if (lastEntry && lastEntry.timestamp !== lastTimestamp) {
-      lastTimestamp = lastEntry.timestamp;
-      updateUI(history);
-      
-      // Si el último mensaje es del bot y no lo hemos dicho nosotros, es que viene de otro sitio
-      // Aquí podrías decidir si quieres que la pantalla TAMBIÉN hable, pero suele ser mejor solo mostrar texto
-    }
-  } catch (e) {}
-  setTimeout(pollHistory, 2000);
-}
-
-function updateUI(history) {
-  historyContainer.innerHTML = '';
-  history.forEach(entry => {
-    const uMsg = document.createElement('div');
-    uMsg.className = 'msg user';
-    uMsg.textContent = entry.user;
-    
-    const bMsg = document.createElement('div');
-    bMsg.className = 'msg bot';
-    bMsg.textContent = entry.bot;
-    
-    historyContainer.appendChild(uMsg);
-    historyContainer.appendChild(bMsg);
-  });
-  historyContainer.scrollTop = historyContainer.scrollHeight;
-}
-
-// 2. VOZ Y RECONOCIMIENTO
 if ('webkitSpeechRecognition' in window) {
   recognition = new webkitSpeechRecognition();
   recognition.continuous = true;
+  recognition.interimResults = false;
   recognition.lang = 'es-ES';
-  recognition.onstart = () => { if(!isBotSpeaking) { status.textContent = "TE ESCUCHO"; orb.className = 'listening'; } };
+
+  recognition.onstart = () => {
+    if (!isBotSpeaking) {
+      status.textContent = "TE ESCUCHO";
+      orb.className = 'listening';
+    }
+  };
+
   recognition.onresult = async (event) => {
     if (isBotSpeaking) return;
     const text = event.results[event.results.length - 1][0].transcript.trim();
     if (text.length < 2) return;
+    transcript.textContent = text;
     recognition.stop();
     await chatWithBoty(text);
   };
-  recognition.onend = () => { if(!isBotSpeaking) try { recognition.start(); } catch(e){} };
+
+  recognition.onend = () => {
+    if (!isBotSpeaking) {
+      try { recognition.start(); } catch(e) {}
+    }
+  };
 }
+
+document.body.addEventListener('click', () => {
+  try {
+    recognition.start();
+    status.textContent = "SISTEMA ACTIVO";
+  } catch(e) { console.log("Ya iniciado"); }
+}, { once: true });
 
 async function chatWithBoty(text) {
   isBotSpeaking = true;
   status.textContent = "PENSANDO...";
   orb.className = '';
+
   try {
+    // Usamos el Proxy de Python (puerto 8081) para evitar el bloqueo de CORS del Gateway
     const resp = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: text })
     });
+    
+    if (!resp.ok) throw new Error("Proxy error: " + resp.status);
+    
     const data = await resp.json();
+    // Si el proxy devuelve una respuesta real (no el placeholder), hablamos
     await speakWithEleven(data.reply);
-  } catch (e) { isBotSpeaking = false; recognition.start(); }
+
+  } catch (e) {
+    console.error("Error chat:", e);
+    status.textContent = "ERROR DE CONEXIÓN";
+    isBotSpeaking = false;
+    setTimeout(() => { if (!isBotSpeaking) recognition.start(); }, 2000);
+  }
 }
 
 async function speakWithEleven(text) {
-  const ELEVEN_API_KEY = 'b385183d5bb57ff319a70acc7bab37e34e5afa3f2b402a022859fc6bf76cdb9e';
-  const VOICE_ID = 'kcQkGnn0HAT2JRDQ4Ljp';
+  const ELEVEN_API_KEY = 'sk_339ff3d71baaa6ddd514251fdfec5766199378762ad5e200';
+  const VOICE_ID = 'pNInz6obpgDQGcFmaJgB';
+  
   try {
     const ttsResp = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${VOICE_ID}/stream`, {
       method: 'POST',
-      headers: { 'Accept': 'audio/mpeg', 'Content-Type': 'application/json', 'xi-api-key': ELEVEN_API_KEY },
-      body: JSON.stringify({ text: text, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.4, similarity_boost: 0.8 } })
+      headers: {
+        'Accept': 'audio/mpeg',
+        'Content-Type': 'application/json',
+        'xi-api-key': ELEVEN_API_KEY
+      },
+      body: JSON.stringify({
+        text: text,
+        model_id: 'eleven_multilingual_v2',
+        voice_settings: { stability: 0.4, similarity_boost: 0.8 }
+      })
     });
+
     const blob = await ttsResp.blob();
-    currentAudio = new Audio(URL.createObjectURL(blob));
-    currentAudio.onplay = () => { status.textContent = "HABLANDO..."; orb.className = 'talking'; };
-    currentAudio.onended = () => { isBotSpeaking = false; orb.className = 'listening'; status.textContent = "TE ESCUCHO"; recognition.start(); };
-    currentAudio.play();
-  } catch (e) { isBotSpeaking = false; recognition.start(); }
+    const audio = new Audio(URL.createObjectURL(blob));
+    
+    audio.onplay = () => {
+      status.textContent = "BOTY HABLANDO";
+      orb.className = 'talking';
+    };
+
+    audio.onended = () => {
+      isBotSpeaking = false;
+      orb.className = 'listening';
+      status.textContent = "TE ESCUCHO";
+      try { recognition.start(); } catch(e) {}
+    };
+
+    audio.play();
+
+  } catch (e) {
+    console.error("Error TTS:", e);
+    isBotSpeaking = false;
+    try { recognition.start(); } catch(e) {}
+  }
 }
-
-orb.onclick = () => { recognition.start(); pollHistory(); status.textContent = "SISTEMA ACTIVO"; };
-btnStop.onclick = () => { if(currentAudio) currentAudio.pause(); isBotSpeaking = false; recognition.start(); };
-document.getElementById('btn-reset').onclick = () => location.reload();
-
 </script>
 </body>
 </html>
