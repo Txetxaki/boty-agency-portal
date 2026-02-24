@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yogasadhana - Experiencia Inmersiva v4.2</title>
+    <title>Yogasadhana - Refugio Digital Ciudad Real</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.umd.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@100;400;900&display=swap');
         
         :root { --gold: #d4a373; --bg: #fdfbf7; }
-        body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; }
+        body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; scroll-behavior: smooth; }
         h1, h2, h3, .serif { font-family: 'Libre Baskerville', serif; }
 
         /* Smooth Scroll */
@@ -28,18 +29,14 @@
         /* Bento Animations */
         .bento-card { transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0; transform: translateY(40px); }
         .bento-card.reveal { opacity: 1; transform: translateY(0); }
-        .bento-card:hover { transform: scale(1.02); }
+        .bento-card:hover { transform: scale(1.01); }
 
         /* Magic Beam (Magic UI Inspired) */
         .beam-container { position: relative; overflow: hidden; }
         .beam-container:hover::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(from 0deg, transparent, var(--gold), transparent 30%); animation: rotate 4s linear infinite; z-index: 1; }
-        .beam-content { position: relative; z-index: 10; background: var(--bg); margin: 2px; border-radius: inherit; height: calc(100% - 4px); }
+        .beam-content { position: relative; z-index: 10; background: #fff; margin: 2px; border-radius: inherit; height: calc(100% - 4px); }
         
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* Floating Text Effect */
-        .float-text { animation: float 6s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 
         .tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); }
     </style>
@@ -50,46 +47,40 @@
         <div class="flex gap-8 text-[10px] font-bold uppercase tracking-[4px]">
             <a href="#practica" class="opacity-40 hover:opacity-100 transition-all">Práctica</a>
             <a href="#bienestar" class="opacity-40 hover:opacity-100 transition-all">Bienestar</a>
+            <a href="#horarios" class="opacity-40 hover:opacity-100 transition-all">Horarios</a>
             <a href="#contacto" class="px-4 py-2 bg-[#d4a373] text-white rounded-full">Reservar</a>
         </div>
     </nav>
 
-    <!-- HERO SECTION CON VIDEO -->
+    <!-- HERO SECTION -->
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
         <div class="video-container">
-            <!-- Video de meditación zen en loop -->
             <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=1920">
                 <source src="https://cdn.pixabay.com/vimeo/459582239/meditation-51781.mp4?width=1280&hash=8f8709e8666113e63412574e405e4d293f77b75b" type="video/mp4">
             </video>
         </div>
         <div class="relative z-10 text-center text-white">
-            <h1 class="text-7xl md:text-[10rem] font-black leading-none serif float-text" style="font-variation-settings: 'wght' 900;">
-                PAZ EN <br> <span class="italic font-normal text-[#d4a373]">TI MISMO</span>
-            </h1>
+            <h1 class="text-7xl md:text-[10rem] font-black leading-none serif">PAZ EN <br> <span class="italic font-normal text-[#d4a373]">TI MISMO</span></h1>
             <p class="mt-8 text-sm uppercase tracking-[15px] opacity-60">Ciudad Real • Yoga Sadhana</p>
-        </div>
-        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-30">
-            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 14l-7 7-7-7m14-8l-7 7-7-7"></path></svg>
         </div>
     </section>
 
-    <!-- SECCIÓN BENTO CON ANIMACIONES -->
     <div class="max-w-[1400px] mx-auto px-6 py-32 grid grid-cols-12 gap-8">
         
         <!-- Tarjeta Grande: La Práctica -->
-        <div class="bento-card col-span-12 lg:col-span-8 beam-container rounded-[50px]">
-            <div class="beam-content p-12 md:p-20 bg-white">
+        <div class="bento-card col-span-12 lg:col-span-8 beam-container rounded-[50px]" id="practica">
+            <div class="beam-content p-12 md:p-20">
                 <span class="tag">Disciplina</span>
                 <h2 class="text-5xl font-black serif mt-6 mb-8">La Práctica de Yoga</h2>
                 <p class="text-xl opacity-60 leading-relaxed italic mb-12">"Reconectar con tu cuerpo y sensaciones, con tu respiración, con tu mente-emoción, con tu Ser esencial… Donde disfrutar del silencio, de la quietud.."</p>
                 <div class="rounded-3xl overflow-hidden h-[400px]">
-                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover hover:scale-105 transition-transform duration-1000">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
 
         <!-- Tarjeta Lateral: Bienestar -->
-        <div class="bento-card col-span-12 lg:col-span-4 p-12 bg-[#F4F1EA] rounded-[50px] flex flex-col justify-between">
+        <div class="bento-card col-span-12 lg:col-span-4 p-12 bg-[#F4F1EA] rounded-[50px] flex flex-col justify-between" id="bienestar">
             <div>
                 <span class="tag">Sanación</span>
                 <h3 class="text-4xl font-black serif mt-6 mb-6">Bienestar <br> Natural</h3>
@@ -98,11 +89,11 @@
             <div class="rounded-3xl overflow-hidden h-[250px] mb-8">
                 <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
             </div>
-            <button class="w-full py-4 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-[#d4a373] transition-colors">Ver Terapias</button>
+            <button class="w-full py-4 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest">Ver Terapias</button>
         </div>
 
-        <!-- Podcast / Friday Section -->
-        <div class="bento-card col-span-12 p-12 bg-black text-white rounded-[50px] grid grid-cols-1 md:grid-cols-2 gap-12 items-center" id="viernes">
+        <!-- Sección Viernes -->
+        <div class="bento-card col-span-12 p-12 bg-black text-white rounded-[50px] grid grid-cols-1 md:grid-cols-2 gap-12 items-center" id="horarios">
             <div>
                 <span class="tag text-[#d4a373]">Encuentros</span>
                 <h3 class="text-4xl font-black serif mt-6 mb-6">Viernes de <br> Profundización</h3>
@@ -110,42 +101,59 @@
                     <p>Un espacio dedicado a ir más allá de la esterilla. Todos los viernes nos reunimos para cultivar la consciencia a través de tres pilares fundamentales:</p>
                     <ul class="list-disc ml-5 space-y-2">
                         <li><b>Meditación & Pranayama:</b> Silencio y control de la energía vital.</li>
-                        <li><b>Estudio del Bhagavad Gita:</b> Comprensión de los textos sagrados y su aplicación en la vida diaria.</li>
+                        <li><b>Estudio del Bhagavad Gita:</b> Comprensión de los textos sagrados.</li>
                         <li><b>Satsang:</b> Compartir la búsqueda de la verdad en comunidad.</li>
                     </ul>
+                    <p class="text-[#d4a373] font-bold">Horario: 17:30 - 19:30</p>
                 </div>
             </div>
             <div class="h-[400px] rounded-3xl overflow-hidden border border-white/10 relative">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
                 <img src="https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover opacity-60">
-                <div class="absolute bottom-8 left-8 z-20">
+                <div class="absolute bottom-8 left-8">
                     <div class="flex items-center gap-4 bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
                         <div class="w-10 h-10 bg-[#d4a373] rounded-full flex items-center justify-center">
                             <svg class="w-5 h-5 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"></path></svg>
                         </div>
-                        <div class="text-[10px] font-bold uppercase tracking-widest">Sadhana Audio Guide</div>
+                        <div class="text-[10px] font-bold uppercase tracking-widest text-white">Sadhana Audio Guide</div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Newsletter Section -->
+        <!-- SECCIÓN CONTACTO / MAPA -->
+        <div class="bento-card col-span-12 lg:col-span-12 p-12 bg-white rounded-[50px] border border-black/5" id="contacto">
+            <span class="tag">Ubicación</span>
+            <h3 class="text-4xl font-black serif mt-6 mb-12">Ciudad Real • Centro</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="rounded-3xl overflow-hidden h-[400px] bg-slate-100 flex flex-col items-center justify-center text-center p-12 border border-black/5">
+                    <div class="text-4xl mb-4">📍</div>
+                    <h4 class="font-bold text-xl mb-2">Calle Infantes 13</h4>
+                    <p class="opacity-40 text-xs uppercase tracking-widest mb-8">13002 Ciudad Real</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Calle+Infantes+13+Ciudad+Real" target="_blank" class="px-8 py-4 bg-black text-white rounded-full font-bold uppercase tracking-widest text-[10px]">Abrir en Maps</a>
+                </div>
+                <div class="space-y-8">
+                    <div class="p-8 bg-[#F4F1EA] rounded-3xl">
+                        <h5 class="tag text-xs mb-4">Contacto Directo</h5>
+                        <p class="text-2xl font-black serif italic">600 582 381</p>
+                        <p class="opacity-40 text-sm mt-2">info@yogasadhana.es</p>
+                    </div>
+                    <button class="w-full py-6 bg-[#d4a373] text-white rounded-3xl font-black uppercase tracking-[5px] hover:scale-[1.02] transition-transform">Reservar Primera Clase</button>
+                </div>
+            </div>
+        </div>
 
     </div>
 
     <footer class="py-32 bg-white text-center">
         <h2 class="text-7xl serif italic mb-8 opacity-20">Namasté</h2>
-        <div class="text-[10px] uppercase tracking-[10px] opacity-40">Yoga Sadhana • Ciudad Real • 2026</div>
+        <div class="text-[10px] uppercase tracking-[10px] opacity-40">Yogasadhana • Ciudad Real • 2026</div>
+        <div class="text-[8px] uppercase tracking-[5px] opacity-10 mt-4">Boty Agency • Ingeniería Soberana</div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // Smooth Scroll con Lenis
         const lenis = new Lenis();
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
-
-        // Reveal Animations
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
         }, { threshold: 0.1 });
