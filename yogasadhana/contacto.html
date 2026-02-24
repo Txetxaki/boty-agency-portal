@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto y Ubicación - Yogasadhana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@100;400;900&display=swap');
+        :root { --gold: #d4a373; --bg: #fdfbf7; }
+        body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
+        h1, h2, h3, .serif { font-family: 'Libre Baskerville', serif; }
+        .glass-nav { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); }
+    </style>
+</head>
+<body class="pt-32">
+    <nav class="fixed top-0 w-full z-[100] px-8 py-6 flex justify-between items-center glass-nav">
+        <div class="text-xl font-black tracking-tighter serif"><a href="index.html">YOGASADHANA</a></div>
+        <div class="flex gap-8 text-[10px] font-bold uppercase tracking-[4px]">
+            <a href="practica.html" class="opacity-40 hover:opacity-100 transition-all">Práctica</a>
+            <a href="bienestar.html" class="opacity-40 hover:opacity-100 transition-all">Bienestar</a>
+            <a href="horarios.html" class="opacity-40 hover:opacity-100 transition-all">Horarios</a>
+            <a href="contacto.html" class="text-black transition-all">Reservar</a>
+        </div>
+    </nav>
+
+    <div class="max-w-[1200px] mx-auto px-6 py-20">
+        <span class="tag">Conexión</span>
+        <h1 class="text-6xl font-black serif mt-6 mb-12 italic">Reserva tu Espacio</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+            <div>
+                <div class="p-12 bg-white rounded-[50px] border border-black/5 shadow-sm space-y-8">
+                    <div>
+                        <h4 class="tag text-xs mb-2">Ubicación</h4>
+                        <p class="text-xl font-bold">Calle Infantes 13, 13002 Ciudad Real</p>
+                    </div>
+                    <div>
+                        <h4 class="tag text-xs mb-2">Teléfono</h4>
+                        <p class="text-xl font-bold">600 582 381</p>
+                    </div>
+                    <div>
+                        <h4 class="tag text-xs mb-2">Email</h4>
+                        <p class="text-xl font-bold">info@yogasadhana.es</p>
+                    </div>
+                </div>
+            </div>
+            <form class="space-y-6">
+                <input type="text" placeholder="Tu Nombre" class="w-full bg-white border border-black/5 rounded-3xl p-6 outline-none focus:ring-1 focus:ring-gold transition-all">
+                <input type="email" placeholder="Email" class="w-full bg-white border border-black/5 rounded-3xl p-6 outline-none focus:ring-1 focus:ring-gold transition-all">
+                <textarea placeholder="¿Cómo podemos ayudarte?" rows="4" class="w-full bg-white border border-black/5 rounded-3xl p-6 outline-none focus:ring-1 focus:ring-gold transition-all"></textarea>
+                <button type="submit" class="w-full py-6 bg-black text-white rounded-3xl font-black uppercase tracking-[5px] hover:bg-gold transition-colors">Enviar Solicitud</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="py-32 bg-white text-center border-t border-black/5">
+        <h2 class="text-5xl serif italic mb-8 opacity-20">Namasté</h2>
+        <div class="text-[10px] uppercase tracking-[10px] opacity-40">Yogasadhana • Ciudad Real</div>
+    </footer>
+
+    <script>
+        const lenis = new Lenis();
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+    </script>
+</body>
+</html>

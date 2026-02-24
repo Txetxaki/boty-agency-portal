@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horarios y Agenda - Yogasadhana</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@100;400;900&display=swap');
+        :root { --gold: #d4a373; --bg: #fdfbf7; }
+        body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
+        h1, h2, h3, .serif { font-family: 'Libre Baskerville', serif; }
+        .glass-nav { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); }
+    </style>
+</head>
+<body class="pt-32">
+    <nav class="fixed top-0 w-full z-[100] px-8 py-6 flex justify-between items-center glass-nav">
+        <div class="text-xl font-black tracking-tighter serif"><a href="index.html">YOGASADHANA</a></div>
+        <div class="flex gap-8 text-[10px] font-bold uppercase tracking-[4px]">
+            <a href="practica.html" class="opacity-40 hover:opacity-100 transition-all">Práctica</a>
+            <a href="bienestar.html" class="opacity-40 hover:opacity-100 transition-all">Bienestar</a>
+            <a href="horarios.html" class="text-black transition-all">Horarios</a>
+            <a href="contacto.html" class="px-4 py-2 bg-[#d4a373] text-white rounded-full">Reservar</a>
+        </div>
+    </nav>
+
+    <div class="max-w-[1200px] mx-auto px-6 py-20">
+        <span class="tag">Planificación</span>
+        <h1 class="text-6xl font-black serif mt-6 mb-12 italic">Nuestros Horarios</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Mañanas -->
+            <div class="p-10 bg-white rounded-[40px] border border-black/5 shadow-sm">
+                <h4 class="font-bold text-xs uppercase tracking-widest mb-6 opacity-30">Sesiones Mañana</h4>
+                <ul class="space-y-4 text-sm font-bold">
+                    <li class="flex justify-between border-b border-black/5 pb-2"><span>Yoga Suave</span> <span>09:30</span></li>
+                    <li class="flex justify-between border-b border-black/5 pb-2"><span>Hatha Yoga</span> <span>11:00</span></li>
+                </ul>
+            </div>
+            <!-- Tardes -->
+            <div class="p-10 bg-white rounded-[40px] border border-black/5 shadow-sm">
+                <h4 class="font-bold text-xs uppercase tracking-widest mb-6 opacity-30">Sesiones Tarde</h4>
+                <ul class="space-y-4 text-sm font-bold">
+                    <li class="flex justify-between border-b border-black/5 pb-2"><span>Nivel I</span> <span>18:30</span></li>
+                    <li class="flex justify-between border-b border-black/5 pb-2"><span>Nivel II</span> <span>20:00</span></li>
+                </ul>
+            </div>
+            <!-- Viernes Especial -->
+            <div class="p-10 bg-black text-white rounded-[40px] shadow-xl lg:col-span-1">
+                <h4 class="font-bold text-xs uppercase tracking-widest mb-6 text-[#d4a373]">Viernes Especial</h4>
+                <p class="text-lg italic serif mb-6">Encuentros de Profundización y Satsang.</p>
+                <div class="bg-[#d4a373] text-black p-4 rounded-2xl text-center font-black">17:30 - 19:30</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-32 bg-white text-center border-t border-black/5">
+        <h2 class="text-5xl serif italic mb-8 opacity-20">Namasté</h2>
+        <div class="text-[10px] uppercase tracking-[10px] opacity-40">Yogasadhana • Ciudad Real</div>
+    </footer>
+
+    <script>
+        const lenis = new Lenis();
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+    </script>
+</body>
+</html>
