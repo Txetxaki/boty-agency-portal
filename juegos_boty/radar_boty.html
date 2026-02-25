@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bunker Épico - Radar Boty v2.0</title>
+    <title>Bunker Épico - Radar Boty v3.0 | CINEMATIC</title>
     <style>
         :root {
             --accent: #00f3ff;
-            --accent-glow: rgba(0, 243, 255, 0.5);
-            --bg: #050505;
-            --panel-bg: rgba(10, 15, 20, 0.8);
-            --node-active: #ffd700;
-            --node-done: #444;
-            --danger: #ff0055;
-            --font: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --accent-glow: rgba(0, 243, 255, 0.6);
+            --bg: #020205;
+            --panel-bg: rgba(5, 10, 15, 0.9);
+            --node-active: #00f3ff;
+            --node-pending: #1a3a4a;
+            --node-done: #0a1a20;
+            --danger: #ff2a6d;
+            --warning: #f2e307;
+            --font: 'Orbitron', 'Segoe UI', sans-serif;
+            --terminal-font: 'JetBrains Mono', 'Fira Code', monospace;
         }
 
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500&display=swap');
+
+        * { box-sizing: border-box; }
 
         body, html {
             margin: 0;
@@ -27,198 +32,304 @@
             color: var(--accent);
             font-family: var(--font);
             overflow: hidden;
-            background-image: 
-                radial-gradient(circle at 50% 50%, rgba(0, 243, 255, 0.05) 0%, transparent 70%),
-                linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-                linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            background-size: 100% 100%, 100% 2px, 3px 100%;
+        }
+
+        /* Overlay Effects */
+        #vignette {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.8) 100%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        #scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 6;
         }
 
         #canvas-container {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 1;
         }
 
-        #ui-layer {
+        #ui-wrapper {
             position: relative;
             z-index: 10;
-            pointer-events: none;
             height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 30px;
-            box-sizing: border-box;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            padding: 40px;
         }
 
+        /* Header Styling */
         header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-left: 4px solid var(--accent);
-            padding-left: 20px;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
         }
 
-        .system-status {
-            text-align: right;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-        }
-
-        .glitch-text {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin: 0;
-            text-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        .nodes-container {
+        .system-branding {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            max-width: 400px;
-            pointer-events: auto;
+            flex-direction: column;
         }
 
-        .node-card {
-            background: var(--panel-bg);
-            border: 1px solid var(--accent);
-            padding: 15px;
-            width: 180px;
-            transition: all 0.3s ease;
-            cursor: pointer;
+        .glitch-title {
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 5px;
+            margin: 0;
+            text-transform: uppercase;
             position: relative;
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+            text-shadow: 0 0 15px var(--accent-glow);
         }
 
-        .node-card:hover {
+        .glitch-title::after {
+            content: "BUNKER_OS v3.0";
+            position: absolute;
+            left: 2px;
+            text-shadow: -2px 0 var(--danger);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            20% { clip: rect(62px, 9999px, 42px, 0); }
+            40% { clip: rect(10px, 9999px, 80px, 0); }
+            60% { clip: rect(50px, 9999px, 30px, 0); }
+            80% { clip: rect(90px, 9999px, 10px, 0); }
+            100% { clip: rect(20px, 9999px, 70px, 0); }
+        }
+
+        .status-badge {
+            display: inline-block;
             background: rgba(0, 243, 255, 0.1);
-            transform: translateY(-5px);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        .node-card.active {
-            border-color: var(--node-active);
-            box-shadow: 0 0 15px var(--node-active);
-        }
-
-        .node-card.done {
-            opacity: 0.5;
-            filter: grayscale(1);
-        }
-
-        .node-time {
+            padding: 4px 12px;
+            border-left: 3px solid var(--accent);
             font-size: 0.7rem;
-            color: var(--node-active);
-            margin-bottom: 5px;
+            margin-top: 5px;
         }
 
-        .node-title {
-            font-size: 0.9rem;
-            font-weight: bold;
+        /* Nodes Grid */
+        .main-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        #node-network {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+            transform-style: preserve-3d;
+        }
+
+        .node-item {
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 25px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
+        }
+
+        .node-item::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .node-item:hover {
+            border-color: var(--accent);
+            transform: translateZ(30px) scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+            background: rgba(0, 243, 255, 0.05);
+        }
+
+        .node-item:hover::before { opacity: 1; }
+
+        .node-item.active {
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 40px var(--accent-glow);
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0%, 100% { border-color: var(--accent); }
+            50% { border-color: var(--warning); }
+        }
+
+        .node-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            opacity: 0.6;
+            margin-bottom: 15px;
+        }
+
+        .node-id { font-family: var(--terminal-font); }
+
+        .node-name {
+            font-size: 1.2rem;
+            font-weight: 700;
             margin-bottom: 10px;
+            letter-spacing: 1px;
         }
 
+        .node-desc {
+            font-size: 0.75rem;
+            line-height: 1.4;
+            opacity: 0.8;
+            font-family: var(--terminal-font);
+        }
+
+        .node-footer {
+            margin-top: 15px;
+            font-size: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .progress-bar {
+            flex-grow: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            position: absolute;
+            left: 0; top: 0; height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 1s;
+        }
+
+        /* Footer / Terminal */
         footer {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            font-size: 0.7rem;
-            opacity: 0.8;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 243, 255, 0.1);
         }
 
-        .terminal {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid var(--accent);
-            padding: 10px;
-            font-family: 'Courier New', Courier, monospace;
-            width: 500px;
-            height: 100px;
+        .terminal-container {
+            width: 60%;
+            height: 120px;
+            background: rgba(0,0,0,0.6);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            padding: 15px;
+            font-family: var(--terminal-font);
+            font-size: 0.8rem;
             overflow-y: hidden;
-            pointer-events: auto;
+            position: relative;
         }
 
-        .scanline {
-            width: 100%;
-            height: 100px;
-            z-index: 20;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(0, 0, 0, 0) 100%);
-            opacity: 0.1;
-            position: absolute;
-            bottom: 100%;
-            animation: scanline 6s linear infinite;
-        }
+        .terminal-line { margin-bottom: 4px; border-left: 2px solid transparent; padding-left: 10px; }
+        .terminal-line.sys { color: var(--warning); border-color: var(--warning); }
+        .terminal-line.info { color: var(--accent); border-color: var(--accent); }
 
-        @keyframes scanline {
-            0% { bottom: 100%; }
-            100% { bottom: -100px; }
-        }
-
-        #vitals {
+        .stats-panel {
             display: flex;
-            gap: 20px;
+            gap: 30px;
         }
 
-        .vital-box {
-            text-align: center;
+        .stat-item {
+            text-align: right;
         }
 
-        .vital-val {
-            font-size: 1.2rem;
-            display: block;
-        }
-
-        .vital-label {
+        .stat-label {
             font-size: 0.5rem;
-            text-transform: uppercase;
+            display: block;
+            opacity: 0.6;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Connection Lines */
+        .connector {
+            position: absolute;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            height: 1px;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 2;
         }
     </style>
 </head>
 <body>
     <div id="canvas-container"></div>
-    <div class="scanline"></div>
+    <div id="vignette"></div>
+    <div id="scanlines"></div>
     
-    <div id="ui-layer">
+    <div id="ui-wrapper">
         <header>
-            <div>
-                <h1 class="glitch-text">BUNKER_OS v1.0</h1>
-                <div style="font-size: 0.7rem; margin-top: 5px;">PHASE 1: ATTACK PLAN INITIATED</div>
+            <div class="system-branding">
+                <h1 class="glitch-title">BUNKER_OS</h1>
+                <div class="status-badge">STRATEGIC_COMMAND // RADAR_BOTY_V3 // ACTIVE</div>
             </div>
-            <div class="system-status">
-                <div>CORE: STABLE</div>
-                <div id="clock">00:00:00</div>
-                <div style="color: var(--danger)">SECURITY: MAX</div>
+            <div style="text-align: right;">
+                <div id="digital-clock" style="font-size: 1.8rem; font-weight: 700;">00:00:00</div>
+                <div style="font-size: 0.6rem; opacity: 0.7; letter-spacing: 3px;">WED FEB 25 2026</div>
+                <div id="latency" style="font-size: 0.6rem; color: #00ff00; margin-top: 5px;">SYNC_LATENCY: 12ms</div>
             </div>
         </header>
 
-        <div class="nodes-container" id="node-grid">
-            <!-- Nodes injected by JS -->
-        </div>
+        <main class="main-content">
+            <div id="node-network">
+                <!-- Nodes dynamically injected -->
+            </div>
+        </main>
 
         <footer>
-            <div class="terminal" id="terminal-out">
-                > INITIALIZING RADAR...<br>
-                > LOADING SYSTEM NODES...<br>
-                > SYNCING WITH RASPBERRY PI 5...<br>
-                > READY.
+            <div class="terminal-container" id="terminal">
+                <div class="terminal-line sys">> INITIALIZING PHASE 1: EVOLVE RADAR...</div>
+                <div class="terminal-line info">> ATTACHING NEURAL LINK TO RASPBERRY PI 5...</div>
+                <div class="terminal-line info">> LOADING KNOWLEDGE GRAPH ENTITIES...</div>
             </div>
-            <div id="vitals">
-                <div class="vital-box">
-                    <span class="vital-val" id="cpu-val">12%</span>
-                    <span class="vital-label">CPU LOAD</span>
+            <div class="stats-panel">
+                <div class="stat-item">
+                    <span class="stat-label">CPU_THROUGHPUT</span>
+                    <span class="stat-value" id="cpu-stat">--</span>
                 </div>
-                <div class="vital-box">
-                    <span class="vital-val" id="mem-val">2.4GB</span>
-                    <span class="vital-label">MEM AVAIL</span>
+                <div class="stat-item">
+                    <span class="stat-label">RAM_RESIDUAL</span>
+                    <span class="stat-value" id="ram-stat">--</span>
                 </div>
-                <div class="vital-box">
-                    <span class="vital-val" style="color: var(--node-active)">ACTIVE</span>
-                    <span class="vital-label">PLAN STATUS</span>
+                <div class="stat-item">
+                    <span class="stat-label">UPTIME</span>
+                    <span class="stat-value" id="uptime-stat">--</span>
                 </div>
             </div>
         </footer>
@@ -226,85 +337,121 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // --- THREE.JS BACKGROUND ---
-        const container = document.getElementById('canvas-container');
+        // --- DATA ---
+        const attackPlan = [
+            { id: "NODE_01", name: "RADAR_EVOLVE", desc: "Evolution of Boty Radar to Cinematic Node UI.", status: "active", progress: 85 },
+            { id: "NODE_02", name: "ASSET_STRATEGY", desc: "Define high-end visual assets for Bunker UI.", status: "pending", progress: 0 },
+            { id: "NODE_03", name: "TARGET_INTEL", desc: "Analyze Energy & Architecture sectors.", status: "pending", progress: 0 },
+            { id: "NODE_04", name: "LEAK_AUDIT", desc: "Security check: Verify all Trojan Horse vectors.", status: "pending", progress: 0 },
+            { id: "NODE_05", name: "HEALTH_V3", desc: "Syncing wearable diagnostics with Bunker.", status: "pending", progress: 0 },
+            { id: "NODE_06", name: "ROI_PIPELINE", desc: "Establish business conversion metrics.", status: "pending", progress: 0 }
+        ];
+
+        // --- BACKGROUND ENGINE (Three.js) ---
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        container.appendChild(renderer.domElement);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        // Grid Background
-        const gridHelper = new THREE.GridHelper(100, 50, 0x00f3ff, 0x002222);
-        gridHelper.rotation.x = Math.PI / 2;
+        // Cyber Grid
+        const gridSize = 100;
+        const gridDivisions = 40;
+        const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x00f3ff, 0x001122);
+        gridHelper.position.y = -5;
         scene.add(gridHelper);
 
-        // Particles
-        const particlesGeometry = new THREE.BufferGeometry();
-        const count = 500;
-        const positions = new Float32Array(count * 3);
-        for(let i=0; i<count*3; i++) positions[i] = (Math.random() - 0.5) * 100;
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        const particlesMaterial = new THREE.PointsMaterial({ color: 0x00f3ff, size: 0.1 });
-        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particles);
+        // Floating Data Nodes (Background)
+        const geometry = new THREE.SphereGeometry(0.05, 8, 8);
+        const material = new THREE.MeshBasicMaterial({ color: 0x00f3ff });
+        const nodes_bg = new THREE.Group();
+        for(let i=0; i<200; i++) {
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.set(Math.random()*100-50, Math.random()*50-10, Math.random()*100-50);
+            nodes_bg.add(mesh);
+        }
+        scene.add(nodes_bg);
 
-        camera.position.z = 20;
+        camera.position.set(0, 5, 20);
+        camera.lookAt(0, 0, 0);
 
         function animate() {
             requestAnimationFrame(animate);
-            gridHelper.position.z += 0.05;
-            if (gridHelper.position.z > 2) gridHelper.position.z = 0;
-            particles.rotation.y += 0.001;
+            gridHelper.position.z += 0.1;
+            if (gridHelper.position.z > (gridSize/gridDivisions)) gridHelper.position.z = 0;
+            nodes_bg.rotation.y += 0.0005;
             renderer.render(scene, camera);
         }
         animate();
 
-        // --- UI LOGIC ---
-        const tasks = [
-            { t: "01:15", n: "RADAR EVOLVE", d: "Phase 1: Cinematic Node UI.", status: "active" },
-            { t: "07:15", n: "BUSINESS BRIEF", d: "High-End Asset Strategy.", status: "pending" },
-            { t: "07:30", n: "TARGET DEPLOY", d: "Energy / Architecture Sector.", status: "pending" },
-            { t: "08:30", n: "TROJAN HORSE", d: "Aggressive Leak Audit.", status: "pending" },
-            { t: "10:00", n: "VITAL PAUSE", d: "Health Protocol v3.", status: "pending" },
-            { t: "12:00", n: "ROI PIPELINE", d: "Metric Adjustment.", status: "pending" }
-        ];
+        // --- UI ENGINE ---
+        const network = document.getElementById('node-network');
+        
+        function renderNodes() {
+            network.innerHTML = '';
+            attackPlan.forEach((node, index) => {
+                const el = document.createElement('div');
+                el.className = `node-item ${node.status}`;
+                el.style.animationDelay = `${index * 0.1}s`;
+                el.innerHTML = `
+                    <div class="node-header">
+                        <span class="node-id">${node.id}</span>
+                        <span style="color: ${node.status === 'active' ? 'var(--warning)' : 'var(--accent)'}">${node.status.toUpperCase()}</span>
+                    </div>
+                    <div>
+                        <div class="node-name">${node.name}</div>
+                        <div class="node-desc">${node.desc}</div>
+                    </div>
+                    <div class="node-footer">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${node.progress}%"></div>
+                        </div>
+                        <span>${node.progress}%</span>
+                    </div>
+                `;
+                network.appendChild(el);
+            });
+        }
 
-        const grid = document.getElementById('node-grid');
-        tasks.forEach(task => {
-            const el = document.createElement('div');
-            el.className = `node-card ${task.status}`;
-            el.innerHTML = `
-                <div class="node-time">${task.t}</div>
-                <div class="node-title">${task.n}</div>
-                <div style="font-size: 0.6rem; opacity: 0.7;">${task.d}</div>
-            `;
-            grid.appendChild(el);
-        });
-
-        // Real-time Updates
-        setInterval(() => {
+        // Stats & Clock
+        let startTime = Date.now();
+        function updateStats() {
             const now = new Date();
-            document.getElementById('clock').innerText = now.toTimeString().split(' ')[0];
-            document.getElementById('cpu-val').innerText = (10 + Math.random() * 5).toFixed(1) + '%';
-        }, 1000);
+            document.getElementById('digital-clock').innerText = now.toTimeString().split(' ')[0];
+            
+            document.getElementById('cpu-stat').innerText = (15 + Math.random() * 8).toFixed(1) + '%';
+            document.getElementById('ram-stat').innerText = (2.1 + Math.random() * 0.4).toFixed(1) + 'GB';
+            
+            const diff = Math.floor((Date.now() - startTime) / 1000);
+            const m = Math.floor(diff / 60);
+            const s = diff % 60;
+            document.getElementById('uptime-stat').innerText = `${m}M ${s}S`;
+        }
 
-        // Terminal simulation
-        const term = document.getElementById('terminal-out');
-        const messages = [
-            "SCANNING NETWORK...",
-            "NODE 01: OPERATIONAL",
-            "SENSORS AT 100%",
-            "BUNKER SHIELD: ONLINE",
-            "PROTOCOL 'EPIC' ENGAGED"
+        // Terminal
+        const term = document.getElementById('terminal');
+        const logs = [
+            "MONITORING TRAFFIC FROM EXTERNAL MCP...",
+            "ENERGY SECTOR DATASET LOADED.",
+            "BUNKER_OS FIREWALL AT 99.9%",
+            "PREPARING PHASE 2: ASSET DESIGN.",
+            "SYNCING WITH KNOWLEDGE_GRAPH_V2...",
+            "HEARTBEAT_OK",
+            "WARNING: HIGH CREATIVITY LOAD DETECTED."
         ];
-        setInterval(() => {
-            const msg = messages[Math.floor(Math.random() * messages.length)];
-            term.innerHTML += `<br>> ${msg}`;
-            if (term.innerHTML.split('<br>').length > 5) {
-                term.innerHTML = term.innerHTML.split('<br>').slice(1).join('<br>');
-            }
-        }, 3000);
+
+        function addLog() {
+            const line = document.createElement('div');
+            line.className = 'terminal-line info';
+            line.innerText = `> ${logs[Math.floor(Math.random() * logs.length)]}`;
+            term.appendChild(line);
+            if (term.children.length > 5) term.removeChild(term.firstChild);
+        }
+
+        // Init
+        renderNodes();
+        setInterval(updateStats, 1000);
+        setInterval(addLog, 4000);
 
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
