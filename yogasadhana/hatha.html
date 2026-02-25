@@ -19,19 +19,34 @@
     </style>
 </head>
 <body>
-    <nav class="fixed w-full z-[100] px-8 py-6 flex justify-between items-center glass-nav">
+    
+    <nav class="fixed top-0 w-full z-[100] px-6 py-4 md:px-12 md:py-6 flex justify-between items-center glass-nav">
         <div class="text-xl font-black tracking-tighter serif"><a href="index.html">YOGASADHANA</a></div>
-        <div class="flex gap-4 md:gap-8 text-[9px] font-bold uppercase tracking-[2px] md:tracking-[4px] items-center">
-            <a href="hatha.html" class="hover:text-[#d4a373] transition-all">Hatha</a>
-            <a href="unnata.html" class="hover:text-[#d4a373] transition-all">Unnata</a>
-            <a href="suave.html" class="hover:text-[#d4a373] transition-all">Suave</a>
-            <a href="yin.html" class="hover:text-[#d4a373] transition-all">Yin</a>
-            <a href="lomi.html" class="hover:text-[#d4a373] transition-all">Lomi</a>
-            <a href="osteopatia.html" class="hover:text-[#d4a373] transition-all">Osteo</a>
-            <a href="quiromasaje.html" class="hover:text-[#d4a373] transition-all">Quiró</a>
-            <a href="https://wa.me/34600582381" class="hidden md:block px-4 py-2 bg-[#d4a373] text-white rounded-full">Reservar</a>
+        
+        <!-- Botón Menú Móvil -->
+        <button id="menu-toggle" class="md:hidden text-black p-2 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+
+        <!-- Menú Desktop -->
+        <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[4px]">
+            <a href="practica.html" class="opacity-40 hover:opacity-100 transition-all">Práctica</a>
+            <a href="bienestar.html" class="opacity-40 hover:opacity-100 transition-all">Bienestar</a>
+            <a href="horarios.html" class="opacity-40 hover:opacity-100 transition-all">Horarios</a>
+            <a href="equipo.html" class="opacity-40 hover:opacity-100 transition-all">Equipo</a>
+            <a href="contacto.html" class="px-4 py-2 bg-[#d4a373] text-white rounded-full hover:bg-black transition-colors">Reservar</a>
+        </div>
+
+        <!-- Menú Móvil (Oculto por defecto) -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#fdfbf7]/98 backdrop-blur-2xl border-b border-black/5 p-12 flex flex-col gap-8 text-center text-[12px] font-bold uppercase tracking-[6px] shadow-2xl md:hidden">
+            <a href="practica.html" class="opacity-60 hover:opacity-100">Práctica</a>
+            <a href="bienestar.html" class="opacity-60 hover:opacity-100">Bienestar</a>
+            <a href="horarios.html" class="opacity-60 hover:opacity-100">Horarios</a>
+            <a href="equipo.html" class="opacity-60 hover:opacity-100">Equipo</a>
+            <a href="contacto.html" class="py-4 bg-[#d4a373] text-white rounded-2xl shadow-lg">Reservar</a>
         </div>
     </nav>
+
 
     <section class="relative h-[60vh] flex items-center justify-center overflow-hidden hero-bg">
         <div class="relative z-10 text-center text-white">
@@ -82,6 +97,21 @@
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.bento-card').forEach(el => observer.observe(el));
+    </script>
+
+    <script>
+        // Toggle Menú Móvil
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Cerrar menú al hacer click en un enlace
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
     </script>
 </body>
 </html>

@@ -16,15 +16,34 @@
     </style>
 </head>
 <body class="pt-32">
-    <nav class="fixed top-0 w-full z-[100] px-8 py-6 flex justify-between items-center glass-nav">
+    
+    <nav class="fixed top-0 w-full z-[100] px-6 py-4 md:px-12 md:py-6 flex justify-between items-center glass-nav">
         <div class="text-xl font-black tracking-tighter serif"><a href="index.html">YOGASADHANA</a></div>
-        <div class="flex gap-8 text-[10px] font-bold uppercase tracking-[4px]">
-            <a href="practica.html" class="text-black transition-all">Práctica</a>
+        
+        <!-- Botón Menú Móvil -->
+        <button id="menu-toggle" class="md:hidden text-black p-2 focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+
+        <!-- Menú Desktop -->
+        <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[4px]">
+            <a href="practica.html" class="opacity-40 hover:opacity-100 transition-all">Práctica</a>
             <a href="bienestar.html" class="opacity-40 hover:opacity-100 transition-all">Bienestar</a>
             <a href="horarios.html" class="opacity-40 hover:opacity-100 transition-all">Horarios</a>
-            <a href="contacto.html" class="px-4 py-2 bg-[#d4a373] text-white rounded-full">Reservar</a>
+            <a href="equipo.html" class="opacity-40 hover:opacity-100 transition-all">Equipo</a>
+            <a href="contacto.html" class="px-4 py-2 bg-[#d4a373] text-white rounded-full hover:bg-black transition-colors">Reservar</a>
+        </div>
+
+        <!-- Menú Móvil (Oculto por defecto) -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-[#fdfbf7]/98 backdrop-blur-2xl border-b border-black/5 p-12 flex flex-col gap-8 text-center text-[12px] font-bold uppercase tracking-[6px] shadow-2xl md:hidden">
+            <a href="practica.html" class="opacity-60 hover:opacity-100">Práctica</a>
+            <a href="bienestar.html" class="opacity-60 hover:opacity-100">Bienestar</a>
+            <a href="horarios.html" class="opacity-60 hover:opacity-100">Horarios</a>
+            <a href="equipo.html" class="opacity-60 hover:opacity-100">Equipo</a>
+            <a href="contacto.html" class="py-4 bg-[#d4a373] text-white rounded-2xl shadow-lg">Reservar</a>
         </div>
     </nav>
+
 
     <div class="max-w-[1200px] mx-auto px-6 py-20">
         <span class="tag">Disciplina</span>
@@ -51,6 +70,21 @@
         const lenis = new Lenis();
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
+    </script>
+
+    <script>
+        // Toggle Menú Móvil
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Cerrar menú al hacer click en un enlace
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+        }
     </script>
 </body>
 </html>
