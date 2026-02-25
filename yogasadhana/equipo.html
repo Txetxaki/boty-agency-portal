@@ -3,185 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipo Yogasadhana - Alma y Presencia</title>
+    <title>Equipo Yogasadhana - Maestros de la Consciencia</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@100;400;700;900&display=swap');
         :root { --gold: #d4a373; --bg: #fdfbf7; }
         body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
         h1, h2, h3, .serif { font-family: 'Libre Baskerville', serif; }
+        
         .glass-nav { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
         
-        .swiper { width: 100%; height: 80vh; padding-top: 50px; padding-bottom: 50px; }
-        .swiper-slide { background-position: center; background-size: cover; width: 400px; height: 600px; border-radius: 40px; overflow: hidden; filter: grayscale(100%); transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1); border: 1px solid rgba(0,0,0,0.05); }
-        .swiper-slide-active { filter: grayscale(0%); transform: scale(1.05); box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+        .section-container { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
+        .team-image-wrapper { width: 50%; height: 80vh; border-radius: 40px; overflow: hidden; position: relative; }
+        .team-image { width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); }
+        .team-info { width: 40%; padding: 4rem; opacity: 0; transform: translateY(50px); }
         
-        .member-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); color: white; transform: translateY(20px); opacity: 0; transition: 0.5s 0.2s; }
-        .swiper-slide-active .member-info { transform: translateY(0); opacity: 1; }
-        
+        .bg-text { position: absolute; font-size: 20vw; font-weight: 900; opacity: 0.03; z-index: -1; white-space: nowrap; pointer-events: none; }
+
         .tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
     </style>
 </head>
-<body class="pt-32">
-    
-    
-    
+<body>
+    <!-- Navbar Responsive -->
     <nav class="fixed top-0 w-full z-[100] px-6 py-4 md:px-12 md:py-6 flex justify-between items-center glass-nav">
         <div class="text-xl font-black tracking-tighter serif"><a href="index.html">YOGASADHANA</a></div>
-        
         <button id="menu-toggle" class="md:hidden text-black p-2 focus:outline-none z-[110]">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
-
         <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[4px]">
             <a href="practica.html" class="opacity-40 hover:opacity-100 transition-all">Práctica</a>
             <a href="bienestar.html" class="opacity-40 hover:opacity-100 transition-all">Bienestar</a>
-            <a href="horarios.html" class="opacity-40 hover:opacity-100 transition-all">Horarios</a>
-            <a href="equipo.html" class="opacity-40 hover:opacity-100 transition-all">Equipo</a>
-            <a href="contacto.html" class="px-4 py-2 bg-[#d4a373] text-white rounded-full hover:bg-black transition-colors">Reservar</a>
+            <a href="horarios.html" class="opacity-40 hover:opacity-100 transition-all border-b border-gold pb-1">Horarios</a>
+            <a href="contacto.html" class="px-4 py-2 bg-[#d4a373] text-white rounded-full hover:bg-black transition-all">Reservar</a>
         </div>
-
-        <div id="mobile-menu" class="hidden fixed inset-0 z-[105] bg-[#fdfbf7] flex flex-col items-center justify-center gap-10 text-center text-[14px] font-black uppercase tracking-[8px] shadow-2xl md:hidden">
-            <a href="index.html" class="opacity-80">Inicio</a>
-            <a href="practica.html" class="opacity-80">Práctica</a>
-            <a href="bienestar.html" class="opacity-80">Bienestar</a>
-            <a href="horarios.html" class="opacity-80 font-bold text-[#d4a373]">Horarios</a>
-            <a href="equipo.html" class="opacity-80">Equipo</a>
-            <a href="contacto.html" class="px-10 py-4 bg-[#d4a373] text-white rounded-2xl shadow-lg">Reservar</a>
-            <button id="menu-close" class="mt-10 text-[10px] opacity-30 border border-black/10 px-6 py-2 rounded-full">Cerrar</button>
+        <div id="mobile-menu" class="hidden fixed inset-0 z-[105] bg-[#fdfbf7] flex flex-col items-center justify-center gap-10 text-center text-[14px] font-black uppercase tracking-[8px] md:hidden">
+            <a href="index.html">Inicio</a>
+            <a href="practica.html">Práctica</a>
+            <a href="bienestar.html">Bienestar</a>
+            <a href="horarios.html">Horarios</a>
+            <a href="contacto.html" class="px-10 py-4 bg-[#d4a373] text-white rounded-2xl">Reservar</a>
         </div>
     </nav>
 
-
-
-
-    <div class="max-w-[1400px] mx-auto px-6 text-center">
-        <span class="tag">Presencia</span>
-        <h1 class="text-7xl font-black serif mt-4 mb-8 italic">El Alma del Centro</h1>
-        <p class="max-w-2xl mx-auto opacity-50 leading-relaxed mb-20 text-pretty italic">"Más de 20 años de enseñanza, servicio y transformación profunda. Un equipo dedicado a acompañarte en tu camino de vuelta a casa."</p>
-
-        <!-- SWIPER CAROUSEL DE EQUIPO -->
-        <div class="swiper teamSwiper">
-            <div class="swiper-wrapper">
-                
-                <!-- PABLO -->
-                <div class="swiper-slide" style="background-image: url('https://static.wixstatic.com/media/d41d8c_9d83e082e24911fffbec39776044bd7f.jpg');">
-                    <div class="member-info text-left">
-                        <div class="text-xs font-bold uppercase tracking-widest text-[#d4a373] mb-2">Co-Fundador</div>
-                        <h3 class="text-3xl font-black serif mb-4">Pablo Soldevila</h3>
-                        <p class="text-[10px] opacity-70 leading-relaxed line-clamp-3">Profesor de Yoga, Osteópata y experto en Ayurveda. Transformado por la India, dedicado al servicio desde 2003.</p>
-                    </div>
-                </div>
-
-                <!-- PAOLA -->
-                <div class="swiper-slide" style="background-image: url('https://static.wixstatic.com/media/d41d8c_1bb692f6f1922603a52850b288b6618a.jpg');">
-                    <div class="member-info text-left">
-                        <div class="text-xs font-bold uppercase tracking-widest text-[#d4a373] mb-2">Profesora Senior</div>
-                        <h3 class="text-3xl font-black serif mb-4">Paola Camerone</h3>
-                        <p class="text-[10px] opacity-70 leading-relaxed line-clamp-3">Acupuntora y experta en MTC. Especialista en Rocket, Fly y Yin Yoga. Alma viajera conectada con el universo.</p>
-                    </div>
-                </div>
-
-                <!-- CLAUDIO -->
-                <div class="swiper-slide" style="background-image: url('https://static.wixstatic.com/media/d41d8c_963846ca846e51d252e55e41f48e5d5a.jpg');">
-                    <div class="member-info text-left">
-                        <div class="text-xs font-bold uppercase tracking-widest text-[#d4a373] mb-2">Profesor</div>
-                        <h3 class="text-3xl font-black serif mb-4">Claudio Finque</h3>
-                        <p class="text-[10px] opacity-70 leading-relaxed line-clamp-3">Hatha y Vinyasa Yoga. Encontró en Yogasadhana su refugio y templo de transformación personal.</p>
-                    </div>
-                </div>
-
+    <!-- PABLO -->
+    <section class="section-container team-section" id="pablo">
+        <div class="bg-text serif italic">PABLO</div>
+        <div class="flex flex-col md:flex-row items-center justify-between w-full max-w-[1400px] px-6">
+            <div class="team-image-wrapper shadow-2xl">
+                <img src="https://static.wixstatic.com/media/d41d8c_9d83e082e24911fffbec39776044bd7f.jpg" class="team-image" alt="Pablo Soldevila">
             </div>
-            <!-- Pagination/Navigation -->
-            <div class="swiper-pagination mt-10"></div>
-        </div>
-    </div>
-
-    <div class="max-w-[1000px] mx-auto px-6 py-32">
-        <div class="p-16 bg-white rounded-[60px] border border-black/5 shadow-sm text-center">
-            <h2 class="text-4xl font-black serif italic mb-8">Nuestra Filosofía</h2>
-            <p class="text-lg opacity-60 leading-relaxed italic">"Compartir con vosotros este camino de realización, a través de la tradición yóguica, sanación ancestral y una visión pacífica de la existencia."</p>
-            <div class="mt-12 flex justify-center gap-4">
-                <div class="w-12 h-px bg-gold self-center"></div>
-                <span class="serif italic text-gold">Desde 2003</span>
-                <div class="w-12 h-px bg-gold self-center"></div>
+            <div class="team-info">
+                <span class="tag">Co-Fundador</span>
+                <h2 class="text-6xl font-black serif mt-4 mb-8">Pablo Soldevila</h2>
+                <div class="prose opacity-70 text-lg leading-relaxed space-y-6">
+                    <p>En 2003 comienza su camino en el Quiromasaje y la Osteopatía, atendiendo a una vocación de servicio que surge desde la infancia.</p>
+                    <p>Formado en la India (Vrindavan) en Yoga Tradicional, Pablo integra el Ayurveda y la sanación estructural para ofrecer una guía completa hacia el equilibrio profundo.</p>
+                    <div class="pt-8 flex gap-4">
+                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Osteopatía</span>
+                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Hatha Yoga</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <footer class="py-32 bg-white text-center border-t border-black/5">
-        <h2 class="text-7xl serif italic mb-8 opacity-20">Namasté</h2>
+    <!-- PAOLA -->
+    <section class="section-container team-section" id="paola">
+        <div class="bg-text serif italic" style="right: 5%;">PAOLA</div>
+        <div class="flex flex-col md:flex-row-reverse items-center justify-between w-full max-w-[1400px] px-6">
+            <div class="team-image-wrapper shadow-2xl">
+                <img src="https://static.wixstatic.com/media/d41d8c_1bb692f6f1922603a52850b288b6618a.jpg" class="team-image" alt="Paola Camerone">
+            </div>
+            <div class="team-info">
+                <span class="tag">Profesora Senior</span>
+                <h2 class="text-6xl font-black serif mt-4 mb-8">Paola Camerone</h2>
+                <div class="prose opacity-70 text-lg leading-relaxed space-y-6">
+                    <p>Licenciada en Química y experta en MTC, Paola fusiona la ciencia con la sabiduría oriental. Formada en Rishikesh (India), su práctica es un viaje de conexión cósmica.</p>
+                    <p>Especialista en Fly Yoga, Rocket y Yin Yoga, Paola aporta una visión vibrante y técnica a cada sesión de Yogasadhana.</p>
+                    <div class="pt-8 flex gap-4">
+                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Acupuntura</span>
+                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Vinyasa</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLAUDIO -->
+    <section class="section-container team-section" id="claudio">
+        <div class="bg-text serif italic">CLAUDIO</div>
+        <div class="flex flex-col md:flex-row items-center justify-between w-full max-w-[1400px] px-6">
+            <div class="team-image-wrapper shadow-2xl">
+                <img src="https://static.wixstatic.com/media/d41d8c_963846ca846e51d252e55e41f48e5d5a.jpg" class="team-image" alt="Claudio Finque">
+            </div>
+            <div class="team-info">
+                <span class="tag">Profesor de Yoga</span>
+                <h2 class="text-6xl font-black serif mt-4 mb-8">Claudio Finque</h2>
+                <div class="prose opacity-70 text-lg leading-relaxed space-y-6">
+                    <p>Nacido en Ciudad Real, Claudio encontró en el yoga su templo de transformación en 2016. Desde entonces, su vida ha sido un camino de escucha y presencia constante.</p>
+                    <p>Formado en 2025, Claudio comparte los beneficios que transformaron su vida, ofreciendo un espacio de calma y autoconocimiento en el mat.</p>
+                    <div class="pt-8 flex gap-4">
+                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Hatha</span>
+                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Presencia</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-32 bg-black text-white text-center">
+        <h2 class="text-5xl serif italic mb-8 opacity-20">Namasté</h2>
         <div class="text-[10px] uppercase tracking-[10px] opacity-40">Yogasadhana • Ciudad Real • 2026</div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+        gsap.registerPlugin(ScrollTrigger);
+
         const lenis = new Lenis();
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        const swiper = new Swiper(".teamSwiper", {
-            effect: "coverflow",
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: "auto",
-            coverflowEffect: {
-                rotate: 0,
-                stretch: 0,
-                depth: 100,
-                modifier: 2,
-                slideShadows: false,
-            },
-            pagination: { el: ".swiper-pagination", clickable: true },
-            loop: true
-        });
-    </script>
+        // Animaciones GSAP para cada sección
+        document.querySelectorAll('.team-section').forEach(section => {
+            const image = section.querySelector('.team-image');
+            const info = section.querySelector('.team-info');
+            const bgText = section.querySelector('.bg-text');
 
-    <script>
+            gsap.to(image, {
+                scale: 1,
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            gsap.to(info, {
+                opacity: 1,
+                y: 0,
+                duration: 1.5,
+                ease: "power4.out",
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 60%",
+                }
+            });
+
+            gsap.to(bgText, {
+                x: 100,
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: 2
+                }
+            });
+        });
+
         // Toggle Menú Móvil
         const menuToggle = document.getElementById('menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
-        if (menuToggle && mobileMenu) {
-            menuToggle.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            // Cerrar menú al hacer click en un enlace
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-            });
-        }
-    </script>
-
-    <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const menuClose = document.getElementById('menu-close');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        if (menuToggle && mobileMenu) {
-            menuToggle.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                document.body.style.overflow = mobileMenu.classList.contains('hidden') ? 'auto' : 'hidden';
-            });
-        }
-        
-        if (menuClose && mobileMenu) {
-            menuClose.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-        }
-
-        // Cerrar al pulsar cualquier link
-        if (mobileMenu) {
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    document.body.style.overflow = 'auto';
-                });
-            });
-        }
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            document.body.style.overflow = mobileMenu.classList.contains('hidden') ? 'auto' : 'hidden';
+        });
     </script>
 </body>
 </html>
