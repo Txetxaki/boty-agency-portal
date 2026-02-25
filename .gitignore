@@ -9,6 +9,7 @@
 !soluciones/
 !juegos_boty/
 !yogasadhana/
+!yogasadhana/*.html
 !hardware.html
 !briefing_raul_v7_5.html
 !.gitignore
