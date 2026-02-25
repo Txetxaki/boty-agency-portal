@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienestar Natural - Yogasadhana</title>
+    <title>Bienestar Natural - Yogasadhana Cinematic Zen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
     <style>
@@ -11,13 +11,13 @@
         :root { --gold: #d4a373; --bg: #fdfbf7; }
         body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
         h1, h2, h3, .serif { font-family: 'Libre Baskerville', serif; }
-        .glass-nav { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .bento-card { transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0; transform: translateY(40px); }
+        .bento-card.reveal { opacity: 1; transform: translateY(0); }
         .tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); }
     </style>
 </head>
 <body class="pt-32">
-    
-    
     
     <nav class="fixed top-0 w-full z-[100] px-6 py-4 md:px-12 md:py-6 flex justify-between items-center glass-nav">
         <div class="text-xl font-black tracking-tighter serif"><a href="index.html">YOGASADHANA</a></div>
@@ -38,67 +38,89 @@
             <a href="index.html" class="opacity-80">Inicio</a>
             <a href="practica.html" class="opacity-80">Práctica</a>
             <a href="bienestar.html" class="opacity-80">Bienestar</a>
-            <a href="horarios.html" class="opacity-80 font-bold text-[#d4a373]">Horarios</a>
+            <a href="horarios.html" class="opacity-80">Horarios</a>
             <a href="equipo.html" class="opacity-80">Equipo</a>
             <a href="contacto.html" class="px-10 py-4 bg-[#d4a373] text-white rounded-2xl shadow-lg">Reservar</a>
             <button id="menu-close" class="mt-10 text-[10px] opacity-30 border border-black/10 px-6 py-2 rounded-full">Cerrar</button>
         </div>
     </nav>
 
-
-
-
     <div class="max-w-[1200px] mx-auto px-6 py-20">
         <span class="tag">Sanación</span>
         <h1 class="text-6xl font-black serif mt-6 mb-12 italic">Bienestar Natural</h1>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
-            <div class="rounded-[50px] overflow-hidden shadow-2xl h-[500px]">
+            <div class="bento-card rounded-[50px] overflow-hidden shadow-2xl h-[500px]">
                 <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
             </div>
             <div class="prose opacity-70 text-lg leading-relaxed space-y-8">
                 <p>Un espacio de cuidado integral donde descubrir las herramientas necesarias para armonizar todas tus capas (cuerpo, mente, energía).</p>
-                <p>Ofrecemos masajes tradicionales y terapias naturales que respetan el ritmo de tu cuerpo. No se trata solo de quitar el dolor, sino de restaurar la vitalidad.</p>
-                <div class="p-10 bg-white border border-black/5 rounded-[40px] shadow-sm">
-                    <h4 class="font-bold text-[#d4a373] text-sm uppercase tracking-widest mb-4">Servicios Destacados</h4>
-                    <ul class="space-y-2 text-sm italic">
-                        <li>— Masaje Hawaiano Lomi Lomi</li>
-                        <li>— Quiromasaje</li>
-                        <li>— Osteopatía</li>
-                        <li>— Aromaterapia Sagrada</li>
-                    </ul>
+                <p>Ofrecemos masajes tradicionales y terapias naturales que respetan el ritmo de tu cuerpo, bajo la supervisión de Pablo Soldevila. No se trata solo de quitar el dolor, sino de restaurar la vitalidad profunda.</p>
+                
+                <div class="grid grid-cols-1 gap-4">
+                    <a href="quiromasaje.html" class="flex items-center justify-between p-6 bg-white border border-black/5 rounded-3xl hover:border-[#d4a373] transition-all group">
+                        <span class="serif text-xl">Quiromasaje</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest group-hover:text-[#d4a373]">Explorar →</span>
+                    </a>
+                    <a href="osteopatia.html" class="flex items-center justify-between p-6 bg-white border border-black/5 rounded-3xl hover:border-[#d4a373] transition-all group">
+                        <span class="serif text-xl">Osteopatía</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest group-hover:text-[#d4a373]">Explorar →</span>
+                    </a>
+                    <a href="lomi.html" class="flex items-center justify-between p-6 bg-white border border-black/5 rounded-3xl hover:border-[#d4a373] transition-all group">
+                        <span class="serif text-xl">Lomi Lomi Nui</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest group-hover:text-[#d4a373]">Explorar →</span>
+                    </a>
+                    <a href="aromaterapia.html" class="flex items-center justify-between p-6 bg-white border border-black/5 rounded-3xl hover:border-[#d4a373] transition-all group">
+                        <span class="serif text-xl">Aromaterapia Sagrada</span>
+                        <span class="text-[10px] font-bold uppercase tracking-widest group-hover:text-[#d4a373]">Explorar →</span>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="py-32 bg-white text-center">
-        <h2 class="text-5xl serif italic mb-8 opacity-20">Namasté</h2>
-        <div class="text-[10px] uppercase tracking-[10px] opacity-40">Yogasadhana • Ciudad Real</div>
+    <footer class="py-20 bg-white">
+        <div class="max-w-[1200px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center mb-16">
+                <div class="text-center md:text-left">
+                    <h3 class="serif italic text-2xl mb-2">Tarifas 2025/26</h3>
+                    <p class="text-[10px] uppercase tracking-widest opacity-40">Bienestar Consciente</p>
+                </div>
+                <div class="col-span-1 md:col-span-2 grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="p-4 bg-[#fdfbf7] rounded-2xl border border-black/5 text-center">
+                        <p class="text-[9px] uppercase font-bold opacity-40 mb-1">Quiro</p>
+                        <p class="serif font-bold">40€</p>
+                    </div>
+                    <div class="p-4 bg-[#fdfbf7] rounded-2xl border border-black/5 text-center">
+                        <p class="text-[9px] uppercase font-bold opacity-40 mb-1">Osteo</p>
+                        <p class="serif font-bold">45€</p>
+                    </div>
+                    <div class="p-4 bg-[#fdfbf7] rounded-2xl border border-black/5 text-center">
+                        <p class="text-[9px] uppercase font-bold opacity-40 mb-1">Lomi</p>
+                        <p class="serif font-bold">60€</p>
+                    </div>
+                    <div class="p-4 bg-[#fdfbf7] rounded-2xl border border-black/5 text-center">
+                        <p class="text-[9px] uppercase font-bold opacity-40 mb-1">Aroma</p>
+                        <p class="serif font-bold">50€</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <h2 class="text-5xl serif italic mb-6 opacity-10">Namasté</h2>
+                <div class="text-[9px] uppercase tracking-[8px] opacity-40">YOGASADHANA CIUDAD REAL • 2026</div>
+            </div>
+        </div>
     </footer>
 
     <script>
         const lenis = new Lenis();
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
-    </script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.bento-card').forEach(el => observer.observe(el));
 
-    <script>
-        // Toggle Menú Móvil
-        const menuToggle = document.getElementById('menu-toggle');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (menuToggle && mobileMenu) {
-            menuToggle.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            // Cerrar menú al hacer click en un enlace
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-            });
-        }
-    </script>
-
-    <script>
         const menuToggle = document.getElementById('menu-toggle');
         const menuClose = document.getElementById('menu-close');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -117,7 +139,6 @@
             });
         }
 
-        // Cerrar al pulsar cualquier link
         if (mobileMenu) {
             mobileMenu.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {

@@ -14,25 +14,25 @@
         body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
         h1, h2, h3, .serif { font-family: 'Libre Baskerville', serif; }
         
-        .glass-nav { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .glass-nav { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0,0,0,0.05); }
         
-        .section-container { height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; }
-        .team-image-wrapper { width: 50%; height: 80vh; border-radius: 40px; overflow: hidden; position: relative; }
-        .team-image { width: 100%; height: 100%; object-fit: cover; transform: scale(1.1); }
-        .team-info { width: 40%; padding: 4rem; opacity: 0; transform: translateY(50px); }
+        .section-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; padding: 2rem 0; }
+        .team-image-wrapper { width: 100%; max-width: 600px; height: 60vh; border-radius: 40px; overflow: hidden; position: relative; }
+        .team-image { width: 100%; height: 100%; object-fit: cover; }
+        .team-info { width: 100%; max-width: 600px; padding: 2rem; opacity: 1; }
         
-        .bg-text { position: absolute; font-size: 20vw; font-weight: 900; opacity: 0.03; z-index: -1; white-space: nowrap; pointer-events: none; }
+        .bg-text { position: absolute; font-size: 15vw; font-weight: 900; opacity: 0.03; z-index: -1; white-space: nowrap; pointer-events: none; }
 
         .tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); }
         
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: var(--bg); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+        @media (min-width: 768px) {
+            .team-image-wrapper { width: 45%; height: 80vh; }
+            .team-info { width: 45%; padding: 4rem; }
+            .section-container { padding: 0; }
+        }
     </style>
 </head>
 <body>
-    <!-- Navbar Responsive -->
     <nav class="fixed top-0 w-full z-[100] px-6 py-4 md:px-12 md:py-6 flex justify-between items-center glass-nav">
         <div class="text-xl font-black tracking-tighter serif"><a href="index.html">YOGASADHANA</a></div>
         <button id="menu-toggle" class="md:hidden text-black p-2 focus:outline-none z-[110]">
@@ -41,7 +41,8 @@
         <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[4px]">
             <a href="practica.html" class="opacity-40 hover:opacity-100 transition-all">Práctica</a>
             <a href="bienestar.html" class="opacity-40 hover:opacity-100 transition-all">Bienestar</a>
-            <a href="horarios.html" class="opacity-40 hover:opacity-100 transition-all border-b border-gold pb-1">Horarios</a>
+            <a href="horarios.html" class="opacity-40 hover:opacity-100 transition-all">Horarios</a>
+            <a href="equipo.html" class="text-black transition-all border-b border-gold pb-1">Equipo</a>
             <a href="contacto.html" class="px-4 py-2 bg-[#d4a373] text-white rounded-full hover:bg-black transition-all">Reservar</a>
         </div>
         <div id="mobile-menu" class="hidden fixed inset-0 z-[105] bg-[#fdfbf7] flex flex-col items-center justify-center gap-10 text-center text-[14px] font-black uppercase tracking-[8px] md:hidden">
@@ -49,75 +50,78 @@
             <a href="practica.html">Práctica</a>
             <a href="bienestar.html">Bienestar</a>
             <a href="horarios.html">Horarios</a>
+            <a href="equipo.html">Equipo</a>
             <a href="contacto.html" class="px-10 py-4 bg-[#d4a373] text-white rounded-2xl">Reservar</a>
         </div>
     </nav>
 
-    <!-- PABLO -->
-    <section class="section-container team-section" id="pablo">
-        <div class="bg-text serif italic">PABLO</div>
-        <div class="flex flex-col md:flex-row items-center justify-between w-full max-w-[1400px] px-6">
-            <div class="team-image-wrapper shadow-2xl">
-                <img src="https://static.wixstatic.com/media/d41d8c_9d83e082e24911fffbec39776044bd7f.jpg" class="team-image" alt="Pablo Soldevila">
-            </div>
-            <div class="team-info">
-                <span class="tag">Co-Fundador</span>
-                <h2 class="text-6xl font-black serif mt-4 mb-8">Pablo Soldevila</h2>
-                <div class="prose opacity-70 text-lg leading-relaxed space-y-6">
-                    <p>En 2003 comienza su camino en el Quiromasaje y la Osteopatía, atendiendo a una vocación de servicio que surge desde la infancia.</p>
-                    <p>Formado en la India (Vrindavan) en Yoga Tradicional, Pablo integra el Ayurveda y la sanación estructural para ofrecer una guía completa hacia el equilibrio profundo.</p>
-                    <div class="pt-8 flex gap-4">
-                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Osteopatía</span>
-                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Hatha Yoga</span>
+    <div class="pt-20">
+        <!-- PABLO -->
+        <section class="section-container team-section flex flex-col md:flex-row" id="pablo">
+            <div class="bg-text serif italic hidden md:block">PABLO</div>
+            <div class="flex flex-col md:flex-row items-center justify-between w-full max-w-[1400px] px-6">
+                <div class="team-image-wrapper shadow-2xl mb-8 md:mb-0">
+                    <img src="https://static.wixstatic.com/media/d41d8c_9d83e082e24911fffbec39776044bd7f.jpg" class="team-image" alt="Pablo Soldevila">
+                </div>
+                <div class="team-info">
+                    <span class="tag">Co-Fundador</span>
+                    <h2 class="text-4xl md:text-6xl font-black serif mt-4 mb-8">Pablo Soldevila</h2>
+                    <div class="prose opacity-70 text-base md:text-lg leading-relaxed space-y-6">
+                        <p>En 2003 comienza su camino en el Quiromasaje y la Osteopatía, atendiendo a una vocación de servicio que surge desde la infancia.</p>
+                        <p>Formado en la India (Vrindavan) en Yoga Tradicional, Pablo integra el Ayurveda y la sanación estructural para ofrecer una guía completa hacia el equilibrio profundo.</p>
+                        <div class="pt-8 flex flex-wrap gap-4">
+                            <span class="p-3 md:p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest text-center flex-1 md:flex-none">Osteopatía</span>
+                            <span class="p-3 md:p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest text-center flex-1 md:flex-none">Hatha Yoga</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- PAOLA -->
-    <section class="section-container team-section" id="paola">
-        <div class="bg-text serif italic" style="right: 5%;">PAOLA</div>
-        <div class="flex flex-col md:flex-row-reverse items-center justify-between w-full max-w-[1400px] px-6">
-            <div class="team-image-wrapper shadow-2xl">
-                <img src="https://static.wixstatic.com/media/d41d8c_1bb692f6f1922603a52850b288b6618a.jpg" class="team-image" alt="Paola Camerone">
-            </div>
-            <div class="team-info">
-                <span class="tag">Profesora Senior</span>
-                <h2 class="text-6xl font-black serif mt-4 mb-8">Paola Camerone</h2>
-                <div class="prose opacity-70 text-lg leading-relaxed space-y-6">
-                    <p>Licenciada en Química y experta en MTC, Paola fusiona la ciencia con la sabiduría oriental. Formada en Rishikesh (India), su práctica es un viaje de conexión cósmica.</p>
-                    <p>Especialista en Fly Yoga, Rocket y Yin Yoga, Paola aporta una visión vibrante y técnica a cada sesión de Yogasadhana.</p>
-                    <div class="pt-8 flex gap-4">
-                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Acupuntura</span>
-                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Vinyasa</span>
+        <!-- PAOLA -->
+        <section class="section-container team-section flex flex-col md:flex-row-reverse" id="paola">
+            <div class="bg-text serif italic hidden md:block" style="right: 5%;">PAOLA</div>
+            <div class="flex flex-col md:flex-row-reverse items-center justify-between w-full max-w-[1400px] px-6">
+                <div class="team-image-wrapper shadow-2xl mb-8 md:mb-0">
+                    <img src="https://static.wixstatic.com/media/d41d8c_1bb692f6f1922603a52850b288b6618a.jpg" class="team-image" alt="Paola Camerone">
+                </div>
+                <div class="team-info">
+                    <span class="tag">Profesora Senior</span>
+                    <h2 class="text-4xl md:text-6xl font-black serif mt-4 mb-8">Paola Camerone</h2>
+                    <div class="prose opacity-70 text-base md:text-lg leading-relaxed space-y-6">
+                        <p>Licenciada en Química y experta en MTC, Paola fusiona la ciencia con la sabiduría oriental. Formada en Rishikesh (India), su práctica es un viaje de conexión cósmica.</p>
+                        <p>Especialista en Fly Yoga, Rocket y Yin Yoga, Paola aporta una visión vibrante y técnica a cada sesión de Yogasadhana.</p>
+                        <div class="pt-8 flex flex-wrap gap-4">
+                            <span class="p-3 md:p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest text-center flex-1 md:flex-none">Acupuntura</span>
+                            <span class="p-3 md:p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest text-center flex-1 md:flex-none">Vinyasa</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- CLAUDIO -->
-    <section class="section-container team-section" id="claudio">
-        <div class="bg-text serif italic">CLAUDIO</div>
-        <div class="flex flex-col md:flex-row items-center justify-between w-full max-w-[1400px] px-6">
-            <div class="team-image-wrapper shadow-2xl">
-                <img src="https://static.wixstatic.com/media/d41d8c_963846ca846e51d252e55e41f48e5d5a.jpg" class="team-image" alt="Claudio Finque">
-            </div>
-            <div class="team-info">
-                <span class="tag">Profesor de Yoga</span>
-                <h2 class="text-6xl font-black serif mt-4 mb-8">Claudio Finque</h2>
-                <div class="prose opacity-70 text-lg leading-relaxed space-y-6">
-                    <p>Nacido en Ciudad Real, Claudio encontró en el yoga su templo de transformación en 2016. Desde entonces, su vida ha sido un camino de escucha y presencia constante.</p>
-                    <p>Formado en 2025, Claudio comparte los beneficios que transformaron su vida, ofreciendo un espacio de calma y autoconocimiento en el mat.</p>
-                    <div class="pt-8 flex gap-4">
-                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Hatha</span>
-                        <span class="p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest">Presencia</span>
+        <!-- CLAUDIO -->
+        <section class="section-container team-section flex flex-col md:flex-row" id="claudio">
+            <div class="bg-text serif italic hidden md:block">CLAUDIO</div>
+            <div class="flex flex-col md:flex-row items-center justify-between w-full max-w-[1400px] px-6">
+                <div class="team-image-wrapper shadow-2xl mb-8 md:mb-0">
+                    <img src="https://static.wixstatic.com/media/d41d8c_963846ca846e51d252e55e41f48e5d5a.jpg" class="team-image" alt="Claudio Finque">
+                </div>
+                <div class="team-info">
+                    <span class="tag">Profesor de Yoga</span>
+                    <h2 class="text-4xl md:text-6xl font-black serif mt-4 mb-8">Claudio Finque</h2>
+                    <div class="prose opacity-70 text-base md:text-lg leading-relaxed space-y-6">
+                        <p>Nacido en Ciudad Real, Claudio encontró en el yoga su templo de transformación en 2016. Desde entonces, su vida ha sido un camino de escucha y presencia constante.</p>
+                        <p>Formado en 2025, Claudio comparte los beneficios que transformaron su vida, ofreciendo un espacio de calma y autoconocimiento en el mat.</p>
+                        <div class="pt-8 flex flex-wrap gap-4">
+                            <span class="p-3 md:p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest text-center flex-1 md:flex-none">Hatha</span>
+                            <span class="p-3 md:p-4 bg-white rounded-2xl border border-black/5 text-[10px] font-bold uppercase tracking-widest text-center flex-1 md:flex-none">Presencia</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <footer class="py-32 bg-black text-white text-center">
         <h2 class="text-5xl serif italic mb-8 opacity-20">Namasté</h2>
@@ -125,49 +129,9 @@
     </footer>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
-
         const lenis = new Lenis();
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
-
-        // Animaciones GSAP para cada sección
-        document.querySelectorAll('.team-section').forEach(section => {
-            const image = section.querySelector('.team-image');
-            const info = section.querySelector('.team-info');
-            const bgText = section.querySelector('.bg-text');
-
-            gsap.to(image, {
-                scale: 1,
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: true
-                }
-            });
-
-            gsap.to(info, {
-                opacity: 1,
-                y: 0,
-                duration: 1.5,
-                ease: "power4.out",
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 60%",
-                }
-            });
-
-            gsap.to(bgText, {
-                x: 100,
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top bottom",
-                    end: "bottom top",
-                    scrub: 2
-                }
-            });
-        });
 
         // Toggle Menú Móvil
         const menuToggle = document.getElementById('menu-toggle');
