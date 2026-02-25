@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capacidades Totales - Núcleo Boty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/framer-motion/10.16.4/framer-motion.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;900&display=swap');
+        :root { --accent: #00f3ff; --bg: #030303; --glass: rgba(15, 15, 15, 0.7); }
+        body { background: var(--bg); color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; margin: 0; }
+        
+        .retro-grid { position: fixed; inset: 0; background-image: linear-gradient(to right, rgba(0, 243, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 243, 255, 0.03) 1px, transparent 1px); background-size: 50px 50px; transform: perspective(500px) rotateX(60deg); transform-origin: center top; animation: grid-move 20s linear infinite; z-index: 0; }
+        @keyframes grid-move { from { background-position: 0 0; } to { background-position: 0 50px; } }
+
+        .container-abilities { max-width: 1400px; margin: auto; padding: 6rem 2rem; position: relative; z-index: 10; }
+        
+        .ability-section { margin-bottom: 6rem; }
+        .section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 5px; color: var(--accent); margin-bottom: 2rem; border-bottom: 1px solid rgba(0,243,255,0.1); padding-bottom: 0.5rem; }
+        
+        .bento-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        
+        .skill-card { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 2rem; transition: 0.4s; position: relative; overflow: hidden; }
+        .skill-card:hover { border-color: var(--accent); transform: translateY(-5px); box-shadow: 0 0 40px rgba(0, 243, 255, 0.1); }
+        
+        .skill-card::after { content: ""; position: absolute; inset: 0; border-radius: 20px; border: 2px solid transparent; }
+        .skill-card.active::after { background: linear-gradient(90deg, var(--accent), transparent, var(--accent)) border-box; -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0); -webkit-mask-composite: destination-out; animation: beam 4s linear infinite; }
+        @keyframes beam { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+
+        .icon-box { font-size: 2rem; margin-bottom: 1rem; }
+        .skill-name { font-weight: 900; font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .skill-desc { font-size: 0.8rem; opacity: 0.5; line-height: 1.6; }
+        .tag { display: inline-block; font-size: 0.6rem; font-weight: 800; background: rgba(0,243,255,0.1); color: var(--accent); padding: 2px 8px; border-radius: 4px; margin-top: 1rem; text-transform: uppercase; }
+    </style>
+</head>
+<body>
+    <div class="retro-grid"></div>
+
+    <div class="container-abilities">
+        <header class="text-center mb-32">
+            <h1 class="text-7xl font-black tracking-tighter italic mb-4">CAPACIDADES<br><span class="text-[#00f3ff]">TOTALES</span></h1>
+            <p class="opacity-40 text-sm tracking-[5px] uppercase">Agencia 360 • Nucleus Manifesto v1.0</p>
+        </header>
+
+        <!-- CATEGORIA 1: INTELIGENCIA & CEREBRO -->
+        <div class="ability-section">
+            <h2 class="section-title">01 / Cerebro Agéntico</h2>
+            <div class="bento-grid">
+                <div class="skill-card active">
+                    <div class="icon-box">🔱</div>
+                    <div class="skill-name">Legión de Agentes</div>
+                    <div class="skill-desc">Orquestación de 12 perfiles especializados (PO, PM, Marketing, QA) para lanzamientos 360.</div>
+                    <span class="tag">Active Swarm</span>
+                </div>
+                <div class="skill-card">
+                    <div class="icon-box">🧠</div>
+                    <div class="skill-name">AntiGravity Engine</div>
+                    <div class="skill-desc">Razonamiento avanzado vía Sonnet 4.6 y Gemini 3.1 Pro con ventana de contexto de 1M.</div>
+                    <span class="tag">Multi-Model</span>
+                </div>
+                <div class="skill-card">
+                    <div class="icon-box">⚡</div>
+                    <div class="skill-name">Cursor Agentic Code</div>
+                    <div class="skill-desc">Programación industrial masiva con consciencia total de la infraestructura del búnker.</div>
+                    <span class="tag">Elite Coding</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORIA 2: INTERFAZ & DISEÑO -->
+        <div class="ability-section">
+            <h2 class="section-title">02 / Interfaz & Diseño de Autor</h2>
+            <div class="bento-grid">
+                <div class="skill-card active">
+                    <div class="icon-box">🪄</div>
+                    <div class="skill-name">Magic UI + Tailwind v4</div>
+                    <div class="skill-desc">Interfaces cinemáticas interactivas con efectos de luz, partículas y rejillas 3D dinámicas.</div>
+                    <span class="tag">Rust Engine</span>
+                </div>
+                <div class="skill-card">
+                    <div class="icon-box">🔄</div>
+                    <div class="skill-name">Google Stitch Loop</div>
+                    <div class="skill-desc">Bucle autónomo de diseño y refinado. La IA corrige su propio código hasta la perfección visual.</div>
+                    <span class="tag">Self-Evolving</span>
+                </div>
+                <div class="skill-card">
+                    <div class="icon-box">🍌</div>
+                    <div class="skill-name">Nano Banana Style</div>
+                    <div class="skill-desc">Generación de identidad visual premium con iluminación cinematográfica y minimalismo extremo.</div>
+                    <span class="tag">Visual Identity</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORIA 3: SENTIDOS & SEGURIDAD -->
+        <div class="ability-section">
+            <h2 class="section-title">03 / Sentidos & Seguridad Física</h2>
+            <div class="bento-grid">
+                <div class="skill-card active">
+                    <div class="icon-box">👁️</div>
+                    <div class="skill-name">Visión Híbrida (Ring/Avidsen)</div>
+                    <div class="skill-desc">Control total de cámaras WiFi y locales. Captura de frames y análisis de visión en tiempo real.</div>
+                    <span class="tag">Real-Time Feed</span>
+                </div>
+                <div class="skill-card">
+                    <div class="icon-box">🫀</div>
+                    <div class="skill-name">SNC Vital (Xiaomi Band)</div>
+                    <div class="skill-desc">Monitorización de VFC, estrés y sueño. Protocolos de recuperación automática ante fatiga.</div>
+                    <span class="tag">Biometrics</span>
+                </div>
+                <div class="skill-card">
+                    <div class="icon-box">🛡️</div>
+                    <div class="skill-name">Sentinel Security</div>
+                    <div class="skill-desc">Detección de apertura de puertas y armado de alarma basado en patrones de comportamiento.</div>
+                    <span class="tag">Alarm Integration</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORIA 4: VOZ & SONIDO -->
+        <div class="ability-section">
+            <h2 class="section-title">04 / Voz & Soberanía Sonora</h2>
+            <div class="bento-grid">
+                <div class="skill-card active">
+                    <div class="icon-box">🎙️</div>
+                    <div class="skill-name">Kokoro-82M Local</div>
+                    <div class="skill-desc">Voz soberana (Dora) generada al 100% en la Raspberry. Sin nubes, gratuita y con alma española.</div>
+                    <span class="tag">Zero Cloud</span>
+                </div>
+                <div class="skill-card">
+                    <div class="icon-box">🔊</div>
+                    <div class="skill-name">Audio Bridge Desktop</div>
+                    <div class="skill-desc">Puente de audio invisible para sonar por tus altavoces principales mediante el servidor web.</div>
+                    <span class="tag">High Fidelity</span>
+                </div>
+                <div class="skill-card">
+                    <div class="icon-box">🗣️</div>
+                    <div class="skill-name">Alexa Orchestration</div>
+                    <div class="skill-desc">Control total de dispositivos Echo para avisos rápidos y rutinas domésticas.</div>
+                    <span class="tag">Voice Control</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORIA 5: DATOS & OFICINA -->
+        <div class="ability-section">
+            <h2 class="section-title">05 / Datos & Oficina Inteligente</h2>
+            <div class="bento-grid">
+                <div class="skill-card">
+                    <div class="icon-box">☁️</div>
+                    <div class="skill-name">Google Workspace Ultra</div>
+                    <div class="skill-desc">Gestión de teras en Drive, limpieza de Gmail y agenda automática. (En proceso de vinculación).</div>
+                    <span class="tag">Unlimited Storage</span>
+                </div>
+                <div class="skill-card active">
+                    <div class="icon-box">🦁</div>
+                    <div class="skill-name">Brave API Pro</div>
+                    <div class="skill-desc">Búsquedas web de alta resolución sin anuncios para inteligencia de mercado quirúrgica.</div>
+                    <span class="tag">Pro Research</span>
+                </div>
+                <div class="skill-card">
+                    <div class="icon-box">📚</div>
+                    <div class="skill-name">NotebookLM Deep Dive</div>
+                    <div class="skill-desc">Digerido masivo de documentos para crear podcasts de entrenamiento y dossiers de clientes.</div>
+                    <span class="tag">Knowledge Mining</span>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-40 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center opacity-30 text-[10px] uppercase tracking-[10px]">
+            <span>Boty Agency • Soberanía Digital 2026</span>
+            <div class="flex gap-8">
+                <a href="/bunker_os/private/dashboards/index.html" class="hover:text-cyan-400">/bunker_os/public/landings/boty-agency-showcase/index.html</a>
+                <span>Ciudad Real</span>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
