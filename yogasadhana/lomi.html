@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lomi Lomi - Yogasadhana Cinematic Zen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@100;400;900&display=swap');
+        :root { --gold: #d4a373; --bg: #fdfbf7; }
+        body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
+        h1, h2, h3, .serif { font-family: 'Libre Baskerville', serif; }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .bento-card { transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0; transform: translateY(40px); }
+        .bento-card.reveal { opacity: 1; transform: translateY(0); }
+        .tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); }
+        .hero-bg { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=1920'); background-size: cover; background-position: center; }
+    </style>
+</head>
+<body>
+    <nav class="fixed w-full z-[100] px-8 py-6 flex justify-between items-center glass-nav">
+        <div class="text-xl font-black tracking-tighter serif"><a href="index.html">YOGASADHANA</a></div>
+        <div class="flex gap-4 md:gap-8 text-[9px] font-bold uppercase tracking-[2px] md:tracking-[4px] items-center">
+            <a href="hatha.html" class="hover:text-[#d4a373] transition-all">Hatha</a>
+            <a href="unnata.html" class="hover:text-[#d4a373] transition-all">Unnata</a>
+            <a href="suave.html" class="hover:text-[#d4a373] transition-all">Suave</a>
+            <a href="yin.html" class="hover:text-[#d4a373] transition-all">Yin</a>
+            <a href="lomi.html" class="hover:text-[#d4a373] transition-all">Lomi</a>
+            <a href="osteopatia.html" class="hover:text-[#d4a373] transition-all">Osteo</a>
+            <a href="quiromasaje.html" class="hover:text-[#d4a373] transition-all">Quiró</a>
+            <a href="https://wa.me/34600582381" class="hidden md:block px-4 py-2 bg-[#d4a373] text-white rounded-full">Reservar</a>
+        </div>
+    </nav>
+
+    <section class="relative h-[60vh] flex items-center justify-center overflow-hidden hero-bg">
+        <div class="relative z-10 text-center text-white">
+            <h1 class="text-5xl md:text-8xl font-black leading-none serif uppercase">Lomi Lomi</h1>
+            <p class="mt-4 text-xs uppercase tracking-[10px] opacity-80">El Masaje de las Manos Amorosas</p>
+        </div>
+    </section>
+
+    <div class="max-w-[1200px] mx-auto px-6 py-20">
+        <div class="grid grid-cols-12 gap-8">
+            <div class="bento-card col-span-12 lg:col-span-7 p-12 bg-white rounded-[50px] shadow-sm">
+                <span class="tag">Disciplina</span>
+                <h2 class="text-3xl md:text-5xl font-black serif mt-4 mb-6 text-pretty">Ritual Hawaiano de Sanación.</h2>
+                <div class="opacity-70 leading-relaxed space-y-4 mb-8">
+                    <p>El masaje Lomi Lomi es una antigua técnica hawaiana que utiliza los antebrazos y las manos en movimientos rítmicos y fluidos que emulan el movimiento de las olas del mar. Es una experiencia holística que busca armonizar cuerpo, mente y espíritu, liberando bloqueos emocionales y tensiones físicas.</p><p>Se realiza con aceites naturales y una actitud de amor y presencia (Aloha).</p>
+                </div>
+                <div class="bg-[#fdfbf7] p-8 rounded-3xl border border-[#d4a373]/20">
+                    <h3 class="serif italic text-xl mb-2">Información</h3>
+                    <p class="text-sm opacity-60">Sesión individual personalizada. Consultar disponibilidad.</p>
+                    <p class="mt-4 font-bold text-2xl text-[#d4a373]">60 € / sesión</p>
+                </div>
+            </div>
+            <div class="bento-card col-span-12 lg:col-span-5 space-y-8">
+                <div class="rounded-[50px] overflow-hidden h-[300px]">
+                    <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover">
+                </div>
+                <div class="p-10 bg-[#1a1a1a] text-white rounded-[50px]">
+                    <h3 class="serif text-2xl mb-4">Beneficios</h3>
+                    <ul class="space-y-3 text-sm opacity-80">
+                        <li>• Relajación total e inmersiva</li><li>• Liberación de cargas emocionales</li><li>• Estimula el drenaje linfático</li><li>• Reconexión con la alegría vital</li>
+                    </ul>
+                    <a href="https://wa.me/34600582381" class="mt-8 inline-block w-full text-center px-8 py-4 bg-[#d4a373] text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all">Reservar Cita</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-20 bg-white text-center">
+        <h2 class="text-5xl serif italic mb-6 opacity-10">Namasté</h2>
+        <div class="text-[9px] uppercase tracking-[8px] opacity-40">YOGASADHANA CIUDAD REAL • 2026</div>
+    </footer>
+
+    <script>
+        const lenis = new Lenis();
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.bento-card').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
