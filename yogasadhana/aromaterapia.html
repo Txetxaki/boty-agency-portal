@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aromaterapia en Ciudad Real - Yogasadhana Cinematic Zen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@100;400;900&display=swap');
+        :root { --gold: #d4a373; --bg: #fdfbf7; }
+        body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
+        h1, h2, h3, .serif { font-family: 'Libre Baskerville', serif; }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .bento-card { transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0; transform: translateY(40px); }
+        .bento-card.reveal { opacity: 1; transform: translateY(0); }
+        .tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); }
+        .hero-bg { background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&q=80&w=2000'); background-size: cover; background-position: center; }
+    </style>
+</head>
+<body>
+    <nav class="fixed top-0 w-full z-[100] px-6 py-4 md:px-12 md:py-6 flex justify-between items-center glass-nav">
+        <div class="text-xl font-black tracking-tighter serif"><a href="index.html">YOGASADHANA</a></div>
+        <button id="menu-toggle" class="md:hidden text-black p-2 focus:outline-none z-[110]">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+        <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[4px]">
+            <a href="practica.html" class="opacity-40 hover:opacity-100 transition-all">Práctica</a>
+            <a href="bienestar.html" class="opacity-40 hover:opacity-100 transition-all">Bienestar</a>
+            <a href="horarios.html" class="opacity-40 hover:opacity-100 transition-all">Horarios</a>
+            <a href="equipo.html" class="opacity-40 hover:opacity-100 transition-all">Equipo</a>
+            <a href="contacto.html" class="px-4 py-2 bg-[#d4a373] text-white rounded-full hover:bg-black transition-colors">Reservar</a>
+        </div>
+        <div id="mobile-menu" class="hidden fixed inset-0 z-[105] bg-[#fdfbf7] flex flex-col items-center justify-center gap-10 text-center text-[14px] font-black uppercase tracking-[8px] shadow-2xl md:hidden">
+            <a href="index.html" class="opacity-80">Inicio</a>
+            <a href="practica.html" class="opacity-80">Práctica</a>
+            <a href="bienestar.html" class="opacity-80">Bienestar</a>
+            <a href="horarios.html" class="opacity-80">Horarios</a>
+            <a href="equipo.html" class="opacity-80">Equipo</a>
+            <a href="contacto.html" class="px-10 py-4 bg-[#d4a373] text-white rounded-2xl shadow-xl">Reservar</a>
+            <button id="menu-close" class="mt-10 text-[10px] opacity-30 border border-black/10 px-6 py-2 rounded-full">Cerrar</button>
+        </div>
+    </nav>
+
+    <section class="relative h-[60vh] flex items-center justify-center overflow-hidden hero-bg">
+        <div class="relative z-10 text-center text-white">
+            <h1 class="text-5xl md:text-8xl font-black leading-none serif uppercase">AROMATERAPIA</h1>
+            <p class="mt-4 text-xs uppercase tracking-[10px] opacity-80">Esencias para el Alma - Ciudad Real</p>
+        </div>
+    </section>
+
+    <div class="max-w-[1200px] mx-auto px-6 py-20">
+        <div class="grid grid-cols-12 gap-8">
+            <div class="bento-card col-span-12 lg:col-span-7 p-12 bg-white rounded-[50px] shadow-sm">
+                <span class="tag">Bienestar en Calle Infantes</span>
+                <h2 class="text-3xl md:text-5xl font-black serif mt-4 mb-6 text-pretty">Sanación a través de los Sentidos</h2>
+                <div class="opacity-70 leading-relaxed space-y-4 mb-8">
+                    <p>La Aromaterapia en Yogasadhana es una terapia holística que utiliza aceites esenciales puros extraídos de plantas, flores y raíces para promover el bienestar físico y psicológico.</p>
+                    <p>En nuestro centro de Ciudad Real, integramos la aromaterapia tanto en sesiones individuales como de forma complementaria en nuestras clases de yoga. Cada esencia es seleccionada cuidadosamente para equilibrar estados emocionales, aliviar tensiones musculares y potenciar la capacidad de autosanación del cuerpo.</p>
+                    <p>Déjate envolver por fragancias que calman la mente, elevan el espíritu y restauran la armonía natural de tu ser.</p>
+                </div>
+                <div class="bg-[#fdfbf7] p-8 rounded-3xl border border-[#d4a373]/20">
+                    <h3 class="serif italic text-xl mb-2">Bienestar Ciudad Real - Info</h3>
+                    <p class="text-sm opacity-60">Sesiones individuales personalizadas y talleres de uso de aceites esenciales.</p>
+                    <p class="mt-4 font-bold text-2xl text-[#d4a373]">Consulta Disponibilidad</p>
+                </div>
+            </div>
+            <div class="bento-card col-span-12 lg:col-span-5 space-y-8">
+                <div class="rounded-[50px] overflow-hidden h-[300px]">
+                    <img src="https://images.unsplash.com/photo-1540331547168-8b63109225b7?auto=format&fit=crop&q=80&w=1000" class="w-full h-full object-cover">
+                </div>
+                <div class="p-10 bg-[#1a1a1a] text-white rounded-[50px]">
+                    <h3 class="serif text-2xl mb-4">Beneficios</h3>
+                    <ul class="space-y-3 text-sm opacity-80">
+                        <li>• Equilibrio emocional y mental.</li>
+                        <li>• Alivio del estrés y la ansiedad.</li>
+                        <li>• Mejora del sistema inmunológico.</li>
+                        <li>• Propiedades antiinflamatorias y analgésicas.</li>
+                        <li>• Profundización en la meditación.</li>
+                    </ul>
+                    <a href="contacto.html" class="mt-8 inline-block w-full text-center px-8 py-4 bg-[#d4a373] text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:brightness-110 transition-all">Solicitar Información</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-20 bg-white text-center">
+        <h2 class="text-5xl serif italic mb-6 opacity-10">Namasté</h2>
+        <div class="text-[9px] uppercase tracking-[8px] opacity-40">YOGASADHANA CIUDAD REAL • CALLE INFANTES 13</div>
+    </footer>
+
+    <script>
+        const lenis = new Lenis();
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('reveal'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.bento-card').forEach(el => observer.observe(el));
+    </script>
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (menuToggle && mobileMenu) {
+            menuToggle.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                document.body.style.overflow = mobileMenu.classList.contains('hidden') ? 'auto' : 'hidden';
+            });
+        }
+        if (menuClose && mobileMenu) {
+            menuClose.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+        }
+    </script>
+</body>
+</html>
