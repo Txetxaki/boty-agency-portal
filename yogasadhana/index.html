@@ -30,17 +30,15 @@
 <body>
     
     
+    
     <nav class="fixed top-0 w-full z-[100] px-6 py-4 md:px-12 md:py-6 flex justify-between items-center glass-nav">
         <div class="text-xl font-black tracking-tighter serif"><a href="index.html">YOGASADHANA</a></div>
         
-        <!-- Botón Menú Móvil -->
         <button id="menu-toggle" class="md:hidden text-black p-2 focus:outline-none z-[110]">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
         </button>
 
-        <!-- Menú Desktop -->
         <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-[4px]">
-            <a href="index.html" class="opacity-40 hover:opacity-100 transition-all">Inicio</a>
             <a href="practica.html" class="opacity-40 hover:opacity-100 transition-all">Práctica</a>
             <a href="bienestar.html" class="opacity-40 hover:opacity-100 transition-all">Bienestar</a>
             <a href="horarios.html" class="opacity-40 hover:opacity-100 transition-all">Horarios</a>
@@ -48,19 +46,17 @@
             <a href="contacto.html" class="px-4 py-2 bg-[#d4a373] text-white rounded-full hover:bg-black transition-colors">Reservar</a>
         </div>
 
-        <!-- Menú Móvil (Background sólido y Z-Index alto) -->
         <div id="mobile-menu" class="hidden fixed inset-0 z-[105] bg-[#fdfbf7] flex flex-col items-center justify-center gap-10 text-center text-[14px] font-black uppercase tracking-[8px] shadow-2xl md:hidden">
             <a href="index.html" class="opacity-80">Inicio</a>
             <a href="practica.html" class="opacity-80">Práctica</a>
             <a href="bienestar.html" class="opacity-80">Bienestar</a>
-            <a href="horarios.html" class="opacity-80">Horarios</a>
+            <a href="horarios.html" class="opacity-80 font-bold text-[#d4a373]">Horarios</a>
             <a href="equipo.html" class="opacity-80">Equipo</a>
-            <a href="contacto.html" class="px-10 py-4 bg-[#d4a373] text-white rounded-2xl shadow-xl">Reservar</a>
-            
-            <!-- Botón Cerrar en el centro abajo -->
+            <a href="contacto.html" class="px-10 py-4 bg-[#d4a373] text-white rounded-2xl shadow-lg">Reservar</a>
             <button id="menu-close" class="mt-10 text-[10px] opacity-30 border border-black/10 px-6 py-2 rounded-full">Cerrar</button>
         </div>
     </nav>
+
 
 
 
