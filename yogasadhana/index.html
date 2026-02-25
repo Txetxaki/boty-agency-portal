@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yogasadhana - Refugio Digital Ciudad Real</title>
+    <title>Yogasadhana - Experiencia Inmersiva v4.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@100;400;900&display=swap');
         :root { --gold: #d4a373; --bg: #fdfbf7; }
-        body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; }
+        body { background-color: var(--bg); color: #1a1a1a; font-family: 'Montserrat', sans-serif; margin: 0; overflow-x: hidden; scroll-behavior: smooth; }
         h1, h2, h3, .serif { font-family: 'Libre Baskerville', serif; }
+
         .video-container { position: absolute; inset: 0; overflow: hidden; z-index: -1; }
         .video-container video { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6) contrast(1.1); }
+
         .glass-nav { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.1); }
         .bento-card { transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0; transform: translateY(40px); }
         .bento-card.reveal { opacity: 1; transform: translateY(0); }
+        
+        .beam-container { position: relative; overflow: hidden; }
+        .beam-container:hover::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(from 0deg, transparent, var(--gold), transparent 30%); animation: rotate 4s linear infinite; z-index: 1; }
+        .beam-content { position: relative; z-index: 10; background: #fff; margin: 2px; border-radius: inherit; height: calc(100% - 4px); }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
         .tag { font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 5px; color: var(--gold); }
     </style>
 </head>
@@ -26,37 +34,91 @@
             <a href="practica.html" class="opacity-40 hover:opacity-100 transition-all">Práctica</a>
             <a href="bienestar.html" class="opacity-40 hover:opacity-100 transition-all">Bienestar</a>
             <a href="horarios.html" class="opacity-40 hover:opacity-100 transition-all">Horarios</a>
+            <a href="equipo.html" class="opacity-40 hover:opacity-100 transition-all">Equipo</a>
             <a href="contacto.html" class="px-4 py-2 bg-[#d4a373] text-white rounded-full">Reservar</a>
         </div>
     </nav>
 
+    <!-- HERO SECTION -->
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
         <div class="video-container">
             <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80&w=1920">
                 <source src="https://cdn.pixabay.com/vimeo/459582239/meditation-51781.mp4?width=1280&hash=8f8709e8666113e63412574e405e4d293f77b75b" type="video/mp4">
             </video>
         </div>
-        <div class="relative z-10 text-center text-white">
+        <div class="relative z-10 text-center text-white px-6">
             <h1 class="text-7xl md:text-[10rem] font-black leading-none serif">PAZ EN <br> <span class="italic font-normal text-[#d4a373]">TI MISMO</span></h1>
             <p class="mt-8 text-sm uppercase tracking-[15px] opacity-60">Ciudad Real • Yoga Sadhana</p>
         </div>
     </section>
 
+    <!-- BENTO GRID -->
     <div class="max-w-[1400px] mx-auto px-6 py-32 grid grid-cols-12 gap-8">
-        <div class="bento-card col-span-12 lg:col-span-6 p-12 bg-white rounded-[50px] shadow-sm">
-            <span class="tag">Descubre</span>
-            <h2 class="text-4xl font-black serif mt-4 mb-6 text-pretty">Tu refugio de consciencia en Ciudad Real.</h2>
-            <p class="opacity-60 leading-relaxed mb-8">Un espacio dedicado al Hatha Yoga, la meditación y el bienestar natural. Donde el tiempo se detiene para que tú puedas volver a empezar.</p>
-            <a href="practica.html" class="inline-block px-8 py-4 bg-black text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-[#d4a373] transition-all">Conocer más</a>
+        
+        <!-- Práctica -->
+        <div class="bento-card col-span-12 lg:col-span-8 beam-container rounded-[50px]">
+            <div class="beam-content p-12 md:p-20">
+                <span class="tag">Disciplina</span>
+                <h2 class="text-5xl font-black serif mt-6 mb-8">La Práctica de Yoga</h2>
+                <p class="text-xl opacity-60 leading-relaxed italic mb-12">"Reconectar con tu cuerpo y sensaciones... Donde disfrutar del silencio, de la quietud.."</p>
+                <div class="rounded-3xl overflow-hidden h-[400px]">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover">
+                </div>
+            </div>
         </div>
-        <div class="bento-card col-span-12 lg:col-span-6 rounded-[50px] overflow-hidden h-[400px]">
-            <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover">
+
+        <!-- Bienestar -->
+        <div class="bento-card col-span-12 lg:col-span-4 p-12 bg-[#F4F1EA] rounded-[50px] flex flex-col justify-between">
+            <div>
+                <span class="tag">Sanación</span>
+                <h3 class="text-4xl font-black serif mt-6 mb-6">Bienestar <br> Natural</h3>
+                <p class="text-sm opacity-50 leading-relaxed mb-12">Masajes y terapias ancestrales para armonizar cuerpo y espíritu.</p>
+            </div>
+            <div class="rounded-3xl overflow-hidden h-[250px] mb-8">
+                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover">
+            </div>
+            <a href="bienestar.html" class="w-full py-4 bg-black text-white text-center rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-[#d4a373] transition-all">Ver Terapias</a>
         </div>
+
+        <!-- Masajes Mini Cards -->
+        <div class="bento-card col-span-12 md:col-span-4 p-8 bg-white border border-black/5 rounded-[40px] hover:scale-105 transition-all">
+            <h4 class="tag text-xs mb-4">Estructural</h4>
+            <h3 class="text-2xl font-black serif italic mb-4">Osteopatía</h3>
+            <p class="text-xs opacity-50 mb-6">Escucha el lenguaje de tus tejidos para devolver el equilibrio a tu estructura.</p>
+            <a href="osteopatia.html" class="text-[10px] font-black uppercase tracking-widest border-b border-gold pb-1">Saber más</a>
+        </div>
+        <div class="bento-card col-span-12 md:col-span-4 p-8 bg-white border border-black/5 rounded-[40px] hover:scale-105 transition-all">
+            <h4 class="tag text-xs mb-4">Relajación</h4>
+            <h3 class="text-2xl font-black serif italic mb-4">Lomi Lomi</h3>
+            <p class="text-xs opacity-50 mb-6">El toque del espíritu hawaiano en un masaje rítmico y envolvente.</p>
+            <a href="lomi.html" class="text-[10px] font-black uppercase tracking-widest border-b border-gold pb-1">Saber más</a>
+        </div>
+        <div class="bento-card col-span-12 md:col-span-4 p-8 bg-white border border-black/5 rounded-[40px] hover:scale-105 transition-all">
+            <h4 class="tag text-xs mb-4">Movilidad</h4>
+            <h3 class="text-2xl font-black serif italic mb-4">Quiromasaje</h3>
+            <p class="text-xs opacity-50 mb-6">Técnicas manuales profundas para liberar contracturas y restaurar el flujo.</p>
+            <a href="quiromasaje.html" class="text-[10px] font-black uppercase tracking-widest border-b border-gold pb-1">Saber más</a>
+        </div>
+
+        <!-- Horarios -->
+        <div class="bento-card col-span-12 lg:col-span-12 p-12 bg-black text-white rounded-[50px] grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="tag text-[#d4a373]">Agenda 2025/26</span>
+                <h3 class="text-4xl font-black serif mt-6 mb-6">Encuentra <br> tu momento</h3>
+                <p class="opacity-40 text-sm leading-relaxed mb-8">Consulta nuestra rejilla completa de sesiones matinales y encuentros de profundización los viernes.</p>
+                <a href="horarios.html" class="inline-block px-10 py-5 bg-[#d4a373] text-black rounded-full font-black uppercase tracking-widest text-[10px]">Ver Calendario Real</a>
+            </div>
+            <div class="h-[400px] rounded-3xl overflow-hidden border border-white/10">
+                <img src="https://images.unsplash.com/photo-1512438248247-f0f2a5a8b7f0?auto=format&fit=crop&q=80&w=1200" class="w-full h-full object-cover opacity-50">
+            </div>
+        </div>
+
     </div>
 
     <footer class="py-32 bg-white text-center">
         <h2 class="text-7xl serif italic mb-8 opacity-20">Namasté</h2>
-        <div class="text-[10px] uppercase tracking-[10px] opacity-40">boty.agency/yogasadhana • 2026</div>
+        <div class="text-[10px] uppercase tracking-[10px] opacity-40">Yogasadhana • Ciudad Real • 2026</div>
+        <div class="text-[8px] uppercase tracking-[5px] opacity-10 mt-4">Boty Agency • Ingeniería Soberana</div>
     </footer>
 
     <script>
